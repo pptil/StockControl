@@ -1,0 +1,224 @@
+﻿
+@{
+    ViewBag.Title = "Pedidos";
+}
+
+<div class="d-flex flex-column" id="content-wrapper">
+    <div id="content">
+        <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+            <div class="container-fluid">
+                <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <div class="input-group"></div>
+                </form>
+                <ul class="navbar-nav flex-nowrap ms-auto">
+                    <li class="nav-item dropdown d-sm-none no-arrow">
+                        <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
+                        <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
+                            <form class="me-auto navbar-search w-100">
+                                <div class="input-group">
+                                    <input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                    <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown no-arrow mx-1"></li>
+                    <li class="nav-item dropdown no-arrow mx-1">
+                        <div class="shadow dropdown-list dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown"></div>
+                    </li>
+                    <div class="d-none d-sm-block topbar-divider"></div>
+                    <li class="nav-item dropdown no-arrow">
+                        <div class="nav-item dropdown no-arrow">
+                            <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Agustin</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar3.jpeg"></a>
+                            <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
+                                <a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
+                                <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container-fluid">
+            <h3 class="text-dark mb-1">Pedidos a proveedor</h3>
+            <hr>
+        </div>
+        <div>
+            <div class="row">
+                <div class="col-3 d-flex justify-content-center">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">Selecciona Proveedor</button>
+                        <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
+                    </div><button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>
+                </div>
+                <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Desde</span><input type="date"></div>
+                <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Hasta</span><input type="date"></div>
+                <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">N°Pedido</span><input type="text"></div>
+                <div class="col-2" style="margin-right: 0px;margin-left: 35px;"><button class="btn btn-primary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-toggle="modal">Buscar</button></div>
+            </div>
+        </div>
+        <div style="margin: 70px;margin-left: 20px;margin-top: 20px;">
+            <h5>Detalle del pedido</h5>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>N° Pedido</th>
+                            <th>Proveedor</th>
+                            <th>Cantidad</th>
+                            <th>Precio Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>788473</td>
+                            <td>Cuerdeah</td>
+                            <td>8</td>
+                            <td>$324232</td>
+                            <td><a id="btn-edit" href="newpedido.html" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a></td>
+                        </tr>
+                        <tr></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row text-start">
+                <div class="col">
+                    <hr>
+                </div>
+            </div>
+            <div class="row d-flex flex-row">
+                <div class="col d-flex justify-content-end align-items-end" style="margin: 0px;margin-right: 0px;"><button class="btn btn-info link-light d-flex flex-row" type="button">Imprimir pedido</button></div>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-white sticky-footer">
+        <div class="container my-auto">
+            <div class="text-center my-auto copyright"><span>Copyright © Zalazar-Gomez 2022</span></div>
+        </div>
+    </footer>
+</div><a class="border rounded d-inline scroll-to-top" href="newpedido.html" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-toggle="modal">Nuevo Pedido</button></a>
+<div class="modal fade" role="dialog" tabindex="-1" id="modal-productos">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Buscar Productos</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card shadow mb-3">
+                    <div class="card-header py-3"><input class="form-control-sm" type="text" placeholder="-Buscar productos-"></div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <div class="table-responsive fs-6 fw-light">
+                                            <table class="table table-sm table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Codigo</th>
+                                                        <th>Producto</th>
+                                                        <th>Fabricante</th>
+                                                        <th>Color</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Precio</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="fs-6">
+                                                    <tr>
+                                                        <td style="text-align: center;">13423</td>
+                                                        <td style="width: 166.078px;">CTK-240</td>
+                                                        <td style="width: 192.297px;">Casio</td>
+                                                        <td style="width: 96.8438px;">Negro</td>
+                                                        <td style="width: 81.891px;"><input class="form-control form-control-sm" type="text" required="" style="text-align: right;width: 60.734px;"></td>
+                                                        <td style="text-align: right;">$13234</td>
+                                                        <td style="text-align: center;"><i class="fa fa-plus-circle text-success" style="width: 12.7188px;height: 19px;font-size: 26px;text-align: center;"></i></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" role="dialog" tabindex="-1" id="modal-proveedor">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Añadir Proveedor</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card shadow mb-3">
+                    <div class="card-header py-3">
+                        <p class="text-primary m-0 fw-bold">Proveedor</p>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3"><label class="form-label" for="username"><strong>Nombre</strong></label><input class="form-control" type="text" id="username" placeholder="user.name" name="username"></div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3"><label class="form-label" for="email"><strong>Correo</strong><br></label><input class="form-control" type="email" id="email" placeholder="user@example.com" name="email"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3"><label class="form-label" for="first_name"><strong>Telefono</strong></label><input class="form-control" type="text" id="first_name" placeholder="John" name="first_name"></div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="last_name"><strong>Pais</strong></label>
+                                        <div class="dropdown">
+                                            <button class="btn btn-light dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">-Seleccione-</button>
+                                            <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="first_name"><strong>Provincia</strong></label>
+                                        <div class="dropdown">
+                                            <button class="btn btn-light dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">-Seleccione-</button>
+                                            <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3"><label class="form-label" for="last_name"><strong>Calle</strong></label><input class="form-control" type="text" id="last_name-2" placeholder="Doe" name="last_name"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" role="dialog" tabindex="-1" id="modal-confirmacion">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirmación</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Desea borrar el item?</p>
+            </div>
+            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-danger" type="button">Borrar</button></div>
+        </div>
+    </div>
+</div>
+
+
