@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
-using Model.Models;
+using Modelo.Models;
 
 namespace DataAccess.Context
 {

@@ -174,9 +174,9 @@
       <Project>{25ab9ebf-e181-4d2a-b675-48d2e5436415}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Model\Model.csproj">
+    <ProjectReference Include="..\Model\Modelo.csproj">
       <Project>{a4313fa1-0ae4-47f4-818a-e1752b81a00c}</Project>
-      <Name>Model</Name>
+      <Name>Modelo</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

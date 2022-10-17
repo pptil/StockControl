@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Modelo.Models.Articulos>
 @{
     ViewBag.Title = "Productos";
 }
@@ -29,7 +29,7 @@
                                     <div class="col" style="width: 555.5px;">
                                         <div class="dropdown">
                                             <button class="btn btn-primary dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">Sucursal</button>
-                                            <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
+                                            <div class="dropdown-menu"><a class="dropdown-item" href="#">Olmos</a><a class="dropdown-item" href="#">Humberto Primo</a></div>
                                         </div>
                                     </div>
                                     <div class="col" style="width: 555.5px;"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Buscar"></div>
@@ -55,18 +55,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td style="text-align: center;">787837</td>
-                                    <td>CASIO</td>
-                                    <td>Teclado</td>
-                                    <td>CTK-240</td>
-                                    <td>Gris</td>
-                                    <td>Cuerdeah</td>
-                                    <td style="text-align: center;width: 113.422px;">7</td>
-                                    <td>Nuevo</td>
-                                    <td>$10293</td>
-                                    <td><a id="btn-edit" href="#" data-bs-target="#modal-producto" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 16px;"></i></a></td>
-                                </tr>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td style="text-align: center;">787837</td>
+                                        <td>@item.art_denom</td>
+                                        <td>Teclado</td>
+                                        <td>@*@item.ArticulosDet.Modelos.mod_denom*@</td>
+                                        <td>@item.ArticulosDet.art_color</td>
+                                        <td>@*@item.ArticulosDet.Proveedores.prove_denom*@</td>
+                                        <td style="text-align: center;width: 113.422px;">7</td>
+                                        <td>Nuevo</td>
+                                        <td>@item.ArticulosDet.art_precio</td>
+                                        <td><a id="btn-edit" href="#" data-bs-target="#modal-producto" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 16px;"></i></a></td>
+                                    </tr>
+                                }
                                 <tr></tr>
                                 <tr></tr>
                                 <tr></tr>
@@ -162,16 +165,3 @@
                 </div>
             </div>
 </div><a class="border rounded d-inline scroll-to-top" href="#page-top" style="background: rgba(90,92,105,0);margin-right: 155px;" data-bs-target="#modal-producto" data-bs-toggle="modal"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-target="#modal-producto" data-bs-toggle="modal">Nuevo Producto</button></a>
-<div class="modal fade" role="dialog" tabindex="-1" id="modal-confirmacion">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Confirmación</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>¿Desea borrar el item?</p>
-            </div>
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-danger" type="button">Borrar</button></div>
-        </div>
-    </div>
-</div>

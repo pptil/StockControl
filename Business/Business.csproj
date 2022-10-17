@@ -57,9 +57,9 @@
       <Project>{25AB9EBF-E181-4D2A-B675-48D2E5436415}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Model\Model.csproj">
+    <ProjectReference Include="..\Model\Modelo.csproj">
       <Project>{A4313FA1-0AE4-47F4-818A-E1752B81A00C}</Project>
-      <Name>Model</Name>
+      <Name>Modelo</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
