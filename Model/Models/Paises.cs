@@ -16,10 +16,9 @@ namespace Modelo.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int pais_codigo { get; set; }
+        public int pais_cod { get; set; }
 
-        [Required]
-        [StringLength(30)]
+        [StringLength(50)]
         public string pais_denom { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

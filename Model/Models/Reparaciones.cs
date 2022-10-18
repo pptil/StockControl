@@ -1,7 +1,9 @@
 namespace Modelo.Models
 {
+    using Model.Enums;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     
@@ -10,25 +12,37 @@ namespace Modelo.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int repa_codigo { get; set; }
+        public int reparacion_cod { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime repa_feccar { get; set; }
+        [StringLength(50)]
+        public string reparacion_producto { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime repa_feccie { get; set; }
+        [StringLength(100)]
+        public string reparacion_desc { get; set; }
 
-        public int cue_codigo { get; set; }
+        public bool? reparacion_danado { get; set; }
 
-        public int esta_codigo { get; set; }
+        public bool? reparacion_transformador { get; set; }
 
-        [StringLength(200)]
-        public string repa_observ { get; set; }
+        public bool? reparacion_funda { get; set; }
 
-        public virtual Cuentas Cuentas { get; set; }
+        [StringLength(50)]
+        public string reparacion_obs { get; set; }
 
-        public virtual Estados Estados { get; set; }
+        public EstadosEnum reparacion_estado { get; set; }
 
-        public virtual ReparacionesDet ReparacionesDet { get; set; }
+        public double? reparacion_costo { get; set; }
+
+        public int? sucursal_cod { get; set; }
+
+        public virtual Sucursales Sucursales { get; set; }
+
+        public string danado => reparacion_danado == true ? "Dañado" : null;
+        public string transformador => reparacion_danado == true ? "Sin Transformador" : null;
+        public string funda => reparacion_funda == true ? "Sin Funda" : null;
+        public string detalle => $"{danado} {transformador} {funda}";
+        public string estadostring => reparacion_estado.GetAttribute<DescriptionAttribute>().Description;
+
+
     }
 }

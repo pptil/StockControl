@@ -6,29 +6,27 @@ namespace Modelo.Models
     using System.ComponentModel.DataAnnotations.Schema;
     
 
-    public partial class Impuestos
+    public partial class Roles
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Impuestos()
+        public Roles()
         {
-            ComprasDet = new HashSet<ComprasDet>();
+            Usuarios = new HashSet<Usuarios>();
         }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int imp_codigo { get; set; }
+        public int rol_cod { get; set; }
 
         [Required]
-        [StringLength(30)]
-        public string imp_denom { get; set; }
+        [StringLength(20)]
+        public string rol_denom { get; set; }
 
-        public int imp_valor { get; set; }
-
-        public int esta_codigo { get; set; }
+        [Required]
+        [MaxLength(50)]
+        public byte[] habilitado { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ComprasDet> ComprasDet { get; set; }
-
-        public virtual Estados Estados { get; set; }
+        public virtual ICollection<Usuarios> Usuarios { get; set; }
     }
 }

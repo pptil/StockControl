@@ -11,22 +11,21 @@ namespace Modelo.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Provincias()
         {
-            Ciudades = new HashSet<Ciudades>();
+            Proveedores = new HashSet<Proveedores>();
         }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int prov_codigo { get; set; }
+        public int provincia_cod { get; set; }
 
-        [Required]
-        [StringLength(30)]
-        public string prov_denom { get; set; }
+        [StringLength(10)]
+        public string provincia_denom { get; set; }
 
-        public int? pais_codigo { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ciudades> Ciudades { get; set; }
+        public int? pais_cod { get; set; }
 
         public virtual Paises Paises { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Proveedores> Proveedores { get; set; }
     }
 }

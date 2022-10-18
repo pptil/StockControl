@@ -13,11 +13,11 @@ namespace DataAccess.Dao
     public class BaseDao<T> : IGetAll<T>, IGetBy<T>, IInsert<T>, IUpdate<T>, IDelete<T>, ISaveChanges
         where T : class
     {
-        public DbSet<T> DbSet => new MusicaContext().Set<T>();
+        public DbSet<T> DbSet => new StockContext().Set<T>();
 
         public IList<T> GetAll(bool asNoTracking = false)
         {
-            using (var db = new MusicaContext())
+            using (var db = new StockContext())
             {
                 return asNoTracking ? db.Set<T>().AsNoTracking().ToList() : db.Set<T>().ToList();
             }
@@ -25,7 +25,7 @@ namespace DataAccess.Dao
 
         public T GetBy(object id)
         {
-            using (var db = new MusicaContext())
+            using (var db = new StockContext())
             {
                 return db.Set<T>().Find(id);
             }
@@ -33,7 +33,7 @@ namespace DataAccess.Dao
 
         public T GetByCondition(Expression<Func<T, bool>> filter)
         {
-            using (var db = new MusicaContext())
+            using (var db = new StockContext())
             {
                 return db.Set<T>().FirstOrDefault(filter);
             }
@@ -41,7 +41,7 @@ namespace DataAccess.Dao
 
         public async Task<T> GetByConditionAsync(Expression<Func<T, bool>> filter)
         {
-            using (var db = new MusicaContext())
+            using (var db = new StockContext())
             {
                 return await db.Set<T>().FirstOrDefaultAsync(filter);
             }
@@ -49,7 +49,7 @@ namespace DataAccess.Dao
 
         public async Task<IList<T>> GetManyByConditionAsync(Expression<Func<T, bool>> filter)
         {
-            using (var db = new MusicaContext())
+            using (var db = new StockContext())
             {
                 return await db.Set<T>().Where(filter).ToListAsync();
             }
@@ -57,7 +57,7 @@ namespace DataAccess.Dao
 
         public IEnumerable<T> GetBy<TKey>(Expression<Func<T, bool>> filter, Expression<Func<T, TKey>> order, int pageNumber = 0, int pageSize = 0, bool orderByDesc = false)
         {
-            using (var db = new MusicaContext())
+            using (var db = new StockContext())
             {
                 var query = db.Set<T>().Where(filter).AsQueryable();
                 if (pageNumber > 0 && pageSize > 0)
@@ -75,7 +75,7 @@ namespace DataAccess.Dao
 
         public int Count(Expression<Func<T, bool>> filter)
         {
-            using (var db = new MusicaContext())
+            using (var db = new StockContext())
             {
                 return db.Set<T>().Where(filter).Count();
             }
@@ -83,7 +83,7 @@ namespace DataAccess.Dao
 
         public int Insert(T entity)
         {
-            using (var db = new MusicaContext())
+            using (var db = new StockContext())
             {
                 db.Set<T>().Add(entity);
                 return db.SaveChanges();
@@ -92,7 +92,7 @@ namespace DataAccess.Dao
 
         public async Task<bool> SaveChangesAsync()
         {
-            using (var db = new MusicaContext())
+            using (var db = new StockContext())
             {
                 return (await db.SaveChangesAsync()) > 0;
             }
@@ -100,7 +100,7 @@ namespace DataAccess.Dao
 
         public int Update<TId>(T entity, TId id)
         {
-            using (var db = new MusicaContext())
+            using (var db = new StockContext())
             {
                 var item = db.Set<T>().Find(id);
                 db.Entry(item).CurrentValues.SetValues(entity);
@@ -110,7 +110,7 @@ namespace DataAccess.Dao
 
         public async Task<int> UpdateAsync<TId>(T entity, TId id)
         {
-            using (var db = new MusicaContext())
+            using (var db = new StockContext())
             {
                 var item = await db.Set<T>().FindAsync(id);
                 db.Entry(item).CurrentValues.SetValues(entity);
@@ -120,7 +120,7 @@ namespace DataAccess.Dao
 
         public int Delete<TId>(TId id)
         {
-            using (var db = new MusicaContext())
+            using (var db = new StockContext())
             {
                 var entity = db.Set<T>().Find(id);
                 if (entity != null)
@@ -134,7 +134,7 @@ namespace DataAccess.Dao
 
         public int Delete(Expression<Func<T, bool>> filter)
         {
-            using (var db = new MusicaContext())
+            using (var db = new StockContext())
             {
                 var entity = db.Set<T>().FirstOrDefault(filter);
                 if (entity != null)

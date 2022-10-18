@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Modelo.Models.Reparaciones>
 @{
     ViewBag.Title = "Reparaciones";
 }
@@ -22,15 +22,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>13432</td>
-                                <td>Guitarra GIBSON</td>
-                                <td>Cuerdas rotas</td>
-                                <td>No tiene funda</td>
-                                <td>$2900</td>
-                                <td>En Curso</td>
-                                <td><a id="btn-edit" href="#" data-bs-target="#modal-reparacion" data-bs-toggle="modal"><i class="fa fa-edit fs-3 text-primary"></i></a></td>
-                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.reparacion_cod</td>
+                                    <td>@item.reparacion_producto</td>
+                                    <td>@item.detalle</td>
+                                    <td>@item.reparacion_obs</td>
+                                    <td>@item.reparacion_costo</td>
+                                    <td>@item.estadostring</td>
+                                    <td><a id="btn-edit" href="#" data-bs-target="#modal-reparacion" data-bs-toggle="modal"><i class="fa fa-edit fs-3 text-primary"></i></a></td>
+                                </tr>
+                            }
                             <tr></tr>
                         </tbody>
                     </table>
