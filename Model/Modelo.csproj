@@ -42,29 +42,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Acciones.cs" />
+    <Compile Include="Enums\EnumUtils.cs" />
+    <Compile Include="Enums\EstadosEnum.cs" />
     <Compile Include="Models\Articulos.cs" />
-    <Compile Include="Models\ArticulosDet.cs" />
-    <Compile Include="Models\Ciudades.cs" />
-    <Compile Include="Models\Compras.cs" />
-    <Compile Include="Models\ComprasDet.cs" />
-    <Compile Include="Models\Cuentas.cs" />
-    <Compile Include="Models\Estados.cs" />
     <Compile Include="Models\Fabricantes.cs" />
-    <Compile Include="Models\Historial.cs" />
-    <Compile Include="Models\Impuestos.cs" />
-    <Compile Include="Models\Modelos.cs" />
-    <Compile Include="Models\Niveles.cs" />
     <Compile Include="Models\Paises.cs" />
+    <Compile Include="Models\Pedidos.cs" />
+    <Compile Include="Models\PedidosDet.cs" />
     <Compile Include="Models\Proveedores.cs" />
     <Compile Include="Models\Provincias.cs" />
     <Compile Include="Models\Reparaciones.cs" />
-    <Compile Include="Models\ReparacionesDet.cs" />
-    <Compile Include="Models\Reportes.cs" />
-    <Compile Include="Models\ReportesDet.cs" />
-    <Compile Include="Models\ReportesTipos.cs" />
+    <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\Sucursales.cs" />
     <Compile Include="Models\Usuarios.cs" />
+    <Compile Include="Models\Ventas.cs" />
+    <Compile Include="Models\VentasDet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

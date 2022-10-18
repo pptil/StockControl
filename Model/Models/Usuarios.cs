@@ -1,4 +1,4 @@
-namespace Model.Models
+namespace Modelo.Models
 {
     using System;
     using System.Collections.Generic;
@@ -11,45 +11,40 @@ namespace Model.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuarios()
         {
-            Compras = new HashSet<Compras>();
-            Historial = new HashSet<Historial>();
-            Reportes = new HashSet<Reportes>();
+            Pedidos = new HashSet<Pedidos>();
+            Ventas = new HashSet<Ventas>();
         }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int usu_codigo { get; set; }
+        public int user_cod { get; set; }
 
         [Required]
         [StringLength(30)]
-        public string usu_user { get; set; }
+        public string user_username { get; set; }
 
         [Required]
-        [StringLength(30)]
-        public string usu_pass { get; set; }
+        [StringLength(50)]
+        public string user_password { get; set; }
 
-        public int niv_codigo { get; set; }
-
-        public int suc_codigo { get; set; }
-
-        public int esta_codigo { get; set; }
+        [StringLength(20)]
+        public string user_telefono { get; set; }
 
         [StringLength(50)]
-        public string usu_name { get; set; }
+        public string user_mail { get; set; }
+
+        public int rol_cod { get; set; }
+
+        public int? sucursal_cod { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Compras> Compras { get; set; }
+        public virtual ICollection<Pedidos> Pedidos { get; set; }
 
-        public virtual Estados Estados { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Historial> Historial { get; set; }
-
-        public virtual Niveles Niveles { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reportes> Reportes { get; set; }
+        public virtual Roles Roles { get; set; }
 
         public virtual Sucursales Sucursales { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ventas> Ventas { get; set; }
     }
 }

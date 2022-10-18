@@ -8,7 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DataAccess.Context;
-using Model.Models;
+using Modelo.Models;
 using Business.Interfaces;
 
 namespace StockControl.Controllers
@@ -25,10 +25,10 @@ namespace StockControl.Controllers
         // GET: Articulos
         public async Task<ActionResult> Index()
         {
-            var list = _articulosbusiness.GetAllArticulos();
-
-            List<Articulos> articulos = new List<Articulos>(list);
-            return View( articulos);
+            //var list = _articulosbusiness.GetAllArticulos();
+            var list2 = await _articulosbusiness.GetArticulosPorSucursal(1);
+            List<Articulos> articulos = new List<Articulos>(list2);
+            return View(articulos);
         } 
         
         public async Task<ActionResult> GetArticulosSucursal(int sucursal)

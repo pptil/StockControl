@@ -50,16 +50,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\MusicaContext.cs" />
+    <Compile Include="Context\StockContext.cs" />
+    <Compile Include="Dao\PedidosDao.cs" />
+    <Compile Include="Dao\VentasDao.cs" />
+    <Compile Include="Dao\ProveedoresDao.cs" />
+    <Compile Include="Dao\UsuariosDao.cs" />
     <Compile Include="Dao\ArticulosDao.cs" />
     <Compile Include="Dao\BaseDao.cs" />
+    <Compile Include="Dao\ReparacionesDao.cs" />
     <Compile Include="Interfaces\Common\IDelete.cs" />
     <Compile Include="Interfaces\Common\IGetAll.cs" />
     <Compile Include="Interfaces\Common\IGetBy.cs" />
     <Compile Include="Interfaces\Common\IInsert.cs" />
     <Compile Include="Interfaces\Common\ISaveChanges.cs" />
     <Compile Include="Interfaces\Common\IUpdate.cs" />
+    <Compile Include="Interfaces\IPedidosDao.cs" />
+    <Compile Include="Interfaces\IUsuariosDao.cs" />
+    <Compile Include="Interfaces\IProveedoresDao.cs" />
+    <Compile Include="Interfaces\IVentasDao.cs" />
     <Compile Include="Interfaces\IArticulosDao.cs" />
+    <Compile Include="Interfaces\IReparacionesDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
@@ -68,9 +78,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Model\Model.csproj">
+    <ProjectReference Include="..\Model\Modelo.csproj">
       <Project>{a4313fa1-0ae4-47f4-818a-e1752b81a00c}</Project>
-      <Name>Model</Name>
+      <Name>Modelo</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

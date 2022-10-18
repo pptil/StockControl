@@ -1,4 +1,4 @@
-namespace Model.Models
+namespace Modelo.Models
 {
     using System;
     using System.Collections.Generic;
@@ -6,22 +6,27 @@ namespace Model.Models
     using System.ComponentModel.DataAnnotations.Schema;
     
 
-    public partial class Acciones
+    public partial class Roles
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Acciones()
+        public Roles()
         {
-            Reportes = new HashSet<Reportes>();
+            Usuarios = new HashSet<Usuarios>();
         }
 
         [Key]
-        public int acc_codigo { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int rol_cod { get; set; }
 
         [Required]
         [StringLength(20)]
-        public string acc_denom { get; set; }
+        public string rol_denom { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public byte[] habilitado { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reportes> Reportes { get; set; }
+        public virtual ICollection<Usuarios> Usuarios { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-namespace Model.Models
+namespace Modelo.Models
 {
     using System;
     using System.Collections.Generic;
@@ -11,28 +11,36 @@ namespace Model.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Articulos()
         {
-            ComprasDet = new HashSet<ComprasDet>();
-            ReparacionesDet = new HashSet<ReparacionesDet>();
+            PedidosDet = new HashSet<PedidosDet>();
+            VentasDet = new HashSet<VentasDet>();
         }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int art_codigo { get; set; }
+        public int articulo_cod { get; set; }
+
+        public int? fabricante_cod { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string art_denom { get; set; }
+        [StringLength(100)]
+        public string articulo_denom { get; set; }
 
-        public int esta_codigo { get; set; }
+        public int articulo_stock { get; set; }
 
-        public virtual Estados Estados { get; set; }
+        public double articulo_precio { get; set; }
 
-        public virtual ArticulosDet ArticulosDet { get; set; }
+        public int? sucursal_cod { get; set; }
+
+        public bool? articulo_estado { get; set; }
+
+        public virtual Fabricantes Fabricantes { get; set; }
+
+        public virtual Sucursales Sucursales { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ComprasDet> ComprasDet { get; set; }
+        public virtual ICollection<PedidosDet> PedidosDet { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReparacionesDet> ReparacionesDet { get; set; }
+        public virtual ICollection<VentasDet> VentasDet { get; set; }
     }
 }

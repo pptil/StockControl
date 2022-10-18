@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Business.Interfaces
 {
-    public interface IArticulosBusiness
+    public interface IVentasBusiness
     {
-        IList<Articulos> GetAllArticulos();
-        Task<List<Articulos>> GetArticulosPorSucursal(int sucursal);
+        IList<Ventas> GetAllVentas();
+        Task<List<Ventas>> GetVentasPorSucursal(int sucursal);
     }
 }

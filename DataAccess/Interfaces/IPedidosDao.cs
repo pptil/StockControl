@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Interfaces
 {
-    public interface IArticulosDao : 
-        IGetAll<Articulos>
+    public interface IPedidosDao : 
+        IGetAll<Pedidos>
     {
-        Task<List<Articulos>> GetArticulosPorSucursal(int sucursal);
+        Task<List<Pedidos>> GetPedidosPorSucursal(int sucursal);
     }
 }

@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Dao
 {
-    public class ArticulosDao : BaseDao<Articulos>, IArticulosDao
+    public class PedidosDao : BaseDao<Pedidos>, IPedidosDao
     {
-        public async Task<List<Articulos>> GetArticulosPorSucursal(int sucursal)
+        public async Task<List<Pedidos>> GetPedidosPorSucursal(int sucursal)
         {
             
             try
             {
                 using (var _context = new StockContext())
                 {
-                    var list = await _context.Articulos
+                    var list = await _context.Pedidos
                                 .Where(i => i.sucursal_cod == sucursal)
                                 .ToListAsync();
                     return list;
