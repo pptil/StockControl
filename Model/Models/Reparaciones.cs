@@ -38,7 +38,7 @@ namespace Modelo.Models
         public virtual Sucursales Sucursales { get; set; }
 
         public string danado => reparacion_danado == true ? "Dañado" : null;
-        public string transformador => reparacion_danado == true ? "Sin Transformador" : null;
+        public string transformador => reparacion_transformador == true ? "Sin Transformador" : null;
         public string funda => reparacion_funda == true ? "Sin Funda" : null;
         public string detalle => $"{danado} {transformador} {funda}";
         public string estadostring => reparacion_estado.GetAttribute<DescriptionAttribute>().Description;

@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Modelo.Models.Pedidos>
 @{
     ViewBag.Title = "Pedidos";
 }
@@ -34,13 +34,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>788473</td>
-                        <td>Cuerdeah</td>
-                        <td>8</td>
-                        <td>$324232</td>
-                        <td><a id="btn-edit" href="newpedido.html" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a></td>
-                    </tr>
+                    @foreach (var item in Model)
+                    {
+                       <tr>
+                           <td>@item.pedido_cod</td>
+                           <td>@item.proveedor_cod</td>
+                           <td>@item.</td>
+                           <td>$324232</td>
+                           <td><a id="btn-edit" href="newpedido.html" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a></td>
+                       </tr> 
+                    }
+                    
                     <tr></tr>
                 </tbody>
             </table>

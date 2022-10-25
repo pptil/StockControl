@@ -45,28 +45,22 @@
                                     <th style="width: 126.969px;">Codigo</th>
                                     <th>Fabricante</th>
                                     <th>Producto</th>
-                                    <th>Modelo</th>
-                                    <th>Color</th>
-                                    <th style="width: 183.141px;">Proveedor</th>
-                                    <th style="width: 48.422px;">Cantidad</th>
+                                    <th>Cantidad</th>
                                     <th>Estado</th>
-                                    <th style="width: 100.922px;">Precio</th>
-                                    <th style="width: 100.922px;"></th>
+                                    <th>Precio</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
                                     <tr>
-                                        <td style="text-align: center;">787837</td>
-                                        <td>@item.art_denom</td>
-                                        <td>Teclado</td>
-                                        <td>@*@item.ArticulosDet.Modelos.mod_denom*@</td>
-                                        <td>@item.ArticulosDet.art_color</td>
-                                        <td>@*@item.ArticulosDet.Proveedores.prove_denom*@</td>
-                                        <td style="text-align: center;width: 113.422px;">7</td>
-                                        <td>Nuevo</td>
-                                        <td>@item.ArticulosDet.art_precio</td>
+                                        <td style="text-align: center;">@item.articulo_cod</td>
+                                        <td>@item.Fabricantes.fabricante_denom</td>
+                                        <td>@item.articulo_denom</td>
+                                        <td>@item.EstadoString</td>
+                                        <td style="text-align: center;width: 113.422px;">@item.articulo_stock</td>
+                                        <td>@item.articulo_precio</td>
                                         <td><a id="btn-edit" href="#" data-bs-target="#modal-producto" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 16px;"></i></a></td>
                                     </tr>
                                 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,17 @@ namespace StockControl.Controllers
 {
     public class PedidosController : Controller
     {
+        private readonly IPedidosBusiness _pedidosbusiness;
+
+        public PedidosController(IPedidosBusiness pedidosBusiness)
+        {
+            _pedidosbusiness = pedidosBusiness;
+        }
         // GET: Pedidos
         public ActionResult Index()
         {
-            return View();
+            var list = _pedidosbusiness.GetPedidosPorSucursal(1);
+            return View(list);
         }
 
         // GET: Pedidos/Details/5

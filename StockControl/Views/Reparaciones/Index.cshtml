@@ -4,42 +4,42 @@
 }
 
 <div class="d-flex flex-column" id="content-wrapper">
-        <h3 class="text-dark mb-1">Reparaciones</h3>
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Listado de reparaciones</h4>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
+    <h3 class="text-dark mb-1">Reparaciones</h3>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Listado de reparaciones</h4>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Producto</th>
+                            <th>Descripción&nbsp;</th>
+                            <th>Observaciones</th>
+                            <th>Costo</th>
+                            <th>Estado</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
                             <tr>
-                                <th>Codigo</th>
-                                <th>Producto</th>
-                                <th>Descripción&nbsp;</th>
-                                <th>Observaciones</th>
-                                <th>Costo</th>
-                                <th>Estado</th>
-                                <th></th>
+                                <td>@item.reparacion_cod</td>
+                                <td>@item.reparacion_producto</td>
+                                <td>@item.detalle</td>
+                                <td>@item.reparacion_obs</td>
+                                <td>@item.reparacion_costo</td>
+                                <td>@item.estadostring</td>
+                                <td><a id="btn-edit" href="#" data-bs-target="#modal-reparacion" data-bs-toggle="modal"><i class="fa fa-edit fs-3 text-primary"></i></a></td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>@item.reparacion_cod</td>
-                                    <td>@item.reparacion_producto</td>
-                                    <td>@item.detalle</td>
-                                    <td>@item.reparacion_obs</td>
-                                    <td>@item.reparacion_costo</td>
-                                    <td>@item.estadostring</td>
-                                    <td><a id="btn-edit" href="#" data-bs-target="#modal-reparacion" data-bs-toggle="modal"><i class="fa fa-edit fs-3 text-primary"></i></a></td>
-                                </tr>
-                            }
-                            <tr></tr>
-                        </tbody>
-                    </table>
-                </div>
+                        }
+                        <tr></tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
 
 
 </div><a class="border rounded d-inline scroll-to-top" href="#page-top" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-target="#modal-reparacion" data-bs-toggle="modal">Nueva Reparacion</button></a>
@@ -103,4 +103,3 @@
         </div>
     </div>
 </div>
-
