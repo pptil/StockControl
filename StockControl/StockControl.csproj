@@ -151,6 +151,8 @@
     <Content Include="Views\Reparaciones\Index.cshtml" />
     <Content Include="Views\Reportes\Index.cshtml" />
     <Content Include="Views\Reparaciones\_ModalReparaciones.cshtml" />
+    <Content Include="Views\Articulos\_ModalProducto.cshtml" />
+    <Content Include="Views\Pedidos\_ModalPedidos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

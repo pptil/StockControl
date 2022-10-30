@@ -18,8 +18,8 @@ namespace StockControl.Controllers
         // GET: Pedidos
         public ActionResult Index()
         {
-            var list = _pedidosbusiness.GetPedidosPorSucursal(1);
-            return View(list);
+            //var list = _pedidosbusiness.GetPedidosPorSucursal(1);
+            return View(/*list*/);
         }
 
         // GET: Pedidos/Details/5

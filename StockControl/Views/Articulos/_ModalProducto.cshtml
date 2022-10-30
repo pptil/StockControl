@@ -1,0 +1,59 @@
+﻿@model Modelo.Models.Articulos
+<div class="modal fade" role="dialog" tabindex="-1" id="modal-producto">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Producto</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card shadow mb-3">
+                    <div class="card-header py-3">
+                        <p class="text-primary m-0 fw-bold">Producto</p>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3"><label class="form-label" for="username"><strong>Nombre</strong></label><input class="form-control" type="text" id="username" placeholder="CTK-240" name="username"></div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3"><label class="form-label" for="email"><strong>Fabricante</strong><br></label><input class="form-control" type="email" id="email" placeholder="CASIO" name="email"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3"><label class="form-label" for="first_name"><strong>Descripción</strong><br></label><input class="form-control" type="text" id="first_name" placeholder="Negro" name="first_name"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3"><label class="form-label" for="first_name"><strong>Color</strong><br></label><input class="form-control" type="text" id="first_name-2" placeholder="Color" name="first_name"></div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3"><label class="form-label" for="last_name"><strong>Stock</strong><br></label><input class="form-control" type="text" id="last_name-2" placeholder="0" name="last_name" style="text-align: right;"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3"><label class="form-label" for="first_name"><strong>Costo</strong><br></label><input class="form-control" type="text" id="first_name-1" placeholder="$0" name="first_name" style="text-align: right;"></div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3"><label class="form-label" for="last_name"><strong>Precio</strong><br></label><input class="form-control" type="text" id="last_name-1" placeholder="$0" name="last_name" style="text-align: right;"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3"><img id="img-producto" class="card-img" style="width: 200px;height: 200px;"></div><button class="btn btn-secondary" type="button">Seleccionar Archivo</button>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button">Guardar</button></div>
+        </div>
+    </div>
+</div>

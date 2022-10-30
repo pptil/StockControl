@@ -4,55 +4,57 @@
 }
 
 <div class="d-flex flex-column" id="content-wrapper">
-            <h3 class="text-dark mb-4">Productos</h3>
-            <div class="card shadow">
-                <div class="card-header py-3">
-                    <p class="text-primary m-0 fw-bold">Listado de Productos</p>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6 text-nowrap">
-                            <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
-                                <label class="form-label">
-                                    Mostrar<select class="d-inline-block form-select form-select-sm">
-                                        <option value="10" selected="">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select>&nbsp;
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="text-md-end dataTables_filter" id="dataTable_filter">
-                                <div class="row">
-                                    <div class="col" style="width: 555.5px;">
-                                        <div class="dropdown">
-                                            <button class="btn btn-primary dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">Sucursal</button>
-                                            <div class="dropdown-menu"><a class="dropdown-item" href="#">Olmos</a><a class="dropdown-item" href="#">Humberto Primo</a></div>
-                                        </div>
-                                    </div>
-                                    <div class="col" style="width: 555.5px;"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Buscar"></div>
-                                </div><label class="form-label"></label>
-                            </div>
-                            <div class="text-md-end dataTables_filter" id="dataTable_filter-1"><label class="form-label"></label></div>
-                        </div>
+    <h3 class="text-dark mb-4">Productos</h3>
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <p class="text-primary m-0 fw-bold">Listado de Productos</p>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 text-nowrap">
+                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
+                        <label class="form-label">
+                            Mostrar<select class="d-inline-block form-select form-select-sm">
+                                <option value="10" selected="">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>&nbsp;
+                        </label>
                     </div>
-                    <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                        <table class="table my-0" id="dataTable">
-                            <thead>
-                                <tr>
-                                    <th style="width: 126.969px;">Codigo</th>
-                                    <th>Fabricante</th>
-                                    <th>Producto</th>
-                                    <th>Cantidad</th>
-                                    <th>Estado</th>
-                                    <th>Precio</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
+                </div>
+                <div class="col-md-6">
+                    <div class="text-md-end dataTables_filter" id="dataTable_filter">
+                        <div class="row">
+                            <div class="col" style="width: 555.5px;">
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">Sucursal</button>
+                                    <div class="dropdown-menu"><a class="dropdown-item" href="#">Olmos</a><a class="dropdown-item" href="#">Humberto Primo</a></div>
+                                </div>
+                            </div>
+                            <div class="col" style="width: 555.5px;"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Buscar"></div>
+                        </div><label class="form-label"></label>
+                    </div>
+                    <div class="text-md-end dataTables_filter" id="dataTable_filter-1"><label class="form-label"></label></div>
+                </div>
+            </div>
+            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                <table class="table my-0" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 126.969px;">Codigo</th>
+                            <th>Fabricante</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Estado</th>
+                            <th>Precio</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Count > 1)
+                            {
+                                foreach (var item in Model)
                                 {
                                     <tr>
                                         <td style="text-align: center;">@item.articulo_cod</td>
@@ -64,98 +66,42 @@
                                         <td><a id="btn-edit" href="#" data-bs-target="#modal-producto" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 16px;"></i></a></td>
                                     </tr>
                                 }
-                                <tr></tr>
-                                <tr></tr>
-                                <tr></tr>
-                                <tr></tr>
-                                <tr></tr>
-                                <tr></tr>
-                                <tr></tr>
-                                <tr></tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 align-self-center">
-                            <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando 1 a 10 de 27</p>
-                        </div>
-                        <div class="col-md-6">
-                            <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
-                                <ul class="pagination">
-                                    <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
+                            }
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-6 align-self-center">
+                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando 1 a 10 de 27</p>
+                </div>
+                <div class="col-md-6">
+                    <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                        <ul class="pagination">
+                            <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
-            <div class="modal fade" role="dialog" tabindex="-1" id="modal-producto">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Producto</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="card shadow mb-3">
-                                <div class="card-header py-3">
-                                    <p class="text-primary m-0 fw-bold">Producto</p>
-                                </div>
-                                <div class="card-body">
-                                    <form>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="mb-3"><label class="form-label" for="username"><strong>Nombre</strong></label><input class="form-control" type="text" id="username" placeholder="CTK-240" name="username"></div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="mb-3"><label class="form-label" for="email"><strong>Fabricante</strong><br></label><input class="form-control" type="email" id="email" placeholder="CASIO" name="email"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="mb-3"><label class="form-label" for="first_name"><strong>Descripción</strong><br></label><input class="form-control" type="text" id="first_name" placeholder="Negro" name="first_name"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="mb-3"><label class="form-label" for="first_name"><strong>Color</strong><br></label><input class="form-control" type="text" id="first_name-2" placeholder="Color" name="first_name"></div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="mb-3"><label class="form-label" for="last_name"><strong>Stock</strong><br></label><input class="form-control" type="text" id="last_name-2" placeholder="0" name="last_name" style="text-align: right;"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="mb-3"><label class="form-label" for="first_name"><strong>Costo</strong><br></label><input class="form-control" type="text" id="first_name-1" placeholder="$0" name="first_name" style="text-align: right;"></div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="mb-3"><label class="form-label" for="last_name"><strong>Precio</strong><br></label><input class="form-control" type="text" id="last_name-1" placeholder="$0" name="last_name" style="text-align: right;"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="mb-3"><img id="img-producto" class="card-img" style="width: 200px;height: 200px;"></div><button class="btn btn-secondary" type="button">Seleccionar Archivo</button>
-                                            </div>
-                                            <div class="col">
-                                                <div class="mb-3"></div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button">Guardar</button></div>
-                    </div>
-                </div>
-            </div>
+        </div>
+    </div>
+ @*TODO: hacer la comunicacion al controlador*@   
 </div><a class="border rounded d-inline scroll-to-top" href="#page-top" style="background: rgba(90,92,105,0);margin-right: 155px;" data-bs-target="#modal-producto" data-bs-toggle="modal"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-target="#modal-producto" data-bs-toggle="modal">Nuevo Producto</button></a>
