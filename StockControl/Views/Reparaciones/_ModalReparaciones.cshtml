@@ -1,0 +1,62 @@
+﻿@model Modelo.Models.Reparaciones
+<div class="modal fade" role="dialog" tabindex="-1" id="modal-reparacion">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Reparacion</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card shadow mb-3">
+                    <div class="card-header py-3">
+                        <p class="text-primary m-0 fw-bold">Nueva Reparación</p>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3"><label class="form-label" for="username"><strong>Producto</strong></label><input class="form-control" type="text" id="username" placeholder="Ingrese producto" name="username" value="@Model.reparacion_producto"></div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3"><label class="form-label" for="first_name"><strong>Descripción</strong></label><input class="form-control" type="text" id="first_name-1" placeholder="Añada una descripcion de la accion a realizar" name="first_name" value="@Model.reparacion_desc"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="first_name"><strong>Observaciones</strong></label>
+                                        <div class="form-check"><input class="form-check-input" type="checkbox" id="check_danado"><label class="form-check-label" for="check_danado">Dañado</label></div>
+                                        <div class="form-check"><input class="form-check-input" type="checkbox" id="check_trans"><label class="form-check-label" for="check_trans">Transformador</label></div>
+                                        <div class="form-check"><input class="form-check-input" type="checkbox" id="check_funda"><label class="form-check-label" for="check_funda">Funda</label></div>
+                                        <div><label class="form-label">Otros</label><textarea class="form-control" placeholder="Otros datos a añadir"></textarea></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="first_name"><strong>Estado de reparación</strong></label>
+                                        <div class="dropdown">
+                                            <button class="btn btn-light dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">-Seleccione-</button>
+                                            <div class="dropdown-menu"><a class="dropdown-item" href="#">En Espera</a><a class="dropdown-item" href="#">En curso</a><a class="dropdown-item" href="#">Finalizada</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3"><label class="form-label" for="last_name"><strong>Costo</strong></label><input class="form-control" type="text" id="last_name-2" placeholder="$0" name="last_name" style="text-align: right;" value="@Model.reparacion_costo"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button">Guardar</button></div>
+        </div>
+    </div>
+</div>
+

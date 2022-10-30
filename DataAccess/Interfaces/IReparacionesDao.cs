@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace DataAccess.Interfaces
 {
     public interface IReparacionesDao :
-        IGetAll<Reparaciones>
+        IGetAll<Reparaciones>,
+        IGetBy<Reparaciones>
     {
     }
 }

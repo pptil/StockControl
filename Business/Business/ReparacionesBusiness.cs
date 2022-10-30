@@ -21,7 +21,10 @@ namespace Business.Business
         {
             return _reparacionesDao.GetAll();
         }
+        public Reparaciones GetReparacion(int id)
+        {
+            return _reparacionesDao.GetBy(id);
+        }
 
-        
     }
 }

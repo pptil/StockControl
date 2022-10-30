@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -15,6 +16,13 @@ namespace StockControl.Controllers
         {
             _reparacionesbusiness = reparacionesBusiness;
         }
+
+        public async Task<ActionResult> GetReparacion([System.Web.Http.FromBody] int id)
+        {
+            var reparacion = _reparacionesbusiness.GetReparacion(id);
+            return PartialView("_ModalReparaciones", reparacion);
+        }
+
         // GET: Reparaciones
         public ActionResult Index()
         {

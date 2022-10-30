@@ -31,7 +31,7 @@
                                 <td>@item.reparacion_obs</td>
                                 <td>@item.reparacion_costo</td>
                                 <td>@item.estadostring</td>
-                                <td><a id="btn-edit" href="#" data-bs-target="#modal-reparacion" data-bs-toggle="modal"><i class="fa fa-edit fs-3 text-primary"></i></a></td>
+                                <td><a id="btn-edit" href="#" data-bs-target="#modal-reparacion" data-bs-toggle="modal" onclick="abrirModal(@item.reparacion_cod)"><i class="fa fa-edit fs-3 text-primary"></i></a></td>
                             </tr>
                         }
                         <tr></tr>
@@ -43,63 +43,23 @@
 
 
 </div><a class="border rounded d-inline scroll-to-top" href="#page-top" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-target="#modal-reparacion" data-bs-toggle="modal">Nueva Reparacion</button></a>
-<div class="modal fade" role="dialog" tabindex="-1" id="modal-reparacion">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Reparacion</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="card shadow mb-3">
-                    <div class="card-header py-3">
-                        <p class="text-primary m-0 fw-bold">Nueva Reparación</p>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3"><label class="form-label" for="username"><strong>Producto</strong></label><input class="form-control" type="text" id="username" placeholder="Ingrese producto" name="username"></div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3"><label class="form-label" for="first_name"><strong>Descripción</strong></label><input class="form-control" type="text" id="first_name-1" placeholder="Añada una descripcion de la accion a realizar" name="first_name"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="first_name"><strong>Observaciones</strong></label>
-                                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-4"><label class="form-check-label" for="formCheck-4">Dañado</label></div>
-                                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-2"><label class="form-check-label" for="formCheck-2">Transformador</label></div>
-                                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Funda</label></div>
-                                        <div><label class="form-label">Otros</label><textarea class="form-control" placeholder="Otros datos a añadir"></textarea></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="first_name"><strong>Estado de reparación</strong></label>
-                                        <div class="dropdown">
-                                            <button class="btn btn-light dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">-Seleccione-</button>
-                                            <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3"><label class="form-label" for="last_name"><strong>Costo</strong></label><input class="form-control" type="text" id="last_name-2" placeholder="$0" name="last_name" style="text-align: right;"></div>
-                                </div>
-                            </div>
-                            <div class="mb-3"></div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button">Guardar</button></div>
-        </div>
-    </div>
-</div>
+<div id="modalDiv"> </div>
+<script>
+    function abrirModal(e) {
+        $.ajax({
+            url: '/Reparaciones/GetReparacion',
+            data: { 'id': e },
+            type: "post",
+            cache: false,
+            success: function (result) {
+                $('#modalDiv').html(result);
+            }
+        });    
+    }
+    $(".dropdown-toggle").dropdown();
+    $('.dropdown-menu').on('click', 'a', function () {
+        var text = $(this).html();
+        var htmlText = text + ' <span class="caret"></span>';
+        $(this).closest('.dropdown').find('.dropdown-toggle').html(htmlText);
+    });
+</script>

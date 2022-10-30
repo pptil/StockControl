@@ -10,5 +10,6 @@ namespace Business.Interfaces
     public interface IReparacionesBusiness
     {
         IList<Reparaciones> GetAllReparaciones();
+        Reparaciones GetReparacion(int id);
     }
 }
