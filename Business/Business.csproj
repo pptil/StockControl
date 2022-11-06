@@ -45,11 +45,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\PedidosBusiness.cs" />
+    <Compile Include="Business\ReportesBusiness.cs" />
     <Compile Include="Business\UsuariosBusiness.cs" />
     <Compile Include="Business\ProveedoresBusiness.cs" />
     <Compile Include="Business\VentasBusiness.cs" />
     <Compile Include="Business\ArticulosBusiness.cs" />
     <Compile Include="Business\ReparacionesBusiness.cs" />
+    <Compile Include="Interfaces\IReportesBusiness.cs" />
     <Compile Include="Interfaces\IUsuariosBusiness.cs" />
     <Compile Include="Interfaces\IProveedoresBusiness.cs" />
     <Compile Include="Interfaces\IPedidosBusiness.cs" />

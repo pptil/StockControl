@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace DataAccess.Interfaces
 {
     public interface IVentasDao : 
-        IGetAll<Ventas>
+        IGetAll<Ventas>,
+        IGetBy<Ventas>
     {
         Task<List<Ventas>> GetVentasPorSucursal(int sucursal);
     }

@@ -11,13 +11,13 @@ namespace Modelo.Models
     public partial class Reparaciones
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int reparacion_cod { get; set; }
-
-        [StringLength(50)]
-        public string reparacion_producto { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int? reparacion_cod { get; set; }
 
         [StringLength(100)]
+        public string reparacion_producto { get; set; }
+
+        [StringLength(1000)]
         public string reparacion_desc { get; set; }
 
         public bool? reparacion_danado { get; set; }
@@ -26,7 +26,7 @@ namespace Modelo.Models
 
         public bool? reparacion_funda { get; set; }
 
-        [StringLength(50)]
+        [StringLength(1000)]
         public string reparacion_obs { get; set; }
 
         public EstadosEnum reparacion_estado { get; set; }

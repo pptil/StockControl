@@ -27,5 +27,10 @@ namespace Business.Business
         {
             return await _pedidosDao.GetPedidosPorSucursal(sucursal);
         }
+
+        public Pedidos GetByID(int id)
+        {
+            return _pedidosDao.GetPedido(id);
+        }
     }
 }

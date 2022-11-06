@@ -11,5 +11,6 @@ namespace Business.Interfaces
     {
         IList<Articulos> GetAllArticulos();
         Task<List<Articulos>> GetArticulosPorSucursal(int sucursal);
+        Articulos GetArticulo(int id);
     }
 }

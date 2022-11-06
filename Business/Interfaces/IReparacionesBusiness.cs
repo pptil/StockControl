@@ -11,5 +11,7 @@ namespace Business.Interfaces
     {
         IList<Reparaciones> GetAllReparaciones();
         Reparaciones GetReparacion(int id);
+        Task<bool> Guardar(Reparaciones reparaciones);
+        Task<bool> Borrar(int id);
     }
 }

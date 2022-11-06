@@ -20,7 +20,7 @@ namespace DataAccess.Dao
                 using (var _context = new StockContext())
                 {
                     var list = await _context.Pedidos
-                                .Include("Articulos")
+                                .Include("PedidosDet")
                                 .Where(i => i.sucursal_cod == sucursal)
                                 .ToListAsync();
                     return list;
@@ -32,6 +32,29 @@ namespace DataAccess.Dao
                 throw;
             }
                       
+        }
+        
+        
+        public Pedidos GetPedido(int id)
+        {
+
+            try
+            {
+                using (var _context = new StockContext())
+                {
+                    var pedido =  _context.Pedidos
+                                .Include("PedidosDet")
+                                .Where(i => i.pedido_cod == id)
+                                .FirstOrDefault();
+                    return pedido;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
     }

@@ -36,15 +36,24 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                       <tr>
-                           <td>@item.pedido_cod</td>
-                           <td>@item.proveedor_cod</td>
-                           <td>@item.</td>
-                           <td>$324232</td>
-                           <td><a id="btn-edit" href="newpedido.html" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a></td>
-                       </tr> 
+
+                        <tr>
+                            <td>@item.pedido_cod</td>
+                            <td>@item.proveedor_cod</td>
+                            <td>@item.</td>
+                            <td>$324232</td>
+                            <td><a id="btn-edit" href="~/Pedidos/Pedido" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a></td>
+                        </tr>
+
                     }
-                    
+                    <tr>
+                        <td>codigo</td>
+                        <td>prov</td>
+                        <td>cantidad</td>
+                        <td>$324232</td>
+                        <td><a id="btn-edit" href="~/Pedidos/Pedido" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a></td>
+                    </tr>
+
                     <tr></tr>
                 </tbody>
             </table>
@@ -58,59 +67,8 @@
             <div class="col d-flex justify-content-end align-items-end" style="margin: 0px;margin-right: 0px;"><button class="btn btn-info link-light d-flex flex-row" type="button">Imprimir pedido</button></div>
         </div>
     </div>
-</div><a class="border rounded d-inline scroll-to-top" href="newpedido.html" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-toggle="modal">Nuevo Pedido</button></a>
-<div class="modal fade" role="dialog" tabindex="-1" id="modal-productos">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Buscar Productos</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="card shadow mb-3">
-                    <div class="card-header py-3"><input class="form-control-sm" type="text" placeholder="-Buscar productos-"></div>
-                    <div class="card-body">
-                        <form>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <div class="table-responsive fs-6 fw-light">
-                                            <table class="table table-sm table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Codigo</th>
-                                                        <th>Producto</th>
-                                                        <th>Fabricante</th>
-                                                        <th>Color</th>
-                                                        <th>Cantidad</th>
-                                                        <th>Precio</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="fs-6">
-                                                    <tr>
-                                                        <td style="text-align: center;">13423</td>
-                                                        <td style="width: 166.078px;">CTK-240</td>
-                                                        <td style="width: 192.297px;">Casio</td>
-                                                        <td style="width: 96.8438px;">Negro</td>
-                                                        <td style="width: 81.891px;"><input class="form-control form-control-sm" type="text" required="" style="text-align: right;width: 60.734px;"></td>
-                                                        <td style="text-align: right;">$13234</td>
-                                                        <td style="text-align: center;"><i class="fa fa-plus-circle text-success" style="width: 12.7188px;height: 19px;font-size: 26px;text-align: center;"></i></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
-        </div>
-    </div>
-</div>
-@*agregar conexion a controlador*@
+</div><a class="border rounded d-inline scroll-to-top" href="~/Pedidos/Pedido" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-toggle="modal">Nuevo Pedido</button></a>
+
 <div class="modal fade" role="dialog" tabindex="-1" id="modal-confirmacion">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

@@ -9,7 +9,11 @@ namespace DataAccess.Interfaces
 {
     public interface IReparacionesDao :
         IGetAll<Reparaciones>,
-        IGetBy<Reparaciones>
+        IGetBy<Reparaciones>,
+        IInsert<Reparaciones>,
+        IUpdate<Reparaciones>,
+        IDelete<Reparaciones>
+
     {
     }
 }

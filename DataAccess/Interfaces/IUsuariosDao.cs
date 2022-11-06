@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace DataAccess.Interfaces
 {
     public interface IUsuariosDao : 
-        IGetAll<Usuarios>
+        IGetAll<Usuarios>,
+        IGetBy<Usuarios>
     {
         Task<List<Usuarios>> GetUsuariosPorSucursal(int sucursal);
     }

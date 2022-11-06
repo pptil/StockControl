@@ -1,4 +1,5 @@
 ﻿using Business.Interfaces;
+using Modelo.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,80 +19,22 @@ namespace StockControl.Controllers
         // GET: Pedidos
         public ActionResult Index()
         {
-            //var list = _pedidosbusiness.GetPedidosPorSucursal(1);
-            return View(/*list*/);
+            var list = _pedidosbusiness.GetPedidosPorSucursal(1);
+            return View(list);
         }
 
-        // GET: Pedidos/Details/5
-        public ActionResult Details(int id)
+        // POST: Pedidos/Pedido
+        public ActionResult Pedido(int id = 0)
         {
-            return View();
-        }
-
-        // GET: Pedidos/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Pedidos/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
+            var pedido = new Pedidos();
+            if (id!= 0)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                pedido = _pedidosbusiness.GetByID(id);
             }
-            catch
-            {
-                return View();
-            }
+            return View(pedido);
         }
 
-        // GET: Pedidos/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
-        // POST: Pedidos/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Pedidos/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Pedidos/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

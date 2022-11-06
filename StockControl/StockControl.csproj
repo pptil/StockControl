@@ -118,7 +118,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Site.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
+    <None Include="Scripts\jquery-1.6.3-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.6.3.js" />
+    <Content Include="Scripts\jquery-1.6.3.min.js" />
+    <Content Include="Scripts\theme.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +164,10 @@
     <Content Include="Views\Reparaciones\_ModalReparaciones.cshtml" />
     <Content Include="Views\Articulos\_ModalProducto.cshtml" />
     <Content Include="Views\Pedidos\_ModalPedidos.cshtml" />
+    <Content Include="Views\Pedidos\Pedido.cshtml" />
+    <Content Include="Views\Pedidos\_ModalProductos.cshtml" />
+    <Content Include="Views\Pedidos\_ModalProveedor.cshtml" />
+    <Content Include="Views\Reparaciones\_ModalConfirmacion.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

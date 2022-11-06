@@ -1,0 +1,8 @@
+﻿@model Modelo.Models.Reparaciones
+<div class="modal-header">
+    <h4 class="modal-title">Confirmación</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <p>¿Desea borrar la reparacion @Model.reparacion_cod: @Model.reparacion_producto ?</p>
+</div>
+<div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-danger" onclick="Delete(@Model.reparacion_cod)" type="button">Borrar</button></div>

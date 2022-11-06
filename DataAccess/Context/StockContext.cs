@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using Modelo.Models;
 
@@ -29,101 +30,102 @@ namespace DataAccess.Context
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Articulos>()
-                .Property(e => e.articulo_denom)
-                .IsFixedLength();
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            //modelBuilder.Entity<Articulos>()
+            //    .Property(e => e.articulo_denom)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Articulos>()
-                .HasMany(e => e.VentasDet)
-                .WithRequired(e => e.Articulos)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Articulos>()
+            //    .HasMany(e => e.VentasDet)
+            //    .WithRequired(e => e.Articulos)
+            //    .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Fabricantes>()
-                .Property(e => e.fabricante_denom)
-                .IsFixedLength();
+            //modelBuilder.Entity<Fabricantes>()
+            //    .Property(e => e.fabricante_denom)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Paises>()
-                .Property(e => e.pais_denom)
-                .IsFixedLength();
+            //modelBuilder.Entity<Paises>()
+            //    .Property(e => e.pais_denom)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Pedidos>()
-                .HasOptional(e => e.PedidosDet)
-                .WithRequired(e => e.Pedidos);
+            //modelBuilder.Entity<Pedidos>()
+            //    .HasOptional(e => e.PedidosDet)
+            //    .WithRequired(e => e.Pedidos);
 
-            modelBuilder.Entity<Provincias>()
-                .Property(e => e.provincia_denom)
-                .IsFixedLength();
+            //modelBuilder.Entity<Provincias>()
+            //    .Property(e => e.provincia_denom)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Reparaciones>()
-                .Property(e => e.reparacion_producto)
-                .IsFixedLength();
+            //modelBuilder.Entity<Reparaciones>()
+            //    .Property(e => e.reparacion_producto)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Reparaciones>()
-                .Property(e => e.reparacion_desc)
-                .IsFixedLength();
+            //modelBuilder.Entity<Reparaciones>()
+            //    .Property(e => e.reparacion_desc)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Reparaciones>()
-                .Property(e => e.reparacion_obs)
-                .IsFixedLength();
+            //modelBuilder.Entity<Reparaciones>()
+            //    .Property(e => e.reparacion_obs)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Roles>()
-                .Property(e => e.rol_denom)
-                .IsFixedLength();
+            //modelBuilder.Entity<Roles>()
+            //    .Property(e => e.rol_denom)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Roles>()
-                .Property(e => e.habilitado)
-                .IsFixedLength();
+            //modelBuilder.Entity<Roles>()
+            //    .Property(e => e.habilitado)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Roles>()
-                .HasMany(e => e.Usuarios)
-                .WithRequired(e => e.Roles)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Roles>()
+            //    .HasMany(e => e.Usuarios)
+            //    .WithRequired(e => e.Roles)
+            //    .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Sucursales>()
-                .Property(e => e.sucursal_denom)
-                .IsFixedLength();
+            //modelBuilder.Entity<Sucursales>()
+            //    .Property(e => e.sucursal_denom)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Usuarios>()
-                .Property(e => e.user_username)
-                .IsFixedLength();
+            //modelBuilder.Entity<Usuarios>()
+            //    .Property(e => e.user_username)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Usuarios>()
-                .Property(e => e.user_password)
-                .IsFixedLength()
-                .IsUnicode(false);
+            //modelBuilder.Entity<Usuarios>()
+            //    .Property(e => e.user_password)
+            //    .IsFixedLength()
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Usuarios>()
-                .Property(e => e.user_telefono)
-                .IsFixedLength();
+            //modelBuilder.Entity<Usuarios>()
+            //    .Property(e => e.user_telefono)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Usuarios>()
-                .Property(e => e.user_mail)
-                .IsFixedLength();
+            //modelBuilder.Entity<Usuarios>()
+            //    .Property(e => e.user_mail)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Ventas>()
-                .HasMany(e => e.VentasDet)
-                .WithRequired(e => e.Ventas)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Ventas>()
+            //    .HasMany(e => e.VentasDet)
+            //    .WithRequired(e => e.Ventas)
+            //    .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Proveedores>()
-                .Property(e => e.proveedor_name)
-                .IsFixedLength();
+            //modelBuilder.Entity<Proveedores>()
+            //    .Property(e => e.proveedor_name)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Proveedores>()
-                .Property(e => e.proveedor_telefono)
-                .IsFixedLength();
+            //modelBuilder.Entity<Proveedores>()
+            //    .Property(e => e.proveedor_telefono)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Proveedores>()
-                .Property(e => e.proveedor_mail)
-                .IsFixedLength();
+            //modelBuilder.Entity<Proveedores>()
+            //    .Property(e => e.proveedor_mail)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Proveedores>()
-                .Property(e => e.proveedor_calle)
-                .IsFixedLength();
+            //modelBuilder.Entity<Proveedores>()
+            //    .Property(e => e.proveedor_calle)
+            //    .IsFixedLength();
 
-            modelBuilder.Entity<Proveedores>()
-                .Property(e => e.proveedor_ciudad)
-                .IsFixedLength();
+            //modelBuilder.Entity<Proveedores>()
+            //    .Property(e => e.proveedor_ciudad)
+            //    .IsFixedLength();
         }
     }
 }

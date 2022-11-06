@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 namespace DataAccess.Interfaces
 {
     public interface IPedidosDao : 
-        IGetAll<Pedidos>
+        IGetAll<Pedidos>,
+        IGetBy<Pedidos>
     {
         Task<List<Pedidos>> GetPedidosPorSucursal(int sucursal);
+        Pedidos GetPedido(int id);
     }
 }

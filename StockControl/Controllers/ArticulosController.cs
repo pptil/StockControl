@@ -36,5 +36,11 @@ namespace StockControl.Controllers
             var list = await _articulosbusiness.GetArticulosPorSucursal(sucursal);
             return PartialView("_BusquedaArticulos");
         }
+
+        public async Task<ActionResult> GetArticulo(int id)
+        {
+            var producto = _articulosbusiness.GetArticulo(id);
+            return PartialView("_ModalProducto", producto);
+        }
     }
 }

@@ -31,7 +31,14 @@
                                 <td>@item.reparacion_obs</td>
                                 <td>@item.reparacion_costo</td>
                                 <td>@item.estadostring</td>
-                                <td><a id="btn-edit" href="#" data-bs-target="#modal-reparacion" data-bs-toggle="modal" onclick="abrirModal(@item.reparacion_cod)"><i class="fa fa-edit fs-3 text-primary"></i></a></td>
+                                <td>
+                                    <a id="btn-edit" data-bs-target="#modal-reparacion" data-bs-toggle="modal" onclick="abrirModal(@item.reparacion_cod)">
+                                        <i class="fa fa-edit fs-3 text-primary"></i>
+                                    </a>
+                                    <a id="btn-delete" @*data-bs-target="#modal-confirmacion" data-bs-toggle="modal"*@ onclick="abrirConfirmacion(@item.reparacion_cod)">
+                                        <i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i>
+                                    </a>
+                                </td>
                             </tr>
                         }
                         <tr></tr>
@@ -42,21 +49,111 @@
     </div>
 
 
-</div><a class="border rounded d-inline scroll-to-top" href="#page-top" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-target="#modal-reparacion" data-bs-toggle="modal">Nueva Reparacion</button></a>
-<div id="modalDiv"> </div>
+</div><a class="border rounded d-inline scroll-to-top" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-target="#modal-reparacion" data-bs-toggle="modal" onclick="abrirModal(0)">Nueva Reparacion</button></a>
+<div id="modalDiv">
+    <div class="modal fade" role="dialog" tabindex="-1" id="modal-reparacion">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" id="modal-content">
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="modal-confirmacion">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" id="confirmacion">
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     function abrirModal(e) {
+        $('#modal-content').html("");
         $.ajax({
             url: '/Reparaciones/GetReparacion',
-            data: { 'id': e },
-            type: "post",
+            data: { "accion": '', 'id': e },
+            type: 'GET',
             cache: false,
             success: function (result) {
-                $('#modalDiv').html(result);
+                $('#modal-content').html(result);
             }
-        });    
+        });
     }
-    $(".dropdown-toggle").dropdown();
+
+    function abrirConfirmacion(e) {
+        $('#confirmacion').html("");
+        $.ajax({
+            url: '/Reparaciones/GetReparacion',
+            data: { "accion": 'DELETE', 'id': e },
+            type: 'GET',
+            cache: false,
+            success: function (result) {
+                $('#confirmacion').html(result);
+            }
+        });
+    }
+
+    function Guardar() {
+        var reparacion = DatosReparacion();
+        console.log(document.getElementById("producto_reparacion").value)
+        $.ajax({
+            type: 'POST',
+            url: '/Reparaciones/Guardar',
+            data: { "reparacion": reparacion },
+            success: function (result) {
+                if (result) {
+                    /*toastr.success("Se ha generado la reparacion.", "Éxito");*/
+                    location.reload();
+                } else {
+                    /*toastr.warning("No se modificaron datos.")*/
+                }
+                /*$("#loader").hide()*/
+
+            },
+            error: function () {
+                //toastr.error("Ocurrió un error al guardar la reparacion");
+                //$("#loader").hide()
+            }
+        });
+    }
+
+    function Delete(e) {
+        $.ajax({
+            type: 'DELETE',
+            url: '/Reparaciones/Borrar',
+            data: { "accion": 'DELETE', "id": e },
+            success: function (result) {
+                if (result) {
+                    /*toastr.success("Se ha borrado la reparacion.", "Éxito");*/
+                    location.reload();
+                } else {
+                    /*toastr.warning("No se modificaron datos.")*/
+                }
+                /*$("#loader").hide()*/
+
+            },
+            error: function () {
+                //toastr.error("Ocurrió un error al borrar la reparacion");
+                //$("#loader").hide()
+            }
+        });
+    }
+
+    function DatosReparacion() {
+        return {
+            reparacion_producto: document.getElementById("producto_reparacion").value,
+            reparacion_desc: document.getElementById("descripcion_reparacion").value,
+            reparacion_danado: document.getElementById("check_danado").checked,
+            reparacion_transformador: document.getElementById("check_trans").checked,
+            reparacion_funda: document.getElementById("check_funda").checked,
+            reparacion_obs: document.getElementById("otras_obs").value,
+            reparacion_estado: document.getElementById("estados").value,
+            reparacion_costo: document.getElementById("costo_reparacion").value,
+            sucursal_cod: 1
+        }
+    }
+
+    /*$(".dropdown-toggle").dropdown();*/
     $('.dropdown-menu').on('click', 'a', function () {
         var text = $(this).html();
         var htmlText = text + ' <span class="caret"></span>';

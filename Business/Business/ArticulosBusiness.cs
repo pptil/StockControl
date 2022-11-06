@@ -26,5 +26,10 @@ namespace Business.Business
         {
             return await _articulosDao.GetArticulosPorSucursal(sucursal);
         }
+
+        public Articulos GetArticulo(int id)
+        {
+            return _articulosDao.GetBy(id);
+        }
     }
 }

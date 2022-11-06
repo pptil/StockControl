@@ -11,5 +11,6 @@ namespace Business.Interfaces
     {
         IList<Pedidos> GetAllPedidos();
         Task<List<Pedidos>> GetPedidosPorSucursal(int sucursal);
+        Pedidos GetByID(int id);
     }
 }
