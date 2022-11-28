@@ -12,14 +12,16 @@ namespace Modelo.Models
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int venta_cod { get; set; }
+        public int Id { get; set; }
 
         [Key]
         [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int articulo_cod { get; set; }
+        public int Articulo { get; set; }
 
-        public int? venta_cantidad { get; set; }
+        [Key]
+        [Column(Order = 2)]
+        public int Cantidad { get; set; }
 
         public virtual Articulos Articulos { get; set; }
 

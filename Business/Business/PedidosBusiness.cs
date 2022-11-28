@@ -18,9 +18,9 @@ namespace Business.Business
             _pedidosDao = pedidosDao;
         }
 
-        public IList<Pedidos> GetAllPedidos()
+        public async Task<IList<Pedidos>> GetAllPedidos()
         {
-            return _pedidosDao.GetAll();
+            return await _pedidosDao.GetAllPedidos();
         }
 
         public async Task<List<Pedidos>> GetPedidosPorSucursal(int sucursal)

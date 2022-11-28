@@ -1,63 +1,74 @@
 ﻿@model Modelo.Models.Reparaciones
-<div class="modal-header">
-    <h4 class="modal-title">Reparacion</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-</div>
-<div class="modal-body">
-    <div class="card shadow mb-3">
-        <div class="card-header py-3">
-            <p class="text-primary m-0 fw-bold">Nueva Reparación</p>
-        </div>
-        <div class="card-body">
-            <form>
-                <div class="row">
-                    <div class="col">
-                        <div class="mb-3"><label class="form-label" for="producto"><strong>Producto</strong></label><input class="form-control" type="text" id="producto_reparacion" placeholder="Ingrese producto" name="producto" value="@Model.reparacion_producto"></div>
-                    </div>
-                    <div class="col">
-                        <div class="mb-3"></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="mb-3"><label class="form-label" for="descripcion"><strong>Descripción</strong></label><input class="form-control" type="text" id="descripcion_reparacion" placeholder="Añada una descripcion de la accion a realizar" name="descripcion" value="@Model.reparacion_desc"></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="mb-3">
-                            <label class="form-label" for="observaciones"><strong>Observaciones</strong></label>
-                            <div class="form-check"><input class="form-check-input" type="checkbox" id="check_danado" @(Model.reparacion_danado.GetValueOrDefault() ? "checked=\"\"" : "")><label class="form-check-label" for="check_danado">Dañado</label></div>
-                            <div class="form-check"><input class="form-check-input" type="checkbox" id="check_trans" @(Model.reparacion_transformador.GetValueOrDefault() ? "checked=\"\"" : "")><label class="form-check-label" for="check_trans">Transformador</label></div>
-                            <div class="form-check"><input class="form-check-input" type="checkbox" id="check_funda" @(Model.reparacion_funda.GetValueOrDefault() ? "checked=\"\"" : "")><label class="form-check-label" for="check_funda">Funda</label></div>
-                            <div><label class="form-label">Otros</label><textarea class="form-control" placeholder="Otros datos a añadir" id="otras_obs"></textarea></div>
+@if (ViewBag.Delete == true)
+{
+    <div class="modal-header">
+        <h4 class="modal-title">Confirmación</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <p>¿Desea borrar la reparacion @Model.Id: @Model.Nombre ?</p>
+    </div>
+    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-danger" onclick="Delete(@Model.Id)" type="button" data-bs-dismiss="modal">Borrar</button></div>
+
+
+}
+else
+{
+    <div class="modal-header">
+        <h4 class="modal-title">Reparacion</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="card shadow mb-3">
+            <div class="card-header py-3">
+                <p class="text-primary m-0 fw-bold">Nueva Reparación</p>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3"><input class="form-control" type="text" id="producto_codigo" name="codigo" style="display:none" value="@Model.Id"></div>
+                            <div class="mb-3"><label class="form-label" for="producto"><strong>Producto</strong></label><input class="form-control" type="text" id="producto_reparacion" placeholder="Ingrese producto" name="producto" value="@Model.Nombre"></div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3"></div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="mb-3">
-                            <label class="form-label" for="estado"><strong>Estado de reparación</strong></label>
-                            <div class="dropdown" id="estado">
-                                <select name="estados" id="estados" class="btn btn-light dropdown-toggle">
-                                    <option disabled selected>Selecciona una opción</option>
-                                    <option value="1">En espera</option>
-                                    <option value="2">En curso</option>
-                                    <option value="3">Finalizado</option>
-                                </select>
-
-
-                                @*<button class="btn btn-light dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">-Seleccione-</button>
-                                <div class="dropdown-menu"><a class="dropdown-item" value="1">En Espera</a><a class="dropdown-item" value="2">En curso</a><a class="dropdown-item" value="3">Finalizada</a></div>*@
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3"><label class="form-label" for="descripcion"><strong>Descripción</strong></label><input class="form-control" type="text" id="descripcion_reparacion" placeholder="Añada una descripcion de la accion a realizar" name="descripcion" value="@Model.Descripcion"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label class="form-label" for="observaciones"><strong>Observaciones</strong></label>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" id="check_danado" @(Model.EstaDanado.GetValueOrDefault() ? "checked=\"\"" : "")><label class="form-check-label" for="check_danado">Dañado</label></div>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" id="check_trans" @(Model.TieneTransformador.GetValueOrDefault() ? "checked=\"\"" : "")><label class="form-check-label" for="check_trans">Transformador</label></div>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" id="check_funda" @(Model.TieneFunda.GetValueOrDefault() ? "checked=\"\"" : "")><label class="form-check-label" for="check_funda">Funda</label></div>
+                                <div><label class="form-label">Otros</label><textarea class="form-control" placeholder="Otros datos a añadir" id="otras_obs"></textarea></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="mb-3"><label class="form-label" for="costo"><strong>Costo</strong></label><input class="form-control" type="text" id="costo_reparacion" placeholder="$0" name="costo" style="text-align: right;" value="@Model.reparacion_costo"></div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label class="form-label" for="estado"><strong>Estado de reparación</strong></label>
+                                <div class="dropdown" id="estado">
+                                    @Html.DropDownListFor(m => m.Estado, new SelectList(ViewBag.Estados, "Key", "Value"), new { @class = "btn btn-light dropdown-toggle" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3"><label class="form-label" for="costo"><strong>Costo</strong></label><input class="form-control" type="text" id="costo_reparacion" placeholder="$0" name="costo" style="text-align: right;" value="@Model.Costo"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="mb-3"></div>
-            </form>
+                    <div class="mb-3"></div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button" onclick="Guardar()">Guardar</button></div>
+    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button" onclick="Guardar()" data-bs-dismiss="modal">Guardar</button></div>
+
+
+}
+
+

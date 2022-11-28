@@ -9,7 +9,7 @@ namespace Business.Interfaces
 {
     public interface IPedidosBusiness
     {
-        IList<Pedidos> GetAllPedidos();
+        Task<IList<Pedidos>> GetAllPedidos();
         Task<List<Pedidos>> GetPedidosPorSucursal(int sucursal);
         Pedidos GetByID(int id);
     }

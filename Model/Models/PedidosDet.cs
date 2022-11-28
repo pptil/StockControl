@@ -9,13 +9,12 @@ namespace Modelo.Models
     [Table("PedidosDet")]
     public partial class PedidosDet
     {
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int pedido_cod { get; set; }
+        public int Id { get; set; }
 
-        public int? articulo_cod { get; set; }
+        public int? Articulo { get; set; }
 
-        public int? pedido_cantidad { get; set; }
+        public int? Cantidad { get; set; }
 
         public virtual Articulos Articulos { get; set; }
 

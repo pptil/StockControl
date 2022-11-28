@@ -9,28 +9,26 @@ namespace Modelo.Models
     public partial class Proveedores
     {
         [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int proveedor_cod { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
+        [Required]
         [StringLength(30)]
-        public string proveedor_name { get; set; }
+        public string Nombre { get; set; }
 
         [StringLength(30)]
-        public string proveedor_telefono { get; set; }
+        public string Telefono { get; set; }
 
         [StringLength(30)]
-        public string proveedor_mail { get; set; }
+        public string Mail { get; set; }
 
         [StringLength(50)]
-        public string proveedor_calle { get; set; }
+        public string Calle { get; set; }
 
-        public int? provincia_cod { get; set; }
+        public int? Provincia { get; set; }
 
         [StringLength(50)]
-        public string proveedor_ciudad { get; set; }
+        public string Ciudad { get; set; }
 
         public virtual Provincias Provincias { get; set; }
     }

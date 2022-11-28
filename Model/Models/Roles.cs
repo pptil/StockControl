@@ -14,17 +14,14 @@ namespace Modelo.Models
             Usuarios = new HashSet<Usuarios>();
         }
 
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int rol_cod { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(20)]
-        public string rol_denom { get; set; }
+        public string Nombre { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public byte[] habilitado { get; set; }
+        public bool? Habilitado { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usuarios> Usuarios { get; set; }

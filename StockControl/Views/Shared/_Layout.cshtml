@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="~/Content/assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="~/Content/assets/fonts/fontawesome5-overrides.min.css">
     <link rel="stylesheet" href="~/Content/assets/css/untitled.css">
+    <link rel="stylesheet" href="~/Content/toastr.min.css" />
+    <script src="~/Scripts/toastr.min.js"></script>
 </head>
 <body id="page-top">
     <div id="wrapper">
@@ -56,6 +58,9 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
+                    <div id="loader" class="display-none">
+                        <img id="loader-img" src="~/Content/Resources/loading.gif" />
+                    </div>
                     @RenderBody()
                 </div>
             </div>

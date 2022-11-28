@@ -11,6 +11,7 @@ namespace DataAccess.Interfaces
         IGetAll<Pedidos>,
         IGetBy<Pedidos>
     {
+        Task<List<Pedidos>> GetAllPedidos();
         Task<List<Pedidos>> GetPedidosPorSucursal(int sucursal);
         Pedidos GetPedido(int id);
     }

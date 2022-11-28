@@ -15,16 +15,16 @@ namespace Modelo.Models
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int venta_cod { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
-        public double? venta_precio { get; set; }
+        public double? Precio { get; set; }
 
-        public int? user_cod { get; set; }
+        public int? Usuario { get; set; }
 
-        public int? sucursal_cod { get; set; }
+        public int? Sucursal { get; set; }
 
-        public DateTime? venta_fecha { get; set; }
+        public DateTime? FechaAlta { get; set; }
 
         public virtual Sucursales Sucursales { get; set; }
 

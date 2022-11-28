@@ -20,7 +20,7 @@ namespace DataAccess.Dao
                 using (var _context = new StockContext())
                 {
                     var list = await _context.Ventas
-                                .Where(i => i.sucursal_cod == sucursal)
+                                .Where(i => i.Sucursal == sucursal)
                                 .ToListAsync();
                     return list;
                 }                            

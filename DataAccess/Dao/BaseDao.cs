@@ -47,6 +47,14 @@ namespace DataAccess.Dao
             }
         }
 
+        public IList<T> GetManyByCondition(Expression<Func<T, bool>> filter)
+        {
+            using (var db = new StockContext())
+            {
+                return db.Set<T>().Where(filter).ToList();
+            }
+        }
+
         public async Task<IList<T>> GetManyByConditionAsync(Expression<Func<T, bool>> filter)
         {
             using (var db = new StockContext())

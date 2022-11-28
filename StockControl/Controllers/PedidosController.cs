@@ -3,6 +3,7 @@ using Modelo.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,9 +18,9 @@ namespace StockControl.Controllers
             _pedidosbusiness = pedidosBusiness;
         }
         // GET: Pedidos
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var list = _pedidosbusiness.GetPedidosPorSucursal(1);
+            var list = await _pedidosbusiness.GetAllPedidos();
             return View(list);
         }
 

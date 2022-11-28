@@ -1,5 +1,7 @@
-﻿using Business.Interfaces;
+﻿using Business.Data_Transfer_Objects;
+using Business.Interfaces;
 using DataAccess.Interfaces;
+using Model.Enums;
 using Modelo.Models;
 using System;
 using System.Collections.Generic;
@@ -12,29 +14,37 @@ namespace Business.Business
     public class ReparacionesBusiness:IReparacionesBusiness
     {
         private readonly IReparacionesDao _reparacionesDao;
-        public ReparacionesBusiness(IReparacionesDao reparacionesDao)
+        private readonly ISucursalDao _sucursalDao;
+        public ReparacionesBusiness(IReparacionesDao reparacionesDao, ISucursalDao sucursalDao)
         {
             _reparacionesDao = reparacionesDao;
+            _sucursalDao = sucursalDao;
         }
 
         public IList<Reparaciones> GetAllReparaciones()
         {
             return _reparacionesDao.GetAll();
         }
+
+        public async Task<IList<Reparaciones>> GetReparacionesCondicion(FiltrosDto filtro)
+        {
+            var list = await _reparacionesDao.GetFiltrados(filtro.Estado, filtro.Sucursal, filtro.Producto);
+            return list;
+        }
         public Reparaciones GetReparacion(int id)
         {
             return _reparacionesDao.GetBy(id);
         }
-        public async Task<bool> Guardar(Reparaciones reparaciones)
+        public bool Guardar(Reparaciones reparaciones)
         {
             int result = 0;
-            if (reparaciones.reparacion_cod == null)
+            if (reparaciones.Id == null)
             {
                 result = _reparacionesDao.Insert(reparaciones);
             }
             else
             {
-                result = _reparacionesDao.Update(reparaciones, reparaciones.reparacion_cod);
+                result = _reparacionesDao.Update(reparaciones, reparaciones.Id);
             }
 
             if (result == 1)
@@ -47,7 +57,7 @@ namespace Business.Business
             }
         }
 
-        public async Task<bool> Borrar(int id)
+        public bool Borrar(int id)
         {
             var ok =  _reparacionesDao.Delete(id);
             if(ok == 1)

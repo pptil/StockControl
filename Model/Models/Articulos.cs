@@ -14,24 +14,23 @@ namespace Modelo.Models
             PedidosDet = new HashSet<PedidosDet>();
             VentasDet = new HashSet<VentasDet>();
         }
-
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int articulo_cod { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
-        public int? fabricante_cod { get; set; }
+        public int? Fabricante { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string articulo_denom { get; set; }
+        public string Nombre { get; set; }
 
-        public int articulo_stock { get; set; }
+        public int Stock { get; set; }
 
-        public double articulo_precio { get; set; }
+        public double Precio { get; set; }
 
-        public int? sucursal_cod { get; set; }
+        public int? Sucursal { get; set; }
 
-        public bool? articulo_estado { get; set; }
+        public bool? Estado { get; set; }
 
         public virtual Fabricantes Fabricantes { get; set; }
 
@@ -43,6 +42,6 @@ namespace Modelo.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VentasDet> VentasDet { get; set; }
 
-        public string EstadoString => articulo_estado == true ? "Nuevo" : "Usado";
+        public string EstadoString => Estado == true ? "Nuevo" : "Usado";
     }
 }

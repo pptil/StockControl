@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="Context\StockContext.cs" />
     <Compile Include="Dao\PedidosDao.cs" />
+    <Compile Include="Dao\SelectableDao.cs" />
+    <Compile Include="Dao\SucursalDao.cs" />
     <Compile Include="Dao\VentasDao.cs" />
     <Compile Include="Dao\ProveedoresDao.cs" />
     <Compile Include="Dao\UsuariosDao.cs" />
@@ -67,23 +69,20 @@
     <Compile Include="Interfaces\Common\IInsert.cs" />
     <Compile Include="Interfaces\Common\ISaveChanges.cs" />
     <Compile Include="Interfaces\Common\IUpdate.cs" />
+    <Compile Include="Interfaces\ISelectableDao.cs" />
+    <Compile Include="Interfaces\ISucursalDao.cs" />
     <Compile Include="Interfaces\IPedidosDao.cs" />
     <Compile Include="Interfaces\IUsuariosDao.cs" />
     <Compile Include="Interfaces\IProveedoresDao.cs" />
     <Compile Include="Interfaces\IVentasDao.cs" />
     <Compile Include="Interfaces\IArticulosDao.cs" />
     <Compile Include="Interfaces\IReparacionesDao.cs" />
-    <Compile Include="Migrations\202211042355194_ReparacionesModel.cs" />
-    <Compile Include="Migrations\202211042355194_ReparacionesModel.designer.cs">
-      <DependentUpon>202211042355194_ReparacionesModel.cs</DependentUpon>
+    <Compile Include="Migrations\202211282154341_Initial.cs" />
+    <Compile Include="Migrations\202211282154341_Initial.designer.cs">
+      <DependentUpon>202211282154341_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202211042355194_ReparacionesModel.resx">
-      <DependentUpon>202211042355194_ReparacionesModel.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -94,6 +93,11 @@
       <Project>{a4313fa1-0ae4-47f4-818a-e1752b81a00c}</Project>
       <Name>Modelo</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202211282154341_Initial.resx">
+      <DependentUpon>202211282154341_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

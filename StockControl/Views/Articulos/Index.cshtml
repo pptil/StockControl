@@ -4,116 +4,191 @@
 }
 
 <div class="d-flex flex-column" id="content-wrapper">
-    <h3 class="text-dark mb-4">Productos</h3>
-    <div class="card shadow">
-        <div class="card-header py-3">
-            <p class="text-primary m-0 fw-bold">Listado de Productos</p>
+    <h3 class="text-dark mb-1">Articulos</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-1">
+            <div class="form-group">
+                <label for="FabricanteBusqueda">Estado</label>
+                @Html.DropDownList("FabricanteBusqueda", new SelectList(ViewBag.Fabricantes, "Key", "Value"), new { @class = "btn btn-dark dropdown-toggle form-control" })
+            </div>
         </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6 text-nowrap">
-                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
-                        <label class="form-label">
-                            Mostrar<select class="d-inline-block form-select form-select-sm">
-                                <option value="10" selected="">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select>&nbsp;
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="text-md-end dataTables_filter" id="dataTable_filter">
-                        <div class="row">
-                            <div class="col" style="width: 555.5px;">
-                                <div class="dropdown">
-                                    <button class="btn btn-primary dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">Sucursal</button>
-                                    <div class="dropdown-menu"><a class="dropdown-item" href="#">Olmos</a><a class="dropdown-item" href="#">Humberto Primo</a></div>
-                                </div>
-                            </div>
-                            <div class="col" style="width: 555.5px;"><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Buscar"></div>
-                        </div><label class="form-label"></label>
-                    </div>
-                    <div class="text-md-end dataTables_filter" id="dataTable_filter-1"><label class="form-label"></label></div>
-                </div>
+        <div class="col-md-1">
+            <div class="form-group">
+                <label for="SucursalBusqueda">Sucursal</label>
+                @Html.DropDownList("SucursalBusqueda", new SelectList(ViewBag.Sucursales, "Key", "Value"), new { @class = "btn btn-primary dropdown-toggle form-control", @title = "Todas" })
             </div>
-            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                <table class="table my-0" id="dataTable">
-                    <thead>
-                        <tr>
-                            <th style="width: 126.969px;">Codigo</th>
-                            <th>Fabricante</th>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Estado</th>
-                            <th>Precio</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (Model.Count > 1)
-                        {
-                            foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td style="text-align: center;">@item.articulo_cod</td>
-                                    <td>@item.Fabricantes.fabricante_denom</td>
-                                    <td>@item.articulo_denom</td>
-                                    <td>@item.EstadoString</td>
-                                    <td style="text-align: center;width: 113.422px;">@item.articulo_stock</td>
-                                    <td>@item.articulo_precio</td>
-                                    <td><a id="btn-edit" href="#" onclick="abrirModal(@item.articulo_cod)" data-bs-target="#modal-producto" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 16px;"></i></a></td>
-                                </tr>
-                            }
-                        }
-                        <tr></tr>
-                        <tr></tr>
-                        <tr></tr>
-                        <tr></tr>
-                        <tr></tr>
-                        <tr></tr>
-                        <tr></tr>
-                        <tr></tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tfoot>
-                </table>
+        </div>
+         <div class="col-md-1">
+            <div class="form-group">
+                <label for="EstadoBusqueda">Estado</label>
+                <select id="EstadoBusqueda" class="btn btn-secondary dropdown-toggle form-control" title="Todos" name="EstadoBusqueda">
+                    <option value="-1">Todos</option>
+                    <option value="1">Nuevo</option>
+                    <option value="0">Usado</option>
+                </select>
             </div>
-            <div class="row">
-                <div class="col-md-6 align-self-center">
-                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando 1 a 10 de 27</p>
-                </div>
-                <div class="col-md-6">
-                    <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
-                        <ul class="pagination">
-                            <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                        </ul>
-                    </nav>
-                </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="ProductoBusqueda">Producto</label>
+                <input type="text" class="form-control" id="ProductoBusqueda" placeholder="Ingrese producto">
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group">
+                <label>Buscar</label>
+                <button class="border rounded d-inline btn-primary form-control" onclick="Buscar();"><i class="fa fa-search" style="font-size:20px"></i></button>
             </div>
         </div>
     </div>
-</div><a class="border rounded d-inline scroll-to-top" href="#page-top" style="background: rgba(90,92,105,0);margin-right: 155px;" data-bs-target="#modal-producto" data-bs-toggle="modal"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-target="#modal-producto" data-bs-toggle="modal">Nuevo Producto</button></a>
+    <hr />
+    <div id="lista">
+        @Html.Partial("_Resultados", Model)
+    </div>
+
+</div><a class="border rounded d-inline scroll-to-top" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-target="#modal-articulo" data-bs-toggle="modal" onclick="abrirModal(0)">Nuevo Producto</button></a>
+
+
+<!--Modal-->
+<div class="modal fade" role="dialog" tabindex="-1" id="modal-articulo">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="modal-content">
+        </div>
+    </div>
+</div>
+
+
 <script>
+    $(document).ready(function () {
+        $("#FabricanteBusqueda").val("-1");
+        $("#SucursalBusqueda").val("-1");
+        $("#EstadoBusqueda").val("-1");
+    })
     function abrirModal(e) {
+        $('#modal-content').html("");
         $.ajax({
             url: '/Articulos/GetArticulo',
-            data: { 'id': e },
-            type: "post",
+            data: { "accion": '', 'id': e },
+            type: 'GET',
             cache: false,
             success: function (result) {
-                $('#modalDiv').html(result);
+                $('#modal-content').html(result);
             }
         });
     }
+
+    function confirmacion(e) {
+        $('#modal-content').html("");
+        $.ajax({
+            url: '/Articulos/GetArticulo',
+            data: { "accion": 'DELETE', 'id': e },
+            type: 'GET',
+            cache: false,
+            success: function (result) {
+                $('#modal-content').html(result);
+            }
+        });
+    }
+
+    function Guardar() {
+        $("#loader").show()
+        var articulo = DatosArticulo();
+        $.ajax({
+            type: 'POST',
+            url: '/Articulos/Guardar',
+            data: { "articulo": articulo },
+            success: function (result) {
+                if (result) {
+                    toastr.success("Se ha generado el articulo.", "Éxito", { disableTimeOut: true, closeButton: true });
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                } else {
+                    toastr.warning("No se modificaron datos.")
+                }
+                $("#loader").hide()
+
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al guardar el articulo");
+                $("#loader").hide()
+            }
+        });
+    }
+
+    function Delete(e) {
+        $("#loader").show()
+        $.ajax({
+            type: 'DELETE',
+            url: '/Articulos/Borrar',
+            data: { "accion": 'DELETE', "id": e },
+            success: function (result) {
+                if (result) {
+                    toastr.success("Se ha borrado el articulo.", "Éxito");
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                } else {
+                    toastr.warning("No se modificaron datos.")
+                }
+                $("#loader").hide()
+
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al borrar el articulo");
+                $("#loader").hide()
+            }
+        });
+    }
+
+    function Buscar() {
+        $('#lista').html("");
+        $("#loader").show()
+        var f = document.getElementById("FabricanteBusqueda");
+        var fab = f.options[f.selectedIndex].value
+
+        var s = document.getElementById("SucursalBusqueda");
+        var suc = s.options[s.selectedIndex].value
+
+        var e = document.getElementById("EstadoBusqueda");
+        var est = e.options[e.selectedIndex].value
+
+        var prod = document.getElementById("ProductoBusqueda").value
+
+        $.ajax({
+            type: 'GET',
+            url: '/Articulos/Buscar',
+            data: { Sucursal: suc, Producto: prod, Fabricante: fab, Nuevo:est },
+            success: function (result) {
+                $("#lista").html(result);
+                $("#loader").hide()
+            },
+            error: function () {
+                $("#loader").hide()
+                /*location.reload();*/
+            }
+        });
+    }
+
+    function DatosArticulo() {
+        var e = document.getElementById("Fabricante");
+
+        return {
+            Id: document.getElementById("articulo_cod").value,
+            Nombre: document.getElementById("articulo_denom").value,
+            Stock: document.getElementById("articulo_stock").value,
+            Precio: document.getElementById("articulo_precio").value,
+            Estado: document.getElementById("check_estado").checked,
+            Fabricante: e.options[e.selectedIndex].value,
+            Sucursal: 1
+        }
+    }
+
+    /*$(".dropdown-toggle").dropdown();*/
+    $('.dropdown-menu').on('click', 'a', function () {
+        var text = $(this).html();
+        var htmlText = text + ' <span class="caret"></span>';
+        $(this).closest('.dropdown').find('.dropdown-toggle').html(htmlText);
+    });
 </script>

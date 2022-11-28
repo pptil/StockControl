@@ -1,4 +1,5 @@
-﻿using Modelo.Models;
+﻿using Model.Enums;
+using Modelo.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace DataAccess.Interfaces
         IDelete<Reparaciones>
 
     {
+        Task<IList<Reparaciones>> GetFiltrados(EstadosEnum estado, int sucursal, string prod);
     }
 }
