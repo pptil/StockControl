@@ -38,23 +38,13 @@
                     {
 
                         <tr>
-                            <td>@item.pedido_cod</td>
-                            <td>@item.proveedor_cod</td>
-                            <td>@item.</td>
+                            <td>@item.Id</td>
+                            <td>@item.Proveedor</td>
+                            <td>@item.PedidosDet.Count()</td>
                             <td>$324232</td>
-                            <td><a id="btn-edit" href="~/Pedidos/Pedido" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a></td>
+                            <td><a id="btn-edit" href="~/Pedidos/Pedido/?id=@item.Id"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal" data-val=@item.Id><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a></td>
                         </tr>
-
                     }
-                    <tr>
-                        <td>codigo</td>
-                        <td>prov</td>
-                        <td>cantidad</td>
-                        <td>$324232</td>
-                        <td><a id="btn-edit" href="~/Pedidos/Pedido" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a></td>
-                    </tr>
-
-                    <tr></tr>
                 </tbody>
             </table>
         </div>
@@ -63,12 +53,10 @@
                 <hr>
             </div>
         </div>
-        <div class="row d-flex flex-row">
-            <div class="col d-flex justify-content-end align-items-end" style="margin: 0px;margin-right: 0px;"><button class="btn btn-info link-light d-flex flex-row" type="button">Imprimir pedido</button></div>
-        </div>
     </div>
-</div><a class="border rounded d-inline scroll-to-top" href="~/Pedidos/Pedido" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-toggle="modal">Nuevo Pedido</button></a>
+</div><a class="border rounded d-inline scroll-to-top" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" href="~/Pedidos/Pedido">Nuevo Pedido</button></a>
 
+<!--Modal Confirmacion-->
 <div class="modal fade" role="dialog" tabindex="-1" id="modal-confirmacion">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -76,11 +64,162 @@
                 <h4 class="modal-title">Confirmación</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>¿Desea borrar el item?</p>
+                <p id="alerta"></p>
+                <p></p><strong>(Esta accion no se puede deshacer)</strong><p></p>
             </div>
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-danger" type="button">Borrar</button></div>
+            <div class="modal-footer">
+                <input type="hidden" id="idPedido">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-danger" type="button" onclick="Delete(document.getElementById('idPedido').value)">Borrar</button>
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+    $('#modal-confirmacion').on('show.bs.modal', function (event) {
+        var myVal = $(event.relatedTarget).data('val');
+        document.getElementById("idPedido").value = myVal;
+        document.getElementById("alerta").innerHTML = "¿Desea borrar el pedido Nº:" + myVal + " completo?";
+    });
+
+    function abrirModal(e) {
+        $('#modal-content').html("");
+        $.ajax({
+            url: '/Articulos/GetArticulo',
+            data: { "accion": '', 'id': e },
+            type: 'GET',
+            cache: false,
+            success: function (result) {
+                $('#modal-content').html(result);
+            }
+        });
+    }
+
+    function GetPedido(e) {
+        $("#loader").show()
+        $.ajax({
+            url: '/Pedidos/Pedido',
+            data: {'id': e },
+            type: 'POST',
+            success: function (result) {
+                $("#loader").hide()
+            }
+        });
+    }
+
+    function confirmacion(e) {
+        $('#modal-content').html("");
+        $.ajax({
+            url: '/Articulos/GetArticulo',
+            data: { "accion": 'DELETE', 'id': e },
+            type: 'GET',
+            cache: false,
+            success: function (result) {
+                $('#modal-content').html(result);
+            }
+        });
+    }
+
+    function Guardar() {
+        $("#loader").show()
+        var articulo = DatosArticulo();
+        $.ajax({
+            type: 'POST',
+            url: '/Articulos/Guardar',
+            data: { "articulo": articulo },
+            success: function (result) {
+                if (result) {
+                    toastr.success("Se ha generado el articulo.", "Éxito", { disableTimeOut: true, closeButton: true });
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                } else {
+                    toastr.warning("No se modificaron datos.")
+                }
+                $("#loader").hide()
+
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al guardar el articulo");
+                $("#loader").hide()
+            }
+        });
+    }
+
+    function Delete(e) {
+        $("#loader").show()
+        $.ajax({
+            type: 'DELETE',
+            url: '/Pedidos/Borrar',
+            data: { "accion": 'DELETE', "id": e },
+            success: function (result) {
+                if (result) {
+                    toastr.success("Se ha borrado el articulo.", "Éxito");
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                } else {
+                    toastr.warning("No se modificaron datos.")
+                }
+                $("#loader").hide()
+
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al borrar el articulo");
+                $("#loader").hide()
+            }
+        });
+    }
+
+    function Buscar() {
+        $('#lista').html("");
+        $("#loader").show()
+        var f = document.getElementById("FabricanteBusqueda");
+        var fab = f.options[f.selectedIndex].value
+
+        var s = document.getElementById("SucursalBusqueda");
+        var suc = s.options[s.selectedIndex].value
+
+        var e = document.getElementById("EstadoBusqueda");
+        var est = e.options[e.selectedIndex].value
+
+        var prod = document.getElementById("ProductoBusqueda").value
+
+        $.ajax({
+            type: 'GET',
+            url: '/Articulos/Buscar',
+            data: { Sucursal: suc, Producto: prod, Fabricante: fab, Nuevo: est },
+            success: function (result) {
+                $("#lista").html(result);
+                $("#loader").hide()
+            },
+            error: function () {
+                $("#loader").hide()
+                /*location.reload();*/
+            }
+        });
+    }
+
+    function DatosArticulo() {
+        var e = document.getElementById("Fabricante");
+
+        return {
+            Id: document.getElementById("articulo_cod").value,
+            Nombre: document.getElementById("articulo_denom").value,
+            Stock: document.getElementById("articulo_stock").value,
+            Precio: document.getElementById("articulo_precio").value,
+            Estado: document.getElementById("check_estado").checked,
+            Fabricante: e.options[e.selectedIndex].value,
+            Sucursal: 1
+        }
+    }
+
+    /*$(".dropdown-toggle").dropdown();*/
+    $('.dropdown-menu').on('click', 'a', function () {
+        var text = $(this).html();
+        var htmlText = text + ' <span class="caret"></span>';
+        $(this).closest('.dropdown').find('.dropdown-toggle').html(htmlText);
+    });
+</script>
 
 

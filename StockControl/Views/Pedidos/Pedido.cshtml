@@ -29,13 +29,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Piano</td>
-                            <td>8</td>
-                            <td>$150.000</td>
-                            <td><a id="btn-edit" href="#" data-bs-target="#modal-productos" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a></td>
-                        </tr>
-                        <tr></tr>
+                        @foreach (var item in Model.PedidosDet)
+                        {
+                            <tr>
+                                <td>@item.Articulos.Nombre</td>
+                                <td>@item.Cantidad</td>
+                                <td>@item.Total</td>
+                                <td><a id="btn-edit" href="#" data-bs-target="#modal-productos" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a></td>
+                            </tr>
+                        }
+
                     </tbody>
                 </table>
             </div>

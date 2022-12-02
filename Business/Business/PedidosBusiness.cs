@@ -32,5 +32,18 @@ namespace Business.Business
         {
             return _pedidosDao.GetPedido(id);
         }
+
+        public bool Borrar(int id)
+        {
+            var ok = _pedidosDao.Delete(id);
+            if (ok == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

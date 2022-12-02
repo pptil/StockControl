@@ -1,12 +1,13 @@
 namespace Modelo.Models
 {
+    using Model.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     
 
-    public partial class Proveedores
+    public partial class Proveedores : ISelectable
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

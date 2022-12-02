@@ -63,8 +63,9 @@ namespace DataAccess.Context
                 .HasForeignKey(e => e.Pais);
 
             modelBuilder.Entity<Pedidos>()
-                .HasOptional(e => e.PedidosDet)
-                .WithRequired(e => e.Pedidos);
+                .HasMany(e => e.PedidosDet)
+                .WithRequired(e => e.Pedidos)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Proveedores>()
                 .Property(e => e.Nombre)

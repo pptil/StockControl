@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -41,12 +41,13 @@
                         Id = c.Int(nullable: false),
                         Articulo = c.Int(),
                         Cantidad = c.Int(),
+                        Pedidos_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Pedidos", t => t.Id)
+                .ForeignKey("dbo.Pedidos", t => t.Pedidos_Id)
                 .ForeignKey("dbo.Articulos", t => t.Articulo)
-                .Index(t => t.Id)
-                .Index(t => t.Articulo);
+                .Index(t => t.Articulo)
+                .Index(t => t.Pedidos_Id);
             
             CreateTable(
                 "dbo.Pedidos",
@@ -205,7 +206,7 @@
             DropForeignKey("dbo.Reparaciones", "Sucursal", "dbo.Sucursales");
             DropForeignKey("dbo.Pedidos", "Sucursal", "dbo.Sucursales");
             DropForeignKey("dbo.Articulos", "Sucursal", "dbo.Sucursales");
-            DropForeignKey("dbo.PedidosDet", "Id", "dbo.Pedidos");
+            DropForeignKey("dbo.PedidosDet", "Pedidos_Id", "dbo.Pedidos");
             DropForeignKey("dbo.Articulos", "Fabricante", "dbo.Fabricantes");
             DropIndex("dbo.Proveedores", new[] { "Provincia" });
             DropIndex("dbo.Provincias", new[] { "Pais" });
@@ -218,8 +219,8 @@
             DropIndex("dbo.Reparaciones", new[] { "Sucursal" });
             DropIndex("dbo.Pedidos", new[] { "Sucursal" });
             DropIndex("dbo.Pedidos", new[] { "Usuario" });
+            DropIndex("dbo.PedidosDet", new[] { "Pedidos_Id" });
             DropIndex("dbo.PedidosDet", new[] { "Articulo" });
-            DropIndex("dbo.PedidosDet", new[] { "Id" });
             DropIndex("dbo.Articulos", new[] { "Sucursal" });
             DropIndex("dbo.Articulos", new[] { "Fabricante" });
             DropTable("dbo.Proveedores");

@@ -26,6 +26,7 @@ namespace Modelo.Models
 
         public virtual Usuarios Usuarios { get; set; }
 
-        public virtual PedidosDet PedidosDet { get; set; }
+        public virtual ICollection<PedidosDet> PedidosDet { get; set; }
+
     }
 }

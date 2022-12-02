@@ -4,7 +4,7 @@ namespace Modelo.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    
+
 
     [Table("PedidosDet")]
     public partial class PedidosDet
@@ -19,5 +19,7 @@ namespace Modelo.Models
         public virtual Articulos Articulos { get; set; }
 
         public virtual Pedidos Pedidos { get; set; }
+
+        public double? Total => Articulos.Precio * Convert.ToDouble(Cantidad);
     }
 }

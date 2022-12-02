@@ -63,7 +63,8 @@ namespace DataAccess.Dao
                 using (var _context = new StockContext())
                 {
                     var pedido =  _context.Pedidos
-                                .Include("PedidosDet")
+                                .Include(i=>i.PedidosDet.Select(p=>p.Articulos))
+                                .Include(i=>i.PedidosDet)
                                 .Where(i => i.Id == id)
                                 .FirstOrDefault();
                     return pedido;

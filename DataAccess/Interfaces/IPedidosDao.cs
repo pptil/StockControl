@@ -9,7 +9,8 @@ namespace DataAccess.Interfaces
 {
     public interface IPedidosDao : 
         IGetAll<Pedidos>,
-        IGetBy<Pedidos>
+        IGetBy<Pedidos>,
+        IDelete<Pedidos>
     {
         Task<List<Pedidos>> GetAllPedidos();
         Task<List<Pedidos>> GetPedidosPorSucursal(int sucursal);

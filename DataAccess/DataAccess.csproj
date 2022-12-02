@@ -77,9 +77,9 @@
     <Compile Include="Interfaces\IVentasDao.cs" />
     <Compile Include="Interfaces\IArticulosDao.cs" />
     <Compile Include="Interfaces\IReparacionesDao.cs" />
-    <Compile Include="Migrations\202211282154341_Initial.cs" />
-    <Compile Include="Migrations\202211282154341_Initial.designer.cs">
-      <DependentUpon>202211282154341_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\202211291416217_initial.cs" />
+    <Compile Include="Migrations\202211291416217_initial.designer.cs">
+      <DependentUpon>202211291416217_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,8 +95,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202211282154341_Initial.resx">
-      <DependentUpon>202211282154341_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202211291416217_initial.resx">
+      <DependentUpon>202211291416217_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
