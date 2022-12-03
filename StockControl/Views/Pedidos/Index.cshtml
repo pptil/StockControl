@@ -9,10 +9,8 @@
         <hr>
         <div class="row">
             <div class="col-3 d-flex justify-content-center">
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">Selecciona Proveedor</button>
-                    <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
-                </div><button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>
+                @Html.DropDownList("Proveedores", new SelectList(ViewBag.Proveedores, "Key", "Value"), new { @class = "btn btn-primary dropdown-toggle form-control", @title = "Seleccione Proveedor" })
+                <button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>
             </div>
             <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Desde</span><input type="date"></div>
             <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Hasta</span><input type="date"></div>
@@ -76,6 +74,10 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        $("#Proveedores").val("-1");
+    })
+
     $('#modal-confirmacion').on('show.bs.modal', function (event) {
         var myVal = $(event.relatedTarget).data('val');
         document.getElementById("idPedido").value = myVal;

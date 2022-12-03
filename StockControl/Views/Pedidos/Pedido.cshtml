@@ -8,10 +8,8 @@
         <div>
             <div class="row">
                 <div class="col-3 d-flex justify-content-center">
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">Selecciona Proveedor</button>
-                        <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
-                    </div><button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>
+                    @Html.DropDownList("Proveedores", new SelectList(ViewBag.Proveedores, "Key", "Value"), new { @class = "btn btn-primary dropdown-toggle form-control", @title = "Seleccione Proveedor" })
+                    <button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>
                 </div>
                 <div class="col-2" style="margin-right: 0px;margin-left: 35px;"><button class="btn btn-primary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-toggle="modal" data-bs-target="#modal-productos">Agregar productos</button></div>
             </div>
@@ -70,6 +68,9 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        $("#Proveedores").val("-1");
+    })
     function abrirModalProveedor(e) {
         $.ajax({
             url: '/Pedidos/GetProveedores',

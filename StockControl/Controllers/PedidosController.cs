@@ -1,4 +1,5 @@
 ﻿using Business.Business;
+using Business.Data_Transfer_Objects;
 using Business.Interfaces;
 using Modelo.Models;
 using System;
@@ -18,10 +19,19 @@ namespace StockControl.Controllers
         public PedidosController(IPedidosBusiness pedidosBusiness, ISelectableBusiness selectablebusiness)
         {
             _pedidosbusiness = pedidosBusiness;
+            _selectableBusiness = selectablebusiness;
         }
         // GET: Pedidos
         public async Task<ActionResult> Index()
         {
+            
+            var proveedores = _selectableBusiness.GetAllSelectable<Proveedores>();
+            proveedores.Add(new KeyValueDto<string>()
+            {
+                Key = -1,
+                Value = "Todos"
+            });
+            ViewBag.Proveedores = proveedores;
             var list = await _pedidosbusiness.GetAllPedidos();
             return View(list);
         }
