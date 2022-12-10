@@ -9,13 +9,13 @@
         <hr>
         <div class="row">
             <div class="col-3 d-flex justify-content-center">
-                @Html.DropDownList("Proveedores", new SelectList(ViewBag.Proveedores, "Key", "Value"), new { @class = "btn btn-primary dropdown-toggle form-control", @title = "Seleccione Proveedor" })
+                @Html.DropDownList("Proveedores", new SelectList(ViewBag.Proveedores, "Key", "Value"), new { @class = "btn btn-primary dropdown-toggle form-control", @style= "margin-right: 20px; margin-left: 20px;", @title = "Seleccione Proveedor" })
                 <button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>
             </div>
-            <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Desde</span><input type="date"></div>
-            <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Hasta</span><input type="date"></div>
-            <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">N°Pedido</span><input type="text"></div>
-            <div class="col-2" style="margin-right: 0px;margin-left: 35px;"><button class="btn btn-primary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-toggle="modal">Buscar</button></div>
+            <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Desde</span><input type="date" id="FechaDesde"></div>
+            <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Hasta</span><input type="date" id="FechaHasta"></div>
+            <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">N°Pedido</span><input type="text" id="PedidoBusqueda"></div>
+            <div class="col-2" style="margin-right: 0px;margin-left: 35px;"><button class="btn btn-primary flex-row justify-content-center align-items-center align-content-center" type="button" onclick="Buscar();">Buscar</button></div>
         </div>
     </div>
     <div style="margin: 70px;margin-left: 20px;margin-top: 20px;">
@@ -176,16 +176,15 @@
     function Buscar() {
         $('#lista').html("");
         $("#loader").show()
-        var f = document.getElementById("FabricanteBusqueda");
-        var fab = f.options[f.selectedIndex].value
+        var p = document.getElementById("Proveedores");
+        var pro = p.options[pro.selectedIndex].value
 
-        var s = document.getElementById("SucursalBusqueda");
-        var suc = s.options[s.selectedIndex].value
+        var desde = document.getElementById("FechaDesde").value;
 
-        var e = document.getElementById("EstadoBusqueda");
-        var est = e.options[e.selectedIndex].value
+        var hasta = document.getElementById("FechaHasta").value;
+       
 
-        var prod = document.getElementById("ProductoBusqueda").value
+        var ped = document.getElementById("PedidoBusqueda").value
 
         $.ajax({
             type: 'GET',

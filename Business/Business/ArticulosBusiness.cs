@@ -42,7 +42,7 @@ namespace Business.Business
         public bool Guardar(Articulos articulo)
         {
             int result = 0;
-            if (articulo.Sucursal == null)
+            if (articulo.Id == 0)
             {
                 result = _articulosDao.Insert(articulo);
             }
