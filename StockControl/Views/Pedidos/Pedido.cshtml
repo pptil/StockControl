@@ -11,7 +11,7 @@
                     @Html.DropDownList("Proveedores", new SelectList(ViewBag.Proveedores, "Key", "Value"), new { @class = "btn btn-primary dropdown-toggle form-control", @title = "Seleccione Proveedor" })
                     <button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>
                 </div>
-                <div class="col-2" style="margin-right: 0px;margin-left: 35px;"><button class="btn btn-primary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-toggle="modal" data-bs-target="#modal-productos">Agregar productos</button></div>
+                <div class="col-2" style="margin-right: 0px;margin-left: 35px;"><button class="btn btn-primary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-toggle="modal" data-bs-target="#modal-productos" onclick="abrirModal()">Agregar productos</button></div>
             </div>
         </div>
         <div style="margin: 70px;margin-left: 20px;margin-top: 20px;">
@@ -66,6 +66,14 @@
         </div>
     </div>
 </div>
+<div id="modalDiv">
+    <div class="modal fade" role="dialog" tabindex="-1" id="modal-productos">
+        <div class="modal-dialog modal-xl" role="document">
+
+        </div>
+    </div>
+</div>
+
 
 <script>
     $(document).ready(function () {
@@ -83,15 +91,54 @@
         });
     }
 
-    function abrirModalProductos(e) {
+    function abrirModal() {
+        $('#modal-productos').html("");
         $.ajax({
-            url: '/Pedidos/GetProductos',
-            data: { 'id': e },
-            type: "post",
+            url: '/Pedidos/GetArticulos',
+            type: 'GET',
             cache: false,
             success: function (result) {
-                $('#modalDiv').html(result);
+                $('#modal-productos').html(result);
             }
         });
+    }
+
+    function AddProducto() {
+        $("#loader").show()
+        var articulo = DatosArticulo();
+        $.ajax({
+            type: 'POST',
+            url: '/Articulos/Guardar',
+            data: { "articulo": articulo },
+            success: function (result) {
+                if (result) {
+                    toastr.success("Se ha generado el articulo.", "Éxito", { disableTimeOut: true, closeButton: true });
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                } else {
+                    toastr.warning("No se modificaron datos.")
+                }
+                $("#loader").hide()
+
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al guardar el articulo");
+                $("#loader").hide()
+            }
+        });
+    }
+
+    function DatosArticulo() {
+        tr[i].getElementsByTagName("td")[1];
+        return {
+            Id: document.getElementById("articulo_cod").value,
+            Nombre: document.getElementById("articulo_denom").value,
+            Stock: document.getElementById("articulo_stock").value,
+            Precio: document.getElementById("articulo_precio").value,
+            Estado: document.getElementById("check_estado").checked,
+            Fabricante: e.options[e.selectedIndex].value,
+            Sucursal: 1
+        }
     }
 </script>

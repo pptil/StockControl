@@ -39,6 +39,7 @@ namespace Business.Business
             var list = await _articulosDao.GetFiltrados(filtro.Nuevo, filtro.Sucursal, filtro.Fabricante, filtro.Producto);
             return list;
         }
+
         public bool Guardar(Articulos articulo)
         {
             int result = 0;

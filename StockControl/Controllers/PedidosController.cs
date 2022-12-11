@@ -14,12 +14,14 @@ namespace StockControl.Controllers
     public class PedidosController : Controller
     {
         private readonly IPedidosBusiness _pedidosbusiness;
+        private readonly IArticulosBusiness _articulosbusiness;
         private readonly ISelectableBusiness _selectableBusiness;
 
-        public PedidosController(IPedidosBusiness pedidosBusiness, ISelectableBusiness selectablebusiness)
+        public PedidosController(IPedidosBusiness pedidosBusiness, ISelectableBusiness selectablebusiness, IArticulosBusiness articulosbusiness)
         {
             _pedidosbusiness = pedidosBusiness;
             _selectableBusiness = selectablebusiness;
+            _articulosbusiness = articulosbusiness;
         }
         // GET: Pedidos
         public async Task<ActionResult> Index()
@@ -63,8 +65,17 @@ namespace StockControl.Controllers
         // POST: Pedidos/Pedido
         public ActionResult Pedido(int id = 0)
         {
-            var pedido = new Pedidos();
-            ViewBag.Proveedores = _selectableBusiness.GetAllSelectable<Proveedores>();
+            var pedido = new Pedidos()
+            {
+                PedidosDet = new List<PedidosDet>()
+            };
+            var proveedores = _selectableBusiness.GetAllSelectable<Proveedores>();
+            proveedores.Add(new KeyValueDto<string>()
+            {
+                Key = -1,
+                Value = "Seleccione Proveedor"
+            });
+            ViewBag.Proveedores = proveedores;
             if (id!= 0)
             {
                 pedido = _pedidosbusiness.GetByID(id);
@@ -79,6 +90,52 @@ namespace StockControl.Controllers
             return Json(result);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> GetArticulos()
+        {
+            var fabricantes = _selectableBusiness.GetAllSelectable<Fabricantes>();
+            var sucursales = _selectableBusiness.GetAllSelectable<Sucursales>();
+            fabricantes.Add(new KeyValueDto<string>()
+            {
+                Key = -1,
+                Value = "Todos"
+            });
+            sucursales.Add(new KeyValueDto<string>()
+            {
+                Key = -1,
+                Value = "Todos"
+            });
+            ViewBag.Sucursales = sucursales;
+            ViewBag.Fabricantes = fabricantes;
 
+            
+            var list = await _articulosbusiness.GetAllArticulos();
+            return PartialView("_ModalProductos", list);
+
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> AddArticulo()
+        {
+            var fabricantes = _selectableBusiness.GetAllSelectable<Fabricantes>();
+            var sucursales = _selectableBusiness.GetAllSelectable<Sucursales>();
+            fabricantes.Add(new KeyValueDto<string>()
+            {
+                Key = -1,
+                Value = "Todos"
+            });
+            sucursales.Add(new KeyValueDto<string>()
+            {
+                Key = -1,
+                Value = "Todos"
+            });
+            ViewBag.Sucursales = sucursales;
+            ViewBag.Fabricantes = fabricantes;
+
+
+            var list = await _articulosbusiness.GetAllArticulos();
+            return PartialView("_ModalProductos", list);
+
+        }
     }
 }
