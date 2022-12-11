@@ -1,4 +1,5 @@
-﻿using Business.Interfaces;
+﻿using Business.Data_Transfer_Objects;
+using Business.Interfaces;
 using DataAccess.Dao;
 using DataAccess.Interfaces;
 using Modelo.Models;
@@ -26,6 +27,12 @@ namespace Business.Business
         public async Task<List<Pedidos>> GetPedidosPorSucursal(int sucursal)
         {
             return await _pedidosDao.GetPedidosPorSucursal(sucursal);
+        }
+
+        public async Task<IList<Pedidos>> GetArticulosCondicion(FiltrosDto filtro)
+        {
+            var list = await _pedidosDao.GetFiltrados(filtro.Pedido, filtro.Sucursal, filtro.Proveedor, filtro.FechaDesde, filtro.FechaHasta);
+            return list;
         }
 
         public Pedidos GetByID(int id)

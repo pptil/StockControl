@@ -20,32 +20,11 @@
     </div>
     <div style="margin: 70px;margin-left: 20px;margin-top: 20px;">
         <h5>Detalle del pedido</h5>
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>N° Pedido</th>
-                        <th>Proveedor</th>
-                        <th>Cantidad</th>
-                        <th>Precio Total</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
 
-                        <tr>
-                            <td>@item.Id</td>
-                            <td>@item.Proveedor</td>
-                            <td>@item.PedidosDet.Count()</td>
-                            <td>$324232</td>
-                            <td><a id="btn-edit" href="~/Pedidos/Pedido/?id=@item.Id"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal" data-val=@item.Id><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+        <div id="lista">
+            @Html.Partial("_Resultados", Model)
         </div>
+        
         <div class="row text-start">
             <div class="col">
                 <hr>
@@ -177,7 +156,7 @@
         $('#lista').html("");
         $("#loader").show()
         var p = document.getElementById("Proveedores");
-        var pro = p.options[pro.selectedIndex].value
+        var pro = p.options[p.selectedIndex].value
 
         var desde = document.getElementById("FechaDesde").value;
 
@@ -188,8 +167,8 @@
 
         $.ajax({
             type: 'GET',
-            url: '/Articulos/Buscar',
-            data: { Sucursal: suc, Producto: prod, Fabricante: fab, Nuevo: est },
+            url: '/Pedidos/Buscar',
+            data: { Sucursal: 1, Pedido: ped, Proveedor: pro, FechaDesde: desde, FechaHasta: hasta },
             success: function (result) {
                 $("#lista").html(result);
                 $("#loader").hide()

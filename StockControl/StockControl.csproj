@@ -178,6 +178,7 @@
     <Content Include="Views\Pedidos\_ModalProveedor.cshtml" />
     <Content Include="Views\Reparaciones\_Resultados.cshtml" />
     <Content Include="Views\Articulos\_Resultados.cshtml" />
+    <Content Include="Views\Pedidos\_Resultados.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

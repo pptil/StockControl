@@ -36,6 +36,30 @@ namespace StockControl.Controllers
             return View(list);
         }
 
+        // GET: Articulos
+        [HttpGet]
+        public async Task<ActionResult> Buscar([System.Web.Http.FromBody] FiltrosDto filtros)
+        {
+            var proveedores = _selectableBusiness.GetAllSelectable<Proveedores>();
+            var sucursales = _selectableBusiness.GetAllSelectable<Sucursales>();
+            proveedores.Add(new KeyValueDto<string>()
+            {
+                Key = -1,
+                Value = "Todos"
+            });
+            sucursales.Add(new KeyValueDto<string>()
+            {
+                Key = -1,
+                Value = "Todos"
+            });
+            ViewBag.Sucursales = sucursales;
+            ViewBag.Proveedores = proveedores;
+
+            var list = await _pedidosbusiness.GetArticulosCondicion(filtros);
+            return PartialView("_Resultados", list);
+
+        }
+
         // POST: Pedidos/Pedido
         public ActionResult Pedido(int id = 0)
         {

@@ -34,6 +34,26 @@ namespace DataAccess.Dao
                       
         }
 
+        public async Task<IList<Pedidos>> GetFiltrados(int? pedido, int sucursal, int proveedor, DateTime? desde, DateTime? hasta)
+        {
+            try
+            {
+                var query = DbSet.AsQueryable();
+                query = pedido != 0 ? query.Where(x => x.Id == pedido) : query;
+                query = proveedor != -1 ? query.Where(x => x.Proveedor == proveedor) : query;
+                query = desde != null ? query.Where(x => x.FechaAlta >= desde) : query;
+                query = hasta != null ? query.Where(x => x.FechaAlta <= hasta) : query;
+                var list = await query.ToListAsync();
+                return list;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
+        }
+
         public async Task<List<Pedidos>> GetAllPedidos()
         {
 

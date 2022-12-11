@@ -13,6 +13,7 @@ namespace DataAccess.Interfaces
         IDelete<Pedidos>
     {
         Task<List<Pedidos>> GetAllPedidos();
+        Task<IList<Pedidos>> GetFiltrados(int? pedido, int sucursal, int proveedor, DateTime? desde, DateTime? hasta);
         Task<List<Pedidos>> GetPedidosPorSucursal(int sucursal);
         Pedidos GetPedido(int id);
     }
