@@ -1,11 +1,11 @@
-﻿@model List<Modelo.Models.Pedidos>
+﻿@model List<Modelo.Models.Ventas>
 @{
-    ViewBag.Title = "Pedidos";
+    ViewBag.Title = "Ventas";
 }
 
 <div class="d-flex flex-column" id="content-wrapper">
     <div>
-        <h3 class="text-dark mb-1">Pedidos</h3>
+        <h3 class="text-dark mb-1">Ventas</h3>
         <hr>
         <div class="row">
             <div class="col-3 d-flex justify-content-center">
@@ -14,12 +14,12 @@
             </div>
             <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Desde</span><input type="date" id="FechaDesde"></div>
             <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Hasta</span><input type="date" id="FechaHasta"></div>
-            <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">N°Pedido</span><input type="text" id="PedidoBusqueda"></div>
+            <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">N°Venta</span><input type="text" id="VentaBusqueda"></div>
             <div class="col-2" style="margin-right: 0px;margin-left: 35px;"><button class="btn btn-primary flex-row justify-content-center align-items-center align-content-center" type="button" onclick="Buscar();">Buscar</button></div>
         </div>
     </div>
     <div style="margin: 70px;margin-left: 20px;margin-top: 20px;">
-        <h5>Detalle de la Pedido</h5>
+        <h5>Detalle del Venta</h5>
 
         <div id="lista">
             @Html.Partial("_Resultados", Model)
@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-</div><a class="border rounded d-inline scroll-to-top" style="background: rgba(90,92,105,0);margin-right: 155px;"  href="~/Pedidos/Pedido/?id=0" ><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" href="~/Pedidos/Pedido/?id=0">Nuevo Pedido</button></a>
+</div><a class="border rounded d-inline scroll-to-top" style="background: rgba(90,92,105,0);margin-right: 155px;"  href="~/Ventas/Venta/?id=0" ><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" href="~/Ventas/Venta/?id=0">Nuevo Venta</button></a>
 
 <!--Modal Confirmacion-->
 <div class="modal fade" role="dialog" tabindex="-1" id="modal-confirmacion">
@@ -45,8 +45,8 @@
                 <p></p><strong>(Esta accion no se puede deshacer)</strong><p></p>
             </div>
             <div class="modal-footer">
-                <input type="hidden" id="idPedido">
-                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-danger" type="button" onclick="Delete(document.getElementById('idPedido').value)">Borrar</button>
+                <input type="hidden" id="idVenta">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-danger" type="button" onclick="Delete(document.getElementById('idVenta').value)">Borrar</button>
             </div>
         </div>
     </div>
@@ -59,8 +59,8 @@
 
     $('#modal-confirmacion').on('show.bs.modal', function (event) {
         var myVal = $(event.relatedTarget).data('val');
-        document.getElementById("idPedido").value = myVal;
-        document.getElementById("alerta").innerHTML = "¿Desea borrar la Pedido Nº:" + myVal + " completo?";
+        document.getElementById("idVenta").value = myVal;
+        document.getElementById("alerta").innerHTML = "¿Desea borrar el Venta Nº:" + myVal + " completo?";
     });
 
     function abrirModal(e) {
@@ -76,10 +76,10 @@
         });
     }
 
-    function GetPedido(e) {
+    function GetVenta(e) {
         $("#loader").show()
         $.ajax({
-            url: '/Pedidos/Pedido',
+            url: '/Ventas/Venta',
             data: {'id': e },
             type: 'POST',
             success: function (result) {
@@ -131,7 +131,7 @@
         $("#loader").show()
         $.ajax({
             type: 'DELETE',
-            url: '/Pedidos/Borrar',
+            url: '/Ventas/Borrar',
             data: { "accion": 'DELETE', "id": e },
             success: function (result) {
                 if (result) {
@@ -163,12 +163,12 @@
         var hasta = document.getElementById("FechaHasta").value;
        
 
-        var ped = document.getElementById("PedidoBusqueda").value
+        var ped = document.getElementById("VentaBusqueda").value
 
         $.ajax({
             type: 'GET',
-            url: '/Pedidos/Buscar',
-            data: { Sucursal: 1, Pedido: ped, Proveedor: pro, FechaDesde: desde, FechaHasta: hasta },
+            url: '/Ventas/Buscar',
+            data: { Sucursal: 1, Venta: ped, Proveedor: pro, FechaDesde: desde, FechaHasta: hasta },
             success: function (result) {
                 $("#lista").html(result);
                 $("#loader").hide()

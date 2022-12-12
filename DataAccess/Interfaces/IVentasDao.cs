@@ -7,10 +7,14 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Interfaces
 {
-    public interface IVentasDao : 
+    public interface IVentasDao :
         IGetAll<Ventas>,
-        IGetBy<Ventas>
+        IGetBy<Ventas>,
+        IDelete<Ventas>
     {
+        Task<List<Ventas>> GetAllVentas();
+        Task<IList<Ventas>> GetFiltrados(int? pedido, int sucursal, int proveedor, DateTime? desde, DateTime? hasta);
         Task<List<Ventas>> GetVentasPorSucursal(int sucursal);
+        Ventas GetPedido(int id);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Business.Interfaces;
+﻿using Business.Data_Transfer_Objects;
+using Business.Interfaces;
 using DataAccess.Dao;
 using DataAccess.Interfaces;
 using Modelo.Models;
@@ -12,20 +13,44 @@ namespace Business.Business
 {
     public class VentasBusiness : IVentasBusiness
     {
-        private readonly IVentasDao _ventasDao;
-        public VentasBusiness(IVentasDao ventasDao)
+        private readonly IVentasDao _VentasDao;
+        public VentasBusiness(IVentasDao VentasDao)
         {
-            _ventasDao = ventasDao;
+            _VentasDao = VentasDao;
         }
 
-        public IList<Ventas> GetAllVentas()
+        public async Task<IList<Ventas>> GetAllVentas()
         {
-            return _ventasDao.GetAll();
+            return await _VentasDao.GetAllVentas();
         }
-        
+
         public async Task<List<Ventas>> GetVentasPorSucursal(int sucursal)
         {
-            return await _ventasDao.GetVentasPorSucursal(sucursal);
+            return await _VentasDao.GetVentasPorSucursal(sucursal);
+        }
+
+        public async Task<IList<Ventas>> GetArticulosCondicion(FiltrosDto filtro)
+        {
+            var list = await _VentasDao.GetFiltrados(filtro.Pedido, filtro.Sucursal, filtro.Proveedor, filtro.FechaDesde, filtro.FechaHasta);
+            return list;
+        }
+
+        public Ventas GetByID(int id)
+        {
+            return _VentasDao.GetPedido(id);
+        }
+
+        public bool Borrar(int id)
+        {
+            var ok = _VentasDao.Delete(id);
+            if (ok == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

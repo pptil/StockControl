@@ -151,6 +151,7 @@
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\ReparacionesController.cs" />
     <Compile Include="Controllers\ReportesController.cs" />
+    <Compile Include="Controllers\VentasController.cs" />
     <Compile Include="DecimalModelBinder.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -179,6 +180,12 @@
     <Content Include="Views\Reparaciones\_Resultados.cshtml" />
     <Content Include="Views\Articulos\_Resultados.cshtml" />
     <Content Include="Views\Pedidos\_Resultados.cshtml" />
+    <Content Include="Views\Ventas\_ModalVentas.cshtml" />
+    <Content Include="Views\Ventas\_ModalProductos.cshtml" />
+    <Content Include="Views\Ventas\_ModalProveedor.cshtml" />
+    <Content Include="Views\Ventas\_Resultados.cshtml" />
+    <Content Include="Views\Ventas\Index.cshtml" />
+    <Content Include="Views\Ventas\Venta.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
