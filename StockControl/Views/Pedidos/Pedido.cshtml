@@ -1,8 +1,8 @@
-﻿@model Modelo.Models.Ventas
+﻿@model Modelo.Models.Pedidos
 <div class="d-flex flex-column" id="content-wrapper">
     <div id="content">
         <div class="container-fluid">
-            <h3 class="text-dark mb-1">Ventas</h3>
+            <h3 class="text-dark mb-1">Pedido</h3>
             <hr>
         </div>
         <div>
@@ -27,7 +27,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.VentasDet)
+                        @foreach (var item in Model.PedidosDet)
                         {
                             <tr>
                                 <td>@item.Articulos.Nombre</td>
@@ -47,7 +47,7 @@
             </div>
         </div>
     </div>
-</div><a class="border rounded d-inline scroll-to-top" href="~/Ventas/Venta" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-toggle="modal">Imprimir Venta</button></a>
+</div><a class="border rounded d-inline scroll-to-top" href="~/Pedidos/Pedido" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-toggle="modal">Imprimir Pedido</button></a>
 
 
 <div class="modal fade" role="dialog" tabindex="-1" id="modal-confirmacion">
@@ -78,7 +78,7 @@
     })
     function abrirModalProveedor(e) {
         $.ajax({
-            url: '/Ventas/GetProveedores',
+            url: '/Pedidos/GetProveedores',
             data: { 'id': e },
             type: "post",
             cache: false,
@@ -91,7 +91,7 @@
     function abrirModal() {
         $('#modal-productos').html("");
         $.ajax({
-            url: '/Ventas/GetArticulos',
+            url: '/Pedidos/GetArticulos',
             type: 'GET',
             cache: false,
             success: function (result) {
