@@ -1,4 +1,6 @@
-﻿@*@{
+﻿@model Business.Data_Transfer_Objects.HomeDto
+
+@*@{
         ViewBag.Title = "Home";
     }*@
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
@@ -12,33 +14,33 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-striped table-responsive">
                         <thead>
                             <tr>
-                                <th>Fecha</th>
-                                <th>Usuario</th>
-                                <th>Sucursal</th>
-                                <th>Sector</th>
-                                <th>Accion</th>
-                                <th>Descripción</th>
+                                <th width="100px">Fecha</th>
+                                <th width="100px">Sector</th>
+                                <th width="500px">Detalle</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>01-01-2020</td>
-                                <td>Agustín</td>
-                                <td>Olmos</td>
-                                <td>Comercial</td>
-                                <td>Venta</td>
-                                <td>Teclado Casio CTK240</td>
+                                <td>@Model.Reparacion.FechaAlta.Value.ToShortDateString()</td>
+                                <td>Reparacion</td>
+                                <td>@Model.Reparacion.Nombre - @Model.Reparacion.Descripcion</td>
+                                <td><a id="btn-edit" href="~/Reparaciones/Index"><i class="fa fa-edit fs-4 text-primary"></i></a></td>
                             </tr>
                             <tr>
-                                <td><br>01-01-2020<br><br></td>
-                                <td><br>Agustín<br><br></td>
-                                <td><br>Olmos<br><br></td>
-                                <td><br>Comercial<br><br></td>
-                                <td>Compra</td>
-                                <td>Casio SP20 Pedal</td>
+                                <td>@Model.Pedido.FechaAlta.Value.ToShortDateString()</td>
+                                <td>Pedidos</td>
+                                <td>Proveedor: @Model.Pedido.Proveedores.Nombre - Cantidad: @Model.Pedido.PedidosDet.Count()</td>
+                                <td><a id="btn-edit" href="~/Pedidos/Index"><i class="fa fa-edit fs-4 text-primary"></i></a></td>
+                            </tr>
+                            <tr>
+                                <td>@Model.Venta.FechaAlta.Value.ToShortDateString()</td>
+                                <td>Ventas</td>
+                                <td>Costo Venta: @Model.Venta.Precio - Cantidad: @Model.Venta.VentasDet.Count()</td>
+                                <td><a id="btn-edit" href="~/Ventas/Index"><i class="fa fa-edit fs-4 text-primary"></i></a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -53,21 +55,23 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-striped table-responsive">
                         <thead>
-                            <tr></tr>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Fabricante</th>
+                                <th>Precio</th>
+                            </tr>
                         </thead>
                         <tbody>
+                            @foreach (var item in Model.Articulos)
+                            {
                             <tr>
-                                <td>Imagen</td>
-                                <td>Nombre</td>
-                                <td>Precio</td>
+                                <td>@item.Nombre</td>
+                                <td>@item.Fabricantes.Nombre</td>
+                                <td> $ @item.Precio</td>
                             </tr>
-                            <tr>
-                                <td>Imagen</td>
-                                <td>Nombre</td>
-                                <td>Precio</td>
-                            </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

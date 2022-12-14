@@ -17,12 +17,14 @@ namespace StockControl.Controllers
         private readonly IVentasBusiness _ventasbusiness;
         private readonly IArticulosBusiness _articulosbusiness;
         private readonly ISelectableBusiness _selectableBusiness;
+        private readonly IReportesBusiness _reportesBusiness;
 
-        public VentasController(IVentasBusiness VentasBusiness, ISelectableBusiness selectablebusiness, IArticulosBusiness articulosbusiness)
+        public VentasController(IVentasBusiness VentasBusiness, ISelectableBusiness selectablebusiness, IArticulosBusiness articulosbusiness, IReportesBusiness reportesBusiness)
         {
             _ventasbusiness = VentasBusiness;
             _selectableBusiness = selectablebusiness;
             _articulosbusiness = articulosbusiness;
+            _reportesBusiness = reportesBusiness;
         }
         // GET: Ventas
         public async Task<ActionResult> Index()
@@ -137,6 +139,13 @@ namespace StockControl.Controllers
             var list = await _articulosbusiness.GetAllArticulos();
             return PartialView("_ModalProductos", list);
 
+        }
+
+        public async Task<string> Generar(int pedidoId)
+        {
+            var docMemoryStream = await _reportesBusiness.GenerarInformePDF(pedidoId, Model.Enums.TipoPDFEnum.Venta);
+
+            return Convert.ToBase64String(docMemoryStream.ToArray());
         }
     }
 }

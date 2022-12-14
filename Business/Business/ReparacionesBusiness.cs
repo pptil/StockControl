@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Configuration;
 using System.Threading.Tasks;
 
 namespace Business.Business
@@ -15,6 +16,7 @@ namespace Business.Business
     {
         private readonly IReparacionesDao _reparacionesDao;
         private readonly ISucursalDao _sucursalDao;
+        static readonly string sucursal = ConfigurationManager.AppSettings["Sucursal"];
         public ReparacionesBusiness(IReparacionesDao reparacionesDao, ISucursalDao sucursalDao)
         {
             _reparacionesDao = reparacionesDao;
@@ -37,39 +39,23 @@ namespace Business.Business
         }
         public bool Guardar(Reparaciones reparaciones)
         {
-            int result = 0;
+            bool result =false;
             if (reparaciones.Id == null)
             {
-                result = _reparacionesDao.Insert(reparaciones);
+                reparaciones.FechaAlta = DateTime.Now;
+                reparaciones.Sucursal = Convert.ToInt16(sucursal);
+                result = _reparacionesDao.Insert(reparaciones) > 0;
             }
             else
             {
-                result = _reparacionesDao.Update(reparaciones, reparaciones.Id);
+                result = _reparacionesDao.Update(reparaciones, reparaciones.Id) > 0;
             }
-
-            if (result == 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return result;
         }
 
         public bool Borrar(int id)
         {
-            var ok =  _reparacionesDao.Delete(id);
-            if(ok == 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;    
-            }
+            return _reparacionesDao.Delete(id) > 0;           
         }
-
-
     }
 }

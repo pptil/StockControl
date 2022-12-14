@@ -17,12 +17,14 @@ namespace StockControl.Controllers
         private readonly IReparacionesBusiness _reparacionesbusiness;
         private readonly IEnumBusiness _enumbusiness;
         private readonly ISelectableBusiness _selectableBusiness;
+        private readonly IReportesBusiness _reportesBusiness;
 
-        public ReparacionesController(IReparacionesBusiness reparacionesBusiness, IEnumBusiness enumBusiness, ISelectableBusiness selectableBusiness)   
+        public ReparacionesController(IReparacionesBusiness reparacionesBusiness, IEnumBusiness enumBusiness, ISelectableBusiness selectableBusiness, IReportesBusiness reportesBusiness)   
         {
             _reparacionesbusiness = reparacionesBusiness;
             _enumbusiness = enumBusiness;
             _selectableBusiness = selectableBusiness;
+            _reportesBusiness = reportesBusiness;
         }
 
         [HttpGet]
@@ -85,6 +87,13 @@ namespace StockControl.Controllers
         {
             var result = _reparacionesbusiness.Borrar(id);
             return Json(result);
+        }
+
+        public async Task<string> Generar(int pedidoId)
+        {
+            var docMemoryStream = await _reportesBusiness.GenerarInformePDF(pedidoId, Model.Enums.TipoPDFEnum.Reparacion);
+
+            return Convert.ToBase64String(docMemoryStream.ToArray());
         }
     }
 }

@@ -26,6 +26,8 @@ namespace Modelo.Models
 
         public DateTime? FechaAlta { get; set; }
 
+        public DateTime? FechaModificacion { get; set; }
+
         public virtual Sucursales Sucursales { get; set; }
 
         public virtual Usuarios Usuarios { get; set; }

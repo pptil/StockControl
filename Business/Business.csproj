@@ -34,8 +34,13 @@
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Spire.Pdf, Version=8.11.10.0, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spire.PDF.8.11.10\lib\net40\Spire.Pdf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\EnumBusiness.cs" />
+    <Compile Include="Business\HomeBusiness.cs" />
     <Compile Include="Business\PedidosBusiness.cs" />
     <Compile Include="Business\ReportesBusiness.cs" />
     <Compile Include="Business\SelectableBusiness.cs" />
@@ -54,8 +60,11 @@
     <Compile Include="Business\ArticulosBusiness.cs" />
     <Compile Include="Business\ReparacionesBusiness.cs" />
     <Compile Include="Data Transfer Objects\FiltrosDto.cs" />
+    <Compile Include="Data Transfer Objects\HomeDto.cs" />
     <Compile Include="Data Transfer Objects\KeyValueDto.cs" />
+    <Compile Include="Helpers\PDFHelper.cs" />
     <Compile Include="Interfaces\IEnumBusiness.cs" />
+    <Compile Include="Interfaces\IHomeBusiness.cs" />
     <Compile Include="Interfaces\IReportesBusiness.cs" />
     <Compile Include="Interfaces\ISelectableBusiness.cs" />
     <Compile Include="Interfaces\IUsuariosBusiness.cs" />
@@ -67,8 +76,15 @@
     <Compile Include="Mappers\EnumMappingExtensions.cs" />
     <Compile Include="Mappers\SelectableMappingExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{25AB9EBF-E181-4D2A-B675-48D2E5436415}</Project>
@@ -78,6 +94,15 @@
       <Project>{A4313FA1-0AE4-47F4-818A-E1752B81A00C}</Project>
       <Name>Modelo</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\logolcdlg.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

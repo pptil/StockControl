@@ -31,6 +31,9 @@ namespace Modelo.Models
         [StringLength(50)]
         public string Ciudad { get; set; }
 
+        [StringLength(11)]
+        public string CUIT { get; set; }
+
         public virtual Provincias Provincias { get; set; }
     }
 }

@@ -81,6 +81,14 @@
     <Compile Include="Migrations\202211291416217_initial.designer.cs">
       <DependentUpon>202211291416217_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202212141508317_ActualizacionPedidosArticulosReparacionesVentas.cs" />
+    <Compile Include="Migrations\202212141508317_ActualizacionPedidosArticulosReparacionesVentas.designer.cs">
+      <DependentUpon>202212141508317_ActualizacionPedidosArticulosReparacionesVentas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212141517059_CUITProveedores.cs" />
+    <Compile Include="Migrations\202212141517059_CUITProveedores.designer.cs">
+      <DependentUpon>202212141517059_CUITProveedores.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -97,6 +105,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202211291416217_initial.resx">
       <DependentUpon>202211291416217_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212141508317_ActualizacionPedidosArticulosReparacionesVentas.resx">
+      <DependentUpon>202212141508317_ActualizacionPedidosArticulosReparacionesVentas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212141517059_CUITProveedores.resx">
+      <DependentUpon>202212141517059_CUITProveedores.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -74,7 +74,7 @@ namespace DataAccess.Dao
 
         }
 
-        public Ventas GetPedido(int id)
+        public Ventas GetVenta(int id)
         {
 
             try

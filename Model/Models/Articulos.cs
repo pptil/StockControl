@@ -32,6 +32,8 @@ namespace Modelo.Models
 
         public bool? Estado { get; set; }
 
+        public DateTime? FechaAlta { get; set; }
+
         public virtual Fabricantes Fabricantes { get; set; }
 
         public virtual Sucursales Sucursales { get; set; }

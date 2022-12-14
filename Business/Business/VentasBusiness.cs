@@ -37,7 +37,7 @@ namespace Business.Business
 
         public Ventas GetByID(int id)
         {
-            return _VentasDao.GetPedido(id);
+            return _VentasDao.GetVenta(id);
         }
 
         public bool Borrar(int id)

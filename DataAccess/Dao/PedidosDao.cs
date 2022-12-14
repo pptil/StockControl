@@ -62,7 +62,8 @@ namespace DataAccess.Dao
                 using (var _context = new StockContext())
                 {
                     var list = await _context.Pedidos
-                                .Include("PedidosDet")
+                                .Include(x => x.PedidosDet)
+                                .Include(x=>x.Proveedores)
                                 .ToListAsync();
                     return list;
                 }
@@ -84,7 +85,9 @@ namespace DataAccess.Dao
                 {
                     var pedido =  _context.Pedidos
                                 .Include(i=>i.PedidosDet.Select(p=>p.Articulos))
+                                .Include(i => i.PedidosDet.Select(p => p.Articulos.Fabricantes))
                                 .Include(i=>i.PedidosDet)
+                                .Include(i=>i.Proveedores)
                                 .Where(i => i.Id == id)
                                 .FirstOrDefault();
                     return pedido;

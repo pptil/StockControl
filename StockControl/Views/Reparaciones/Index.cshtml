@@ -48,7 +48,7 @@
     </div>
 </div>
 
-
+<script src="~/Scripts/FileDownload.js"></script>
 <script>
     $(document).ready(function () {
         $("#EstadoBusqueda").val("-1");
@@ -170,8 +170,27 @@
             Observaciones: document.getElementById("otras_obs").value,
             Estado: e.options[e.selectedIndex].value,
             Costo: document.getElementById("costo_reparacion").value,
-            Sucursal: 1
+            Sucursal: document.getElementById("sucursal").value,
+            FechaAlta: document.getElementById("fecha").value,
         }
+    }
+
+    function Imprimir(e) {
+        let date = new Date().toLocaleDateString();
+        $("#loader").show()
+        $.ajax({
+            type: 'GET',
+            url: '/Reparaciones/Generar',
+            data: { pedidoId: e},
+            success: function (data) {
+                downloadBase64Bytes(data, "Pedido-Articulos:" + date, "application/pdf")
+                $("#loader").hide()
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al generar el informe del caso.");
+                $("#loader").hide()
+            }
+        });
     }
 
     /*$(".dropdown-toggle").dropdown();*/

@@ -1,15 +1,14 @@
-﻿using Model.Enums;
+﻿using Business.Data_Transfer_Objects;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Business.Interfaces
 {
-    public interface IReportesBusiness
+    public interface IHomeBusiness
     {
-        Task<MemoryStream> GenerarInformePDF(int casoFraudeId, TipoPDFEnum tipo);
+        Task<HomeDto> GetHome();
     }
 }

@@ -17,5 +17,6 @@ namespace DataAccess.Interfaces
 
     {
         Task<IList<Reparaciones>> GetFiltrados(EstadosEnum estado, int sucursal, string prod);
+        Task<Reparaciones> GetReparacionParaInforme(int id);
     }
 }

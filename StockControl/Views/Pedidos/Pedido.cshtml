@@ -47,7 +47,7 @@
             </div>
         </div>
     </div>
-</div><a class="border rounded d-inline scroll-to-top" href="~/Pedidos/Pedido" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-toggle="modal">Imprimir Pedido</button></a>
+</div><a class="border rounded d-inline scroll-to-top" onclick="Generar()" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-toggle="modal">Realizar Pedido</button></a>
 
 
 <div class="modal fade" role="dialog" tabindex="-1" id="modal-confirmacion">
@@ -71,7 +71,7 @@
     </div>
 </div>
 
-
+<script src="~/Scripts/FileDownload.js"></script>
 <script>
     $(document).ready(function () {
         $("#Proveedores").val("-1");
@@ -142,5 +142,23 @@
         //    Fabricante: e.options[e.selectedIndex].value,
         //    Sucursal: 1
         //}
+    }
+
+    function Generar() {
+        let date = new Date().toLocaleDateString();
+        $("#loader").show()
+        $.ajax({
+            type: 'GET',
+            url: '/Pedidos/Generar',
+            data: { pedidoId: @Model.Id},
+            success: function (data) {
+                downloadBase64Bytes(data, "Pedido-Articulos:" + date, "application/pdf")
+                $("#loader").hide()
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al generar el informe del caso.");
+                $("#loader").hide()
+            }
+        });
     }
 </script>

@@ -26,6 +26,8 @@ else
                     <div class="row">
                         <div class="col">
                             <div class="mb-3"><input class="form-control" type="text" id="producto_codigo" name="codigo" style="display:none" value="@Model.Id"></div>
+                            <div class="mb-3"><input class="form-control" type="text" id="sucursal" name="sucursal" style="display:none" value="@Model.Sucursal"></div>
+                            <div class="mb-3"><input class="form-control" type="text" id="fecha" name="fecha" style="display:none" value="@Model.FechaAlta"></div>
                             <div class="mb-3"><label class="form-label" for="producto"><strong>Producto</strong></label><input class="form-control" type="text" id="producto_reparacion" placeholder="Ingrese producto" name="producto" value="@Model.Nombre"></div>
                         </div>
                         <div class="col">
@@ -44,7 +46,7 @@ else
                                 <div class="form-check"><input class="form-check-input" type="checkbox" id="check_danado" @(Model.EstaDanado.GetValueOrDefault() ? "checked=\"\"" : "")><label class="form-check-label" for="check_danado">Dañado</label></div>
                                 <div class="form-check"><input class="form-check-input" type="checkbox" id="check_trans" @(Model.TieneTransformador.GetValueOrDefault() ? "checked=\"\"" : "")><label class="form-check-label" for="check_trans">Transformador</label></div>
                                 <div class="form-check"><input class="form-check-input" type="checkbox" id="check_funda" @(Model.TieneFunda.GetValueOrDefault() ? "checked=\"\"" : "")><label class="form-check-label" for="check_funda">Funda</label></div>
-                                <div><label class="form-label">Otros</label><textarea class="form-control" placeholder="Otros datos a añadir" id="otras_obs"></textarea></div>
+                                <div><label class="form-label">Otros</label><textarea class="form-control" placeholder="Otros datos a añadir" id="otras_obs">@Model.Observaciones</textarea></div>
                             </div>
                         </div>
                     </div>

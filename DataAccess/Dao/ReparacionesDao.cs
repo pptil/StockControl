@@ -1,4 +1,5 @@
-﻿using DataAccess.Interfaces;
+﻿using DataAccess.Context;
+using DataAccess.Interfaces;
 using Model.Enums;
 using Modelo.Models;
 using System;
@@ -20,6 +21,26 @@ namespace DataAccess.Dao
             query = !string.IsNullOrEmpty(prod) ? query.Where(x => x.Nombre.Contains(prod)) : query;
             var list = await query.ToListAsync();
             return list;
+        }
+
+        public async Task<Reparaciones> GetReparacionParaInforme(int id)
+        {
+            try
+            {
+                using (var _context = new StockContext())
+                {
+                    var list = await _context.Reparaciones
+                                .Include(x=>x.Sucursales)
+                                .Where(x=>x.Id == id)
+                                .FirstOrDefaultAsync();
+                    return list;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

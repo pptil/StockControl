@@ -34,6 +34,7 @@ namespace Modelo.Models
         public double? Costo { get; set; }
 
         public int? Sucursal { get; set; }
+        public DateTime? FechaAlta { get; set; }
 
         public virtual Sucursales Sucursales { get; set; }
 

@@ -42,24 +42,17 @@ namespace Business.Business
 
         public bool Guardar(Articulos articulo)
         {
-            int result = 0;
+            bool result = false;
             if (articulo.Id == 0)
             {
-                result = _articulosDao.Insert(articulo);
+                articulo.FechaAlta = DateTime.Now;
+                result = _articulosDao.Insert(articulo) > 0;
             }
             else
             {
-                result = _articulosDao.Update(articulo, articulo.Id);
+                result = _articulosDao.Update(articulo, articulo.Id) > 0;
             }
-
-            if (result == 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return result;
         }
 
         public bool Borrar(int id)

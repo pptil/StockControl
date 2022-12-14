@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -9,18 +10,18 @@ namespace StockControl.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IArticulosBusiness _articulosbusiness;
+        private readonly IHomeBusiness _homeBusiness;
 
-        public HomeController(IArticulosBusiness articulosBusiness)
+        public HomeController(IHomeBusiness homeBusiness)
         {
-            _articulosbusiness = articulosBusiness;
+            _homeBusiness= homeBusiness;;
         }
         // GET: Home
-        public ActionResult Home()
+        public async Task<ActionResult> Home()
         {
-            var articulos = _articulosbusiness.GetAllArticulos();
+            var homeDto = await _homeBusiness.GetHome();
 
-            return View();
+            return View(homeDto);
         }      
     }
 }

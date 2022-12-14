@@ -22,9 +22,12 @@ namespace Modelo.Models
 
         public DateTime? FechaAlta { get; set; }
 
+        public DateTime? FechaModificación { get; set; }
+
         public virtual Sucursales Sucursales { get; set; }
 
         public virtual Usuarios Usuarios { get; set; }
+        public virtual Proveedores Proveedores { get; set; }
 
         public virtual ICollection<PedidosDet> PedidosDet { get; set; }
 

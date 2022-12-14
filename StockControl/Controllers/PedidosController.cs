@@ -16,12 +16,14 @@ namespace StockControl.Controllers
         private readonly IPedidosBusiness _pedidosbusiness;
         private readonly IArticulosBusiness _articulosbusiness;
         private readonly ISelectableBusiness _selectableBusiness;
+        private readonly IReportesBusiness _reportesBusiness;
 
-        public PedidosController(IPedidosBusiness pedidosBusiness, ISelectableBusiness selectablebusiness, IArticulosBusiness articulosbusiness)
+        public PedidosController(IPedidosBusiness pedidosBusiness, ISelectableBusiness selectablebusiness, IArticulosBusiness articulosbusiness, IReportesBusiness reportesBusiness)
         {
             _pedidosbusiness = pedidosBusiness;
             _selectableBusiness = selectablebusiness;
             _articulosbusiness = articulosbusiness;
+            _reportesBusiness = reportesBusiness;
         }
         // GET: Pedidos
         public async Task<ActionResult> Index()
@@ -109,7 +111,8 @@ namespace StockControl.Controllers
             ViewBag.Fabricantes = fabricantes;
 
             
-            var list = await _articulosbusiness.GetAllArticulos();
+            var productos = await _articulosbusiness.GetAllArticulos();
+            var list = productos.Where(x => x.Stock > 0).ToList();
             return PartialView("_ModalProductos", list);
 
         }
@@ -132,10 +135,17 @@ namespace StockControl.Controllers
             ViewBag.Sucursales = sucursales;
             ViewBag.Fabricantes = fabricantes;
 
-
-            var list = await _articulosbusiness.GetAllArticulos();
+            var productos = await _articulosbusiness.GetAllArticulos();
+            var list = productos.Where(x => x.Stock > 0).ToList();
             return PartialView("_ModalProductos", list);
 
+        }
+
+        public async Task<string> Generar(int pedidoId)
+        {
+            var docMemoryStream = await _reportesBusiness.GenerarInformePDF(pedidoId, Model.Enums.TipoPDFEnum.Pedido);
+
+            return Convert.ToBase64String(docMemoryStream.ToArray());
         }
     }
 }

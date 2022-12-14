@@ -3,12 +3,13 @@
     <div class="card-body">
         <h4 class="card-title">Listado de reparaciones</h4>
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-striped table-responsive">
                 <thead>
                     <tr>
                         <th>Codigo</th>
                         <th>Producto</th>
-                        <th>Descripción&nbsp;</th>
+                        <th>Descripcion</th>
+                        <th>Detalles&nbsp;</th>
                         <th>Observaciones</th>
                         <th>Costo</th>
                         <th>Estado</th>
@@ -18,22 +19,26 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>@item.Id</td>
-                            <td>@item.Nombre</td>
-                            <td>@item.detalle</td>
-                            <td>@item.Observaciones</td>
-                            <td>@item.Costo</td>
-                            <td>@item.estadostring</td>
-                            <td>
-                                <a id="btn-edit" data-bs-target="#modal-reparacion" data-bs-toggle="modal" onclick="abrirModal(@item.Id)">
-                                    <i class="fa fa-edit fs-3 text-primary"></i>
-                                </a>
-                                <a id="btn-delete" data-bs-target="#modal-reparacion" data-bs-toggle="modal" onclick="confirmacion(@item.Id)">
-                                    <i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i>
-                                </a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Nombre</td>
+                        <td>@item.Descripcion</td>
+                        <td>@item.detalle</td>
+                        <td>@item.Observaciones</td>
+                        <td>@item.Costo</td>
+                        <td>@item.estadostring</td>
+                        <td>
+                            <a id="btn-edit" data-bs-target="#modal-reparacion" data-bs-toggle="modal" onclick="abrirModal(@item.Id)">
+                                <i class="fa fa-edit fs-3 text-primary"></i>
+                            </a>
+                            <a id="btn-print" onclick="Imprimir(@item.Id)">                              
+                                <i class="fa fa-print fs-3 text-secondary"></i>
+                            </a>
+                            <a id="btn-delete" data-bs-target="#modal-reparacion" data-bs-toggle="modal" onclick="confirmacion(@item.Id)">
+                                <i class="fa fa-trash fs-4 text-danger"></i>
+                            </a>
+                        </td>
+                    </tr>
                     }
                     <tr></tr>
                 </tbody>

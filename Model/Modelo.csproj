@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Enums\EnumUtils.cs" />
     <Compile Include="Enums\EstadosEnum.cs" />
+    <Compile Include="Enums\TipoPDFEnum.cs" />
     <Compile Include="Interfaces\ISelectable.cs" />
     <Compile Include="Models\Articulos.cs" />
     <Compile Include="Models\Fabricantes.cs" />

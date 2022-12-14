@@ -15,6 +15,6 @@ namespace DataAccess.Interfaces
         Task<List<Ventas>> GetAllVentas();
         Task<IList<Ventas>> GetFiltrados(int? pedido, int sucursal, int proveedor, DateTime? desde, DateTime? hasta);
         Task<List<Ventas>> GetVentasPorSucursal(int sucursal);
-        Ventas GetPedido(int id);
+        Ventas GetVenta(int id);
     }
 }
