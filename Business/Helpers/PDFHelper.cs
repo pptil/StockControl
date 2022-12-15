@@ -58,7 +58,7 @@ namespace Business.Helpers
             var datosProveedor = pedido.Proveedores;
             // Cuerpo del informe
             doc.Pages[pageIndex].Canvas.DrawString("Datos del proveedor", bodyItemFont, grayBrush, new PointF(0, 51));
-            doc.Pages[pageIndex].Canvas.DrawString($"Nombre y apellido: {datosProveedor.Nombre}", bodyContentFont, blackBrush, new PointF(15, 71));
+            doc.Pages[pageIndex].Canvas.DrawString($"Razon social: {datosProveedor.Nombre}", bodyContentFont, blackBrush, new PointF(15, 71));
             doc.Pages[pageIndex].Canvas.DrawString($"CUIT: {datosProveedor.CUIT}", bodyContentFont, blackBrush, new PointF(15, 91));
             doc.Pages[pageIndex].Canvas.DrawString($"Direccion: {datosProveedor.Calle}", bodyContentFont, blackBrush, new PointF(15, 111));
 

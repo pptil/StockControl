@@ -7,11 +7,12 @@
         </div>
         <div>
             <div class="row">
+                <div class="mb-3"><input class="form-control" type="text" id="producto_codigo" name="codigo" style="display:none" value="@Model.Id"></div>
                 <div class="col-3 d-flex justify-content-center">
                     @Html.DropDownList("Proveedores", new SelectList(ViewBag.Proveedores, "Key", "Value"), new { @class = "btn btn-primary dropdown-toggle form-control", @title = "Seleccione Proveedor" })
-                    <button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>
+                    @*<button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>*@
                 </div>
-                <div class="col-2" style="margin-right: 0px;margin-left: 35px;"><button class="btn btn-primary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-toggle="modal" data-bs-target="#modal-productos" onclick="abrirModal()">Agregar productos</button></div>
+                <div class="col-2" style="margin-right: 0px;margin-left: 35px;"><button class="btn btn-dark flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-toggle="modal" data-bs-target="#modal-productos" onclick="abrirModal()">Agregar productos</button></div>
             </div>
         </div>
         <div style="margin: 70px;margin-left: 20px;margin-top: 20px;">
@@ -31,9 +32,9 @@
                         {
                             <tr>
                                 <td>@item.Articulos.Nombre</td>
-                                <td>@item.Cantidad</td>
+                                <td style="width: 81.891px;"><input class="form-control form-control-sm" id="cantidad" type="text" required="" style="text-align: right;width: 60.734px;" value="@item.Cantidad"></td>
                                 <td>@item.Total</td>
-                                <td><a id="btn-edit" href="#" data-bs-target="#modal-productos" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a></td>
+                                <td>@*<a id="btn-edit" href="#" data-bs-target="#modal-productos" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a>*@<a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a></td>
                             </tr>
                         }
 
@@ -103,27 +104,27 @@
     function AddProducto(e) {
         $("#loader").show()
         var articulo = DatosArticulo(e);
-        //$.ajax({
-        //    type: 'POST',
-        //    url: '/Articulos/Guardar',
-        //    data: { "articulo": articulo },
-        //    success: function (result) {
-        //        if (result) {
-        //            toastr.success("Se ha generado el articulo.", "Éxito", { disableTimeOut: true, closeButton: true });
-        //            setTimeout(function () {
-        //                location.reload(true);
-        //            }, 1000);
-        //        } else {
-        //            toastr.warning("No se modificaron datos.")
-        //        }
-        //        $("#loader").hide()
+        $.ajax({
+            type: 'POST',
+            url: '/Articulos/AddArticulo',
+            data: { "articulo": articulo },
+            success: function (result) {
+                if (result) {
+                    toastr.success("Se ha generado el articulo.", "Éxito", { disableTimeOut: true, closeButton: true });
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                } else {
+                    toastr.warning("No se modificaron datos.")
+                }
+                $("#loader").hide()
 
-        //    },
-        //    error: function () {
-        //        toastr.error("Ocurrió un error al guardar el articulo");
-        //        $("#loader").hide()
-        //    }
-        //});
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al guardar el articulo");
+                $("#loader").hide()
+            }
+        });
     }
 
     function DatosArticulo(e) {

@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-3 d-flex justify-content-center">
                 @Html.DropDownList("Proveedores", new SelectList(ViewBag.Proveedores, "Key", "Value"), new { @class = "btn btn-primary dropdown-toggle form-control", @style= "margin-right: 20px; margin-left: 20px;", @title = "Seleccione Proveedor" })
-                <button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>
+                @*<button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>*@
             </div>
             <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Desde</span><input type="date" id="FechaDesde"></div>
             <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Hasta</span><input type="date" id="FechaHasta"></div>
