@@ -26,5 +26,6 @@ namespace Modelo.Models
         public virtual Articulos Articulos { get; set; }
 
         public virtual Ventas Ventas { get; set; }
+        public double? Total => Articulos.Precio * Convert.ToDouble(Cantidad);
     }
 }

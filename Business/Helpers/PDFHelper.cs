@@ -301,7 +301,6 @@ namespace Business.Helpers
             }
             // Cuerpo del informe
             doc.Pages[pageIndex].Canvas.DrawString("Datos de la venta", bodyItemFont, grayBrush, new PointF(0, 51));
-            doc.Pages[pageIndex].Canvas.DrawString($"Vendedor: {venta.Usuarios}", bodyContentFont, blackBrush, new PointF(15, 71));
             doc.Pages[pageIndex].Canvas.DrawString($"Sucursal: {venta.Sucursal}", bodyContentFont, blackBrush, new PointF(15, 91));
             doc.Pages[pageIndex].Canvas.DrawString($"Direccion: {direccion}", bodyContentFont, blackBrush, new PointF(15, 111));
 

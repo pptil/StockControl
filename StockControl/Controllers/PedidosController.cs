@@ -28,7 +28,7 @@ namespace StockControl.Controllers
         // GET: Pedidos
         public async Task<ActionResult> Index()
         {
-            
+
             var proveedores = _selectableBusiness.GetAllSelectable<Proveedores>();
             proveedores.Add(new KeyValueDto<string>()
             {
@@ -78,7 +78,7 @@ namespace StockControl.Controllers
                 Value = "Seleccione Proveedor"
             });
             ViewBag.Proveedores = proveedores;
-            if (id!= 0)
+            if (id != 0)
             {
                 pedido = _pedidosbusiness.GetByID(id);
             }
@@ -110,7 +110,7 @@ namespace StockControl.Controllers
             ViewBag.Sucursales = sucursales;
             ViewBag.Fabricantes = fabricantes;
 
-            
+
             var productos = await _articulosbusiness.GetAllArticulos();
             var list = productos.Where(x => x.Stock > 0).ToList();
             return PartialView("_ModalProductos", list);
@@ -140,7 +140,7 @@ namespace StockControl.Controllers
             return PartialView("_ModalProductos", list);
 
         }
-
+        [HttpPost]
         public async Task<string> Generar(int pedidoId)
         {
             var docMemoryStream = await _reportesBusiness.GenerarInformePDF(pedidoId, Model.Enums.TipoPDFEnum.Pedido);

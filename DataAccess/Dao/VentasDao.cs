@@ -83,6 +83,8 @@ namespace DataAccess.Dao
                 {
                     var pedido = _context.Ventas
                                 .Include(i => i.VentasDet.Select(p => p.Articulos))
+                                .Include(i => i.VentasDet.Select(x=>x.Articulos.Sucursales))
+                                .Include(i => i.VentasDet.Select(x => x.Articulos.Fabricantes))
                                 .Include(i => i.VentasDet)
                                 .Where(i => i.Id == id)
                                 .FirstOrDefault();

@@ -65,10 +65,10 @@ namespace StockControl.Controllers
 
         }
 
-        // POST: Ventas/Pedido
-        public ActionResult Pedido(int id = 0)
+        // POST: Ventas/Venta
+        public ActionResult Venta(int id = 0)
         {
-            var pedido = new Ventas()
+            var venta = new Ventas()
             {
                 VentasDet = new List<VentasDet>()
             };
@@ -81,9 +81,9 @@ namespace StockControl.Controllers
             ViewBag.Proveedores = proveedores;
             if (id != 0)
             {
-                pedido = _ventasbusiness.GetByID(id);
+                venta = _ventasbusiness.GetByID(id);
             }
-            return View("Pedido", pedido);
+            return View("Venta", venta);
         }
 
         [HttpDelete]
@@ -141,6 +141,7 @@ namespace StockControl.Controllers
 
         }
 
+        [HttpPost]
         public async Task<string> Generar(int pedidoId)
         {
             var docMemoryStream = await _reportesBusiness.GenerarInformePDF(pedidoId, Model.Enums.TipoPDFEnum.Venta);

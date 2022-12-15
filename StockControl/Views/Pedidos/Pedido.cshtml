@@ -149,7 +149,7 @@
         let date = new Date().toLocaleDateString();
         $("#loader").show()
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             url: '/Pedidos/Generar',
             data: { pedidoId: @Model.Id},
             success: function (data) {

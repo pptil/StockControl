@@ -9,7 +9,7 @@
         <hr>
         <div class="row">
             <div class="col-3 d-flex justify-content-center">
-                @Html.DropDownList("Proveedores", new SelectList(ViewBag.Proveedores, "Key", "Value"), new { @class = "btn btn-primary dropdown-toggle form-control", @style= "margin-right: 20px; margin-left: 20px;", @title = "Seleccione Proveedor" })
+                @Html.DropDownList("Proveedores", new SelectList(ViewBag.Proveedores, "Key", "Value"), new { @class = "btn btn-primary dropdown-toggle form-control", @style = "margin-right: 20px; margin-left: 20px;", @title = "Seleccione Proveedor" })
                 @*<button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>*@
             </div>
             <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Desde</span><input type="date" id="FechaDesde"></div>
@@ -24,14 +24,14 @@
         <div id="lista">
             @Html.Partial("_Resultados", Model)
         </div>
-        
+
         <div class="row text-start">
             <div class="col">
                 <hr>
             </div>
         </div>
     </div>
-</div><a class="border rounded d-inline scroll-to-top" style="background: rgba(90,92,105,0);margin-right: 155px;"  href="~/Pedidos/Pedido/?id=0" ><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" href="~/Pedidos/Pedido/?id=0">Nuevo Pedido</button></a>
+</div><a class="border rounded d-inline scroll-to-top" style="background: rgba(90,92,105,0);margin-right: 155px;" href="~/Pedidos/Pedido/?id=0"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" href="~/Pedidos/Pedido/?id=0">Nuevo Pedido</button></a>
 
 <!--Modal Confirmacion-->
 <div class="modal fade" role="dialog" tabindex="-1" id="modal-confirmacion">
@@ -80,7 +80,7 @@
         $("#loader").show()
         $.ajax({
             url: '/Pedidos/Pedido',
-            data: {'id': e },
+            data: { 'id': e },
             type: 'POST',
             success: function (result) {
                 $("#loader").hide()
@@ -161,7 +161,7 @@
         var desde = document.getElementById("FechaDesde").value;
 
         var hasta = document.getElementById("FechaHasta").value;
-       
+
 
         var ped = document.getElementById("PedidoBusqueda").value
 

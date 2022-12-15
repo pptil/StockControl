@@ -69,7 +69,6 @@ namespace StockControl.Controllers
 
             var list = await _articulosbusiness.GetArticulosCondicion(filtros);
             return PartialView("_Resultados", list);
-
         }
 
         public async Task<ActionResult> GetArticulosSucursal(int sucursal)
