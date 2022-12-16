@@ -47,6 +47,14 @@ namespace DataAccess.Dao
             }
         }
 
+        public IList<T> GetManyByCondition(Expression<Func<T, bool>> filter)
+        {
+            using (var db = new StockContext())
+            {
+                return db.Set<T>().Where(filter).ToList();
+            }
+        }
+
         public async Task<IList<T>> GetManyByConditionAsync(Expression<Func<T, bool>> filter)
         {
             using (var db = new StockContext())
@@ -85,8 +93,16 @@ namespace DataAccess.Dao
         {
             using (var db = new StockContext())
             {
-                db.Set<T>().Add(entity);
-                return db.SaveChanges();
+                try
+                {
+                    db.Set<T>().Add(entity);
+                    return db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                
             }
         }
 
@@ -102,9 +118,17 @@ namespace DataAccess.Dao
         {
             using (var db = new StockContext())
             {
-                var item = db.Set<T>().Find(id);
-                db.Entry(item).CurrentValues.SetValues(entity);
-                return db.SaveChanges();
+                try
+                {
+                    var item = db.Set<T>().Find(id);
+                    db.Entry(item).CurrentValues.SetValues(entity);
+                    return db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                
             }
         }
 

@@ -1,0 +1,259 @@
+﻿@model Modelo.Models.Pedidos
+
+<script>
+    var arrayPedidos = [];
+    function populatePedidos(id, articulo, cantidad, nombre, precio, total) {
+        arrayPedidos.push({
+            Id: id,
+            Articulo: articulo,
+            Cantidad: cantidad,
+            Nombre: nombre,
+            Precio: precio,
+            Total: total
+        });
+    }
+
+    function populateTablaPedidos() {
+        var body = document.getElementById("bodyPedidos");
+        body.innerHTML = "";
+        for (var i = 0; i < arrayPedidos.length; i++) {
+            var row = body.insertRow(i);
+
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+
+            cell1.innerHTML = arrayPedidos[i].Nombre;
+            cell2.innerHTML = '<input onchange="cantidadInput(' + i +')" class="form-control form-control-sm" min="1" id="cantidad-'+i+'" type="number" required="" style="text-align: right;width: 60.734px;" value="' + arrayPedidos[i].Cantidad + '">';
+            cell3.innerHTML = '<input class="form-control form-control-sm" id="total-'+i+'" type="text" disabled required="" style="text-align: right;width: 100.734px;" value="' + arrayPedidos[i].Total + '">';
+            cell4.innerHTML = '<a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal" data-val="' + arrayPedidos[i].Id + '" ><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a>';           
+        }      
+    }
+</script>
+
+@foreach (var item in Model.PedidosDet)
+{
+    <script>
+        populatePedidos(
+            @item.Id,
+            @item.Articulo,
+            @item.Cantidad,
+            '@item.Articulos.Nombre.Trim()',
+            @item.Articulos.Precio,
+            @item.Total
+        );
+
+    </script>
+
+}
+
+
+<div class="d-flex flex-column" id="content-wrapper">
+    <div id="content">
+        <div class="container-fluid">
+            <h3 class="text-dark mb-1">Pedido</h3>
+            <hr>
+        </div>
+        <div>
+            <div class="row">
+                <div class="mb-3"><input class="form-control" type="text" id="producto_codigo" name="codigo" style="display:none" value="@Model.Id"></div>
+                <div class="col-3 d-flex justify-content-center">
+                    @Html.DropDownListFor(m => m.Proveedor, new SelectList(ViewBag.Proveedores, "Key", "Value"), new { @class = "btn btn-primary dropdown-toggle form-control", @title = "Seleccione Proveedor" })
+                    @*<button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>*@
+                </div>
+                <div class="col-2" style="margin-right: 0px;margin-left: 35px;"><button class="btn btn-dark flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-toggle="modal" data-bs-target="#modal-productos" onclick="abrirModal()">Agregar productos</button></div>
+            </div>
+        </div>
+        <div style="margin: 70px;margin-left: 20px;margin-top: 20px;">
+            <h5>Productos</h5>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Cantidad</th>
+                            <th>Precio Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyPedidos">
+                    </tbody>
+                </table>
+            </div>
+            <div class="row text-start">
+                <div class="col">
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><a class="border rounded d-inline scroll-to-top" onclick="Guardar()" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-toggle="modal">Guardar Pedido</button></a>
+
+<div class="modal fade" role="dialog" tabindex="-1" id="modal-confirmacion">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirmación</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="alerta"></p>
+                <p></p><strong>(Esta accion no se puede deshacer)</strong><p></p>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="idVenta">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-danger" type="button" data-bs-dismiss="modal" onclick="deleteItem(document.getElementById('idVenta').value)">Borrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalDiv">
+    <div class="modal fade" role="dialog" tabindex="-1" id="modal-productos">
+        <div class="modal-dialog modal-xl" role="document">
+
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/FileDownload.js"></script>
+<script>
+    console.log(arrayPedidos)
+    $(document).ready(function () {
+        $("#Proveedores").val("-1");
+        populateTablaPedidos();        
+    })
+
+    function cantidadInput(i) {
+        var cantidadInput = document.getElementById("cantidad-" + i);
+        var totalInput = document.getElementById("total-" + i);
+
+        totalInput.value = parseInt(cantidadInput.value * arrayPedidos[i].Precio)
+        
+        arrayPedidos[i].Cantidad = parseInt(cantidadInput.value);
+    }
+
+    $('#modal-confirmacion').on('show.bs.modal', function (event) {
+        var myVal = $(event.relatedTarget).data('val');
+        document.getElementById("idVenta").value = myVal;
+        document.getElementById("alerta").innerHTML = "¿Desea borrar la Venta Nº:" + myVal + " completo?";
+    });
+
+    function abrirModalProveedor(e) {
+        $.ajax({
+            url: '/Pedidos/GetProveedores',
+            data: { 'id': e },
+            type: "post",
+            cache: false,
+            success: function (result) {
+                $('#modalDiv').html(result);
+            }
+        });
+    }
+
+    function abrirModal() {
+        $('#modal-productos').html("");
+        $.ajax({
+            url: '/Pedidos/GetArticulos',
+            type: 'GET',
+            cache: false,
+            success: function (result) {
+                $('#modal-productos').html(result);
+            }
+        });
+    }
+
+    function AddProducto(e) {
+        $("#loader").show()
+        var articulo = DatosArticulo(e);
+        $.ajax({
+            type: 'POST',
+            url: '/Articulos/AddArticulo',
+            data: { "articulo": articulo },
+            success: function (result) {
+                if (result) {
+                    toastr.success("Se ha generado el articulo.", "Éxito", { disableTimeOut: true, closeButton: true });
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                } else {
+                    toastr.warning("No se modificaron datos.")
+                }
+                $("#loader").hide()
+
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al guardar el articulo");
+                $("#loader").hide()
+            }
+        });
+    }
+
+    function deleteItem(id) {
+
+        var lists = arrayPedidos.filter(x => {
+            return x.Id != id;
+        })
+        console.log(lists);
+        arrayPedidos = lists;     
+        populateTablaPedidos();
+        return arrayPedidos;
+    }
+
+    function test() {
+
+    }
+
+    function Suma(e, x) {
+        var total = document.getElementById("total");
+        /*var mult = e * x;*/
+        /*total.value = mult;*/
+    }
+
+    function DatosArticulo(e) {
+        var tds = e.getElementsByTagName('td');
+        //var id = tds[0].val;
+        //var cantidad = tds[1].val;
+
+        console.log(e);
+        /*conole.log(cantidad);*/
+        //return {
+        //    Id: document.getElementById("articulo_cod").value,
+        //    Nombre: document.getElementById("articulo_denom").value,
+        //    Stock: document.getElementById("articulo_stock").value,
+        //    Precio: document.getElementById("articulo_precio").value,
+        //    Estado: document.getElementById("check_estado").checked,
+        //    Fabricante: e.options[e.selectedIndex].value,
+        //    Sucursal: 1
+        //}
+    }
+
+    function Guardar() {
+        let date = new Date().toLocaleDateString();
+        var f = document.getElementById("Proveedor");
+        var fab = f.options[f.selectedIndex].value
+
+
+        $("#loader").show()
+        $.ajax({
+        type: 'POST',
+            url: '/Pedidos/Guardar',
+            data: { proveedor: fab, pedidoId: @Model.Id, fecha: "@Model.FechaAlta", pedidoDto: arrayPedidos},
+            success: function (result) {
+                if (result) {
+                    toastr.success("Se ha generado el pedido.", "Éxito", { disableTimeOut: true, closeButton: true });
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                } else {
+                    toastr.warning("No se modificaron datos.")
+                }
+                $("#loader").hide()
+
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al guardar el articulo");
+                $("#loader").hide()
+            }
+        });
+    }
+</script>

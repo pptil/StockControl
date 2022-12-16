@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Helpers\AssemblyHelper.cs" />
     <Compile Include="Modules\BusinessConfigModule.cs" />
     <Compile Include="Modules\DataAccessConfigModule.cs" />
@@ -69,6 +68,9 @@
       <Project>{25ab9ebf-e181-4d2a-b675-48d2e5436415}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

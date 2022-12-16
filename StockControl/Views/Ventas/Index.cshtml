@@ -1,0 +1,200 @@
+﻿@model List<Modelo.Models.Ventas>
+@{
+    ViewBag.Title = "Ventas";
+}
+
+<div class="d-flex flex-column" id="content-wrapper">
+    <div>
+        <h3 class="text-dark mb-1">Ventas</h3>
+        <hr>
+        <div class="row">
+            <div class="col-3 d-flex justify-content-center">
+                @*<button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>*@
+            </div>
+            <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Desde</span><input type="date" id="FechaDesde"></div>
+            <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Hasta</span><input type="date" id="FechaHasta"></div>
+            <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">N°Venta</span><input type="text" id="VentaBusqueda"></div>
+            <div class="col-2" style="margin-right: 0px;margin-left: 35px;"><button class="btn btn-primary flex-row justify-content-center align-items-center align-content-center" type="button" onclick="Buscar();">Buscar</button></div>
+        </div>
+    </div>
+    <div style="margin: 70px;margin-left: 20px;margin-top: 20px;">
+        <h5>Detalle de la Venta</h5>
+
+        <div id="lista">
+            @Html.Partial("_Resultados", Model)
+        </div>
+
+        <div class="row text-start">
+            <div class="col">
+                <hr>
+            </div>
+        </div>
+    </div>
+</div><a class="border rounded d-inline scroll-to-top" style="background: rgba(90,92,105,0);margin-right: 155px;" href="~/Ventas/Venta/?id=0"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" href="~/Ventas/Venta/?id=0">Nueva Venta</button></a>
+
+<!--Modal Confirmacion-->
+<div class="modal fade" role="dialog" tabindex="-1" id="modal-confirmacion">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirmación</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="alerta"></p>
+                <p></p><strong>(Esta accion no se puede deshacer)</strong><p></p>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="idVenta">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-danger" type="button" onclick="Delete(document.getElementById('idVenta').value)">Borrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/FileDownload.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#Proveedores").val("-1");
+    })
+
+    $('#modal-confirmacion').on('show.bs.modal', function (event) {
+        var myVal = $(event.relatedTarget).data('val');
+        document.getElementById("idVenta").value = myVal;
+        document.getElementById("alerta").innerHTML = "¿Desea borrar la Venta Nº:" + myVal + " completo?";
+    });
+
+    function abrirModal(e) {
+        $('#modal-content').html("");
+        $.ajax({
+            url: '/Articulos/GetArticulo',
+            data: { "accion": '', 'id': e },
+            type: 'GET',
+            cache: false,
+            success: function (result) {
+                $('#modal-content').html(result);
+            }
+        });
+    }
+
+    function GetVenta(e) {
+        $("#loader").show()
+        $.ajax({
+            url: '/Ventas/Venta',
+            data: { 'id': e },
+            type: 'POST',
+            success: function (result) {
+                $("#loader").hide()
+            }
+        });
+    }
+
+    function confirmacion(e) {
+        $('#modal-content').html("");
+        $.ajax({
+            url: '/Articulos/GetArticulo',
+            data: { "accion": 'DELETE', 'id': e },
+            type: 'GET',
+            cache: false,
+            success: function (result) {
+                $('#modal-content').html(result);
+            }
+        });
+    }
+
+    function Generar(e) {
+        let date = new Date().toLocaleDateString();
+        var f = document.getElementById("Proveedores");
+        var fab = f.options[f.selectedIndex].value
+
+
+        $("#loader").show()
+        $.ajax({
+        type: 'POST',
+            url: '/Ventas/Generar',
+            data: { ventaId: e},
+            success: function (data) {
+                downloadBase64Bytes(data, "Venta-Articulos:" + date, "application/pdf")
+                $("#loader").hide()
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al generar el informe del caso.");
+                $("#loader").hide()
+            }
+        });
+    }
+
+
+    function Delete(e) {
+        $("#loader").show()
+        $.ajax({
+            type: 'DELETE',
+            url: '/Ventas/Borrar',
+            data: { "accion": 'DELETE', "id": e },
+            success: function (result) {
+                if (result) {
+                    toastr.success("Se ha borrado el articulo.", "Éxito");
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                } else {
+                    toastr.warning("No se modificaron datos.")
+                }
+                $("#loader").hide()
+
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al borrar el articulo");
+                $("#loader").hide()
+            }
+        });
+    }
+
+    function Buscar() {
+        $('#lista').html("");
+        $("#loader").show()
+
+        var desde = document.getElementById("FechaDesde").value;
+
+        var hasta = document.getElementById("FechaHasta").value;
+
+
+        var ped = document.getElementById("VentaBusqueda").value
+
+        $.ajax({
+            type: 'GET',
+            url: '/Ventas/Buscar',
+            data: { Sucursal: 1, Pedido: ped, FechaDesde: desde, FechaHasta: hasta },
+            success: function (result) {
+                $("#lista").html(result);
+                $("#loader").hide()
+            },
+            error: function () {
+                $("#loader").hide()
+                /*location.reload();*/
+            }
+        });
+    }
+
+    function DatosArticulo() {
+        var e = document.getElementById("Fabricante");
+
+        return {
+            Id: document.getElementById("articulo_cod").value,
+            Nombre: document.getElementById("articulo_denom").value,
+            Stock: document.getElementById("articulo_stock").value,
+            Precio: document.getElementById("articulo_precio").value,
+            Estado: document.getElementById("check_estado").checked,
+            Fabricante: e.options[e.selectedIndex].value,
+            Sucursal: 1
+        }
+    }
+
+    /*$(".dropdown-toggle").dropdown();*/
+    $('.dropdown-menu').on('click', 'a', function () {
+        var text = $(this).html();
+        var htmlText = text + ' <span class="caret"></span>';
+        $(this).closest('.dropdown').find('.dropdown-toggle').html(htmlText);
+    });
+</script>
+
+

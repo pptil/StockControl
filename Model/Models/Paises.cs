@@ -14,12 +14,11 @@ namespace Modelo.Models
             Provincias = new HashSet<Provincias>();
         }
 
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int pais_cod { get; set; }
+        public int Id { get; set; }
 
         [StringLength(50)]
-        public string pais_denom { get; set; }
+        public string Nombre { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Provincias> Provincias { get; set; }

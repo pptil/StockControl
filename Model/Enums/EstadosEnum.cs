@@ -9,6 +9,8 @@ namespace Model.Enums
 {
     public enum EstadosEnum : int
     {
+        [Description("Sin Asignar")]
+        SinAsignar = 0,
         [Description("En espera")]
         Espera = 1,
         [Description("En Curso")]

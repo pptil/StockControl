@@ -14,14 +14,13 @@ namespace Modelo.Models
             Proveedores = new HashSet<Proveedores>();
         }
 
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int provincia_cod { get; set; }
+        public int Id { get; set; }
 
         [StringLength(10)]
-        public string provincia_denom { get; set; }
+        public string Nombre { get; set; }
 
-        public int? pais_cod { get; set; }
+        public int? Pais { get; set; }
 
         public virtual Paises Paises { get; set; }
 

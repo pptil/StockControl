@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace DataAccess.Interfaces
 {
     public interface IProveedoresDao : 
-        IGetAll<Proveedores>
+        IGetAll<Proveedores>,
+        IGetBy<Proveedores>
     {
     }
 }

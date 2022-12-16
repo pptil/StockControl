@@ -12,6 +12,7 @@ namespace DataAccess.Interfaces
         T GetBy(object id);
         T GetByCondition(Expression<Func<T, bool>> filter);
         Task<T> GetByConditionAsync(Expression<Func<T, bool>> filter);
+        IList<T> GetManyByCondition(Expression<Func<T, bool>> filter);
         Task<IList<T>> GetManyByConditionAsync(Expression<Func<T, bool>> filter);
         IEnumerable<T> GetBy<TKey>(Expression<Func<T, bool>> filter, Expression<Func<T, TKey>> order, int pageNumber = 0, int pageSize = 0, bool orderByDesc = false);
         int Count(Expression<Func<T, bool>> filter);

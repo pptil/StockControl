@@ -1,0 +1,76 @@
+﻿@model Modelo.Models.Articulos
+@if (ViewBag.Delete == true)
+{
+    <div class="modal-header">
+        <h4 class="modal-title">Confirmación</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <p>¿Desea borrar el artículo @Model.Id: @Model.Nombre ?</p>
+    </div>
+    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-danger" onclick="Delete(@Model.Id)" type="button" data-bs-dismiss="modal">Borrar</button></div>
+
+
+}
+else
+{
+    <div class="modal-header">
+        <h4 class="modal-title">Producto</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="card shadow mb-3">
+            <div class="card-header py-3">
+                <p class="text-primary m-0 fw-bold">Producto</p>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3"><input class="form-control" type="text" id="articulo_cod" name="codigo" style="display:none" value="@Model.Id"></div>
+                            <div class="mb-3"><input class="form-control" type="text" id="articulo_fecha" name="codigo" style="display:none" value="@Model.FechaAlta"></div>
+                            <div class="mb-3"><label class="form-label" for="producto"><strong>Producto</strong></label><input class="form-control" type="text" id="articulo_denom" placeholder="Ingrese producto" name="producto" value="@Model.Nombre"></div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="display:none">
+                            <div class="mb-3"><label class="form-label" for="sucursal_cod"><strong>Sucursal</strong></label><input class="form-control" type="text" id="sucursal_cod" name="descripcion" value="@Model.Sucursal"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label class="form-label" for="observaciones"><strong>Estado</strong></label>
+                                <div class="form-check"><input class="form-check-input" type="checkbox" id="check_estado" @(Model.Estado.GetValueOrDefault() ? "checked=\"\"" : "")><label class="form-check-label" for="check_disponible">Nuevo</label></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label class="form-label" for="fabricante"><strong>Fabricante</strong></label>
+                                <div class="dropdown" id="fabricante">
+                                    @Html.DropDownListFor(m => m.Fabricante, new SelectList(ViewBag.Fabricantes, "Key", "Value"), new { @class = "btn btn-light dropdown-toggle selectpicker", @data_live_search = "true", @title = "Fabricante", @data_max_options = 1 })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3"><label class="form-label" for="articulo_precio"><strong>Precio</strong></label><input class="form-control" type="text" id="articulo_precio" placeholder="$0" name="articulo_precio" style="text-align: right;" value="@Model.Precio"></div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3"><label class="form-label" for="articulo_stock"><strong>Stock</strong></label><input class="form-control" type="text" id="articulo_stock" placeholder="0" name="articulo_stock" style="text-align: right;" value="@Model.Stock"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button" onclick="Guardar()" data-bs-dismiss="modal">Guardar</button></div>
+    <script>
+        $(".selectpicker").selectpicker({
+            "title": "Select Options"
+        }).selectpicker("render");
+    </script>
+}

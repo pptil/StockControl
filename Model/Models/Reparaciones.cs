@@ -11,38 +11,37 @@ namespace Modelo.Models
     public partial class Reparaciones
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int reparacion_cod { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int? Id { get; set; }
 
         [StringLength(50)]
-        public string reparacion_producto { get; set; }
+        public string Nombre { get; set; }
 
         [StringLength(100)]
-        public string reparacion_desc { get; set; }
+        public string Descripcion { get; set; }
 
-        public bool? reparacion_danado { get; set; }
+        public bool? EstaDanado { get; set; }
 
-        public bool? reparacion_transformador { get; set; }
+        public bool? TieneTransformador { get; set; }
 
-        public bool? reparacion_funda { get; set; }
+        public bool? TieneFunda { get; set; }
 
         [StringLength(50)]
-        public string reparacion_obs { get; set; }
+        public string Observaciones { get; set; }
 
-        public EstadosEnum reparacion_estado { get; set; }
+        public EstadosEnum Estado { get; set; }
 
-        public double? reparacion_costo { get; set; }
+        public double? Costo { get; set; }
 
-        public int? sucursal_cod { get; set; }
+        public int? Sucursal { get; set; }
+        public DateTime? FechaAlta { get; set; }
 
         public virtual Sucursales Sucursales { get; set; }
 
-        public string danado => reparacion_danado == true ? "Dañado" : null;
-        public string transformador => reparacion_danado == true ? "Sin Transformador" : null;
-        public string funda => reparacion_funda == true ? "Sin Funda" : null;
+        public string danado => EstaDanado == true ? "Dañado" : null;
+        public string transformador => TieneTransformador == true ? "Sin Transformador" : null;
+        public string funda => TieneFunda == true ? "Sin Funda" : null;
         public string detalle => $"{danado} {transformador} {funda}";
-        public string estadostring => reparacion_estado.GetAttribute<DescriptionAttribute>().Description;
-
-
+        public string estadostring => Estado.GetAttribute<DescriptionAttribute>().Description;
     }
 }

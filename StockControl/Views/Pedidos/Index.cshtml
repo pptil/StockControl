@@ -1,168 +1,39 @@
-﻿
+﻿@model List<Modelo.Models.Pedidos>
 @{
     ViewBag.Title = "Pedidos";
 }
 
 <div class="d-flex flex-column" id="content-wrapper">
     <div>
-        <h3 class="text-dark mb-1">Pedidos a proveedor</h3>
+        <h3 class="text-dark mb-1">Pedidos</h3>
         <hr>
         <div class="row">
             <div class="col-3 d-flex justify-content-center">
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">Selecciona Proveedor</button>
-                    <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
-                </div><button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>
+                @Html.DropDownList("Proveedores", new SelectList(ViewBag.Proveedores, "Key", "Value"), new { @class = "btn btn-primary dropdown-toggle form-control", @style = "margin-right: 20px; margin-left: 20px;", @title = "Seleccione Proveedor" })
+                @*<button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>*@
             </div>
-            <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Desde</span><input type="date"></div>
-            <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Hasta</span><input type="date"></div>
-            <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">N°Pedido</span><input type="text"></div>
-            <div class="col-2" style="margin-right: 0px;margin-left: 35px;"><button class="btn btn-primary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-toggle="modal">Buscar</button></div>
+            <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Desde</span><input type="date" id="FechaDesde"></div>
+            <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Hasta</span><input type="date" id="FechaHasta"></div>
+            <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">N°Pedido</span><input type="text" id="PedidoBusqueda"></div>
+            <div class="col-2" style="margin-right: 0px;margin-left: 35px;"><button class="btn btn-primary flex-row justify-content-center align-items-center align-content-center" type="button" onclick="Buscar();">Buscar</button></div>
         </div>
     </div>
     <div style="margin: 70px;margin-left: 20px;margin-top: 20px;">
-        <h5>Detalle del pedido</h5>
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>N° Pedido</th>
-                        <th>Proveedor</th>
-                        <th>Cantidad</th>
-                        <th>Precio Total</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>788473</td>
-                        <td>Cuerdeah</td>
-                        <td>8</td>
-                        <td>$324232</td>
-                        <td><a id="btn-edit" href="newpedido.html" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a></td>
-                    </tr>
-                    <tr></tr>
-                </tbody>
-            </table>
+        <h5>Detalle de la Pedido</h5>
+
+        <div id="lista">
+            @Html.Partial("_Resultados", Model)
         </div>
+
         <div class="row text-start">
             <div class="col">
                 <hr>
             </div>
         </div>
-        <div class="row d-flex flex-row">
-            <div class="col d-flex justify-content-end align-items-end" style="margin: 0px;margin-right: 0px;"><button class="btn btn-info link-light d-flex flex-row" type="button">Imprimir pedido</button></div>
-        </div>
     </div>
-</div><a class="border rounded d-inline scroll-to-top" href="newpedido.html" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-toggle="modal">Nuevo Pedido</button></a>
-<div class="modal fade" role="dialog" tabindex="-1" id="modal-productos">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Buscar Productos</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="card shadow mb-3">
-                    <div class="card-header py-3"><input class="form-control-sm" type="text" placeholder="-Buscar productos-"></div>
-                    <div class="card-body">
-                        <form>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <div class="table-responsive fs-6 fw-light">
-                                            <table class="table table-sm table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Codigo</th>
-                                                        <th>Producto</th>
-                                                        <th>Fabricante</th>
-                                                        <th>Color</th>
-                                                        <th>Cantidad</th>
-                                                        <th>Precio</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="fs-6">
-                                                    <tr>
-                                                        <td style="text-align: center;">13423</td>
-                                                        <td style="width: 166.078px;">CTK-240</td>
-                                                        <td style="width: 192.297px;">Casio</td>
-                                                        <td style="width: 96.8438px;">Negro</td>
-                                                        <td style="width: 81.891px;"><input class="form-control form-control-sm" type="text" required="" style="text-align: right;width: 60.734px;"></td>
-                                                        <td style="text-align: right;">$13234</td>
-                                                        <td style="text-align: center;"><i class="fa fa-plus-circle text-success" style="width: 12.7188px;height: 19px;font-size: 26px;text-align: center;"></i></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" role="dialog" tabindex="-1" id="modal-proveedor">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Añadir Proveedor</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="card shadow mb-3">
-                    <div class="card-header py-3">
-                        <p class="text-primary m-0 fw-bold">Proveedor</p>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3"><label class="form-label" for="username"><strong>Nombre</strong></label><input class="form-control" type="text" id="username" placeholder="user.name" name="username"></div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3"><label class="form-label" for="email"><strong>Correo</strong><br></label><input class="form-control" type="email" id="email" placeholder="user@example.com" name="email"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3"><label class="form-label" for="first_name"><strong>Telefono</strong></label><input class="form-control" type="text" id="first_name" placeholder="John" name="first_name"></div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="last_name"><strong>Pais</strong></label>
-                                        <div class="dropdown">
-                                            <button class="btn btn-light dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">-Seleccione-</button>
-                                            <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="first_name"><strong>Provincia</strong></label>
-                                        <div class="dropdown">
-                                            <button class="btn btn-light dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">-Seleccione-</button>
-                                            <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3"><label class="form-label" for="last_name"><strong>Calle</strong></label><input class="form-control" type="text" id="last_name-2" placeholder="Doe" name="last_name"></div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
-        </div>
-    </div>
-</div>
+</div><a class="border rounded d-inline scroll-to-top" style="background: rgba(90,92,105,0);margin-right: 155px;" href="~/Pedidos/Pedido/?id=0"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" href="~/Pedidos/Pedido/?id=0">Nuevo Pedido</button></a>
+
+<!--Modal Confirmacion-->
 <div class="modal fade" role="dialog" tabindex="-1" id="modal-confirmacion">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -170,11 +41,163 @@
                 <h4 class="modal-title">Confirmación</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>¿Desea borrar el item?</p>
+                <p id="alerta"></p>
+                <p></p><strong>(Esta accion no se puede deshacer)</strong><p></p>
             </div>
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-danger" type="button">Borrar</button></div>
+            <div class="modal-footer">
+                <input type="hidden" id="idPedido">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-danger" type="button" onclick="Delete(document.getElementById('idPedido').value)">Borrar</button>
+            </div>
         </div>
     </div>
 </div>
+
+<script src="~/Scripts/FileDownload.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#Proveedores").val("-1");
+    })
+
+    $('#modal-confirmacion').on('show.bs.modal', function (event) {
+        var myVal = $(event.relatedTarget).data('val');
+        document.getElementById("idPedido").value = myVal;
+        document.getElementById("alerta").innerHTML = "¿Desea borrar la Pedido Nº:" + myVal + " completo?";
+    });
+
+    function abrirModal(e) {
+        $('#modal-content').html("");
+        $.ajax({
+            url: '/Articulos/GetArticulo',
+            data: { "accion": '', 'id': e },
+            type: 'GET',
+            cache: false,
+            success: function (result) {
+                $('#modal-content').html(result);
+            }
+        });
+    }
+
+    function GetPedido(e) {
+        $("#loader").show()
+        $.ajax({
+            url: '/Pedidos/Pedido',
+            data: { 'id': e },
+            type: 'POST',
+            success: function (result) {
+                $("#loader").hide()
+            }
+        });
+    }
+
+    function confirmacion(e) {
+        $('#modal-content').html("");
+        $.ajax({
+            url: '/Articulos/GetArticulo',
+            data: { "accion": 'DELETE', 'id': e },
+            type: 'GET',
+            cache: false,
+            success: function (result) {
+                $('#modal-content').html(result);
+            }
+        });
+    }
+
+    function Generar(e) {
+        let date = new Date().toLocaleDateString();
+        var f = document.getElementById("Proveedores");
+        var fab = f.options[f.selectedIndex].value
+
+
+        $("#loader").show()
+        $.ajax({
+        type: 'POST',
+            url: '/Pedidos/Generar',
+            data: { pedidoId: e},
+            success: function (data) {
+                downloadBase64Bytes(data, "Pedido-Articulos:" + date, "application/pdf")
+                $("#loader").hide()
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al generar el informe del caso.");
+                $("#loader").hide()
+            }
+        });
+    }
+
+
+    function Delete(e) {
+        $("#loader").show()
+        $.ajax({
+            type: 'DELETE',
+            url: '/Pedidos/Borrar',
+            data: { "accion": 'DELETE', "id": e },
+            success: function (result) {
+                if (result) {
+                    toastr.success("Se ha borrado el articulo.", "Éxito");
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                } else {
+                    toastr.warning("No se modificaron datos.")
+                }
+                $("#loader").hide()
+
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al borrar el articulo");
+                $("#loader").hide()
+            }
+        });
+    }
+
+    function Buscar() {
+        $('#lista').html("");
+        $("#loader").show()
+        var p = document.getElementById("Proveedores");
+        var pro = p.options[p.selectedIndex].value
+
+        var desde = document.getElementById("FechaDesde").value;
+
+        var hasta = document.getElementById("FechaHasta").value;
+
+
+        var ped = document.getElementById("PedidoBusqueda").value
+
+        $.ajax({
+            type: 'GET',
+            url: '/Pedidos/Buscar',
+            data: { Sucursal: 1, Pedido: ped, Proveedor: pro, FechaDesde: desde, FechaHasta: hasta },
+            success: function (result) {
+                $("#lista").html(result);
+                $("#loader").hide()
+            },
+            error: function () {
+                $("#loader").hide()
+                /*location.reload();*/
+            }
+        });
+    }
+
+    function DatosArticulo() {
+        var e = document.getElementById("Fabricante");
+
+        return {
+            Id: document.getElementById("articulo_cod").value,
+            Nombre: document.getElementById("articulo_denom").value,
+            Stock: document.getElementById("articulo_stock").value,
+            Precio: document.getElementById("articulo_precio").value,
+            Estado: document.getElementById("check_estado").checked,
+            Fabricante: e.options[e.selectedIndex].value,
+            Sucursal: 1
+        }
+    }
+
+    /*$(".dropdown-toggle").dropdown();*/
+    $('.dropdown-menu').on('click', 'a', function () {
+        var text = $(this).html();
+        var htmlText = text + ' <span class="caret"></span>';
+        $(this).closest('.dropdown').find('.dropdown-toggle').html(htmlText);
+    });
+</script>
 
 

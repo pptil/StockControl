@@ -4,103 +4,199 @@
 }
 
 <div class="d-flex flex-column" id="content-wrapper">
-        <h3 class="text-dark mb-1">Reparaciones</h3>
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Listado de reparaciones</h4>
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Codigo</th>
-                                <th>Producto</th>
-                                <th>Descripción&nbsp;</th>
-                                <th>Observaciones</th>
-                                <th>Costo</th>
-                                <th>Estado</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>@item.reparacion_cod</td>
-                                    <td>@item.reparacion_producto</td>
-                                    <td>@item.detalle</td>
-                                    <td>@item.reparacion_obs</td>
-                                    <td>@item.reparacion_costo</td>
-                                    <td>@item.estadostring</td>
-                                    <td><a id="btn-edit" href="#" data-bs-target="#modal-reparacion" data-bs-toggle="modal"><i class="fa fa-edit fs-3 text-primary"></i></a></td>
-                                </tr>
-                            }
-                            <tr></tr>
-                        </tbody>
-                    </table>
-                </div>
+    <h3 class="text-dark mb-1">Reparaciones</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-1">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Estado</label>
+                @Html.DropDownList("EstadoBusqueda", new SelectList(ViewBag.Estados, "Key", "Value"), new { @class = "btn btn-dark dropdown-toggle form-control"})
             </div>
         </div>
+        <div class="col-md-1">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Sucursal</label>
+                @Html.DropDownList("SucursalBusqueda", new SelectList(ViewBag.Sucursales, "Key", "Value"), new { @class = "btn btn-primary dropdown-toggle form-control",  @title = "Todas" })
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="ProductoBusqueda">Producto</label>
+                <input type="text" class="form-control" id="ProductoBusqueda" placeholder="Ingrese producto">               
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="form-group">
+                <label>Buscar</label>
+                <button class="border rounded d-inline btn-primary form-control" onclick="Buscar();"><i class="fa fa-search" style="font-size:20px"></i></button>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div id="lista">
+        @Html.Partial("_Resultados", Model)
+    </div>
+
+</div><a class="border rounded d-inline scroll-to-top" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-target="#modal-reparacion" data-bs-toggle="modal" onclick="abrirModal(0)">Nueva Reparacion</button></a>
 
 
-</div><a class="border rounded d-inline scroll-to-top" href="#page-top" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-target="#modal-reparacion" data-bs-toggle="modal">Nueva Reparacion</button></a>
+<!--Modal-->
 <div class="modal fade" role="dialog" tabindex="-1" id="modal-reparacion">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Reparacion</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="card shadow mb-3">
-                    <div class="card-header py-3">
-                        <p class="text-primary m-0 fw-bold">Nueva Reparación</p>
-                    </div>
-                    <div class="card-body">
-                        <form>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3"><label class="form-label" for="username"><strong>Producto</strong></label><input class="form-control" type="text" id="username" placeholder="Ingrese producto" name="username"></div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3"><label class="form-label" for="first_name"><strong>Descripción</strong></label><input class="form-control" type="text" id="first_name-1" placeholder="Añada una descripcion de la accion a realizar" name="first_name"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="first_name"><strong>Observaciones</strong></label>
-                                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-4"><label class="form-check-label" for="formCheck-4">Dañado</label></div>
-                                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-2"><label class="form-check-label" for="formCheck-2">Transformador</label></div>
-                                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Funda</label></div>
-                                        <div><label class="form-label">Otros</label><textarea class="form-control" placeholder="Otros datos a añadir"></textarea></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="first_name"><strong>Estado de reparación</strong></label>
-                                        <div class="dropdown">
-                                            <button class="btn btn-light dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">-Seleccione-</button>
-                                            <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item" href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3"><label class="form-label" for="last_name"><strong>Costo</strong></label><input class="form-control" type="text" id="last_name-2" placeholder="$0" name="last_name" style="text-align: right;"></div>
-                                </div>
-                            </div>
-                            <div class="mb-3"></div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-primary" type="button">Guardar</button></div>
+        <div class="modal-content" id="modal-content">
         </div>
     </div>
 </div>
 
+<script src="~/Scripts/FileDownload.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#EstadoBusqueda").val("-1");
+        $("#SucursalBusqueda").val("-1");
+    })
+    function abrirModal(e) {
+        $('#modal-content').html("");
+        $.ajax({
+            url: '/Reparaciones/GetReparacion',
+            data: { "accion": '', 'id': e },
+            type: 'GET',
+            cache: false,
+            success: function (result) {
+                $('#modal-content').html(result);
+            }
+        });
+    }
+
+    function confirmacion(e) {
+        $('#modal-content').html("");
+        $.ajax({
+            url: '/Reparaciones/GetReparacion',
+            data: { "accion": 'DELETE', 'id': e },
+            type: 'GET',
+            cache: false,
+            success: function (result) {
+                $('#modal-content').html(result);
+            }
+        });
+    }
+
+    function Guardar() {
+        $("#loader").show()
+        var reparacion = DatosReparacion();
+        $.ajax({
+            type: 'POST',
+            url: '/Reparaciones/Guardar',
+            data: { "reparacion": reparacion },
+            success: function (result) {
+                if (result) {
+                    toastr.success("Se ha generado la reparacion.", "Éxito", { disableTimeOut: true, closeButton: true });
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                } else {
+                    toastr.warning("No se modificaron datos.")
+                }
+                $("#loader").hide()
+
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al guardar la reparacion");
+                $("#loader").hide()
+            }
+        });
+    }
+
+    function Delete(e) {
+        $("#loader").show()
+        $.ajax({
+            type: 'DELETE',
+            url: '/Reparaciones/Borrar',
+            data: { "accion": 'DELETE', "id": e },
+            success: function (result) {
+                if (result) {
+                    toastr.success("Se ha borrado la reparacion.", "Éxito");
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                } else {
+                    toastr.warning("No se modificaron datos.")
+                }
+                $("#loader").hide()
+
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al borrar la reparacion");
+                $("#loader").hide()
+            }
+        });
+    }
+
+    function Buscar() {
+        $('#lista').html("");
+        $("#loader").show()
+        var e = document.getElementById("EstadoBusqueda");
+        var est = e.options[e.selectedIndex].value
+
+        var s = document.getElementById("SucursalBusqueda");
+        var suc = s.options[s.selectedIndex].value
+
+        var prod = document.getElementById("ProductoBusqueda").value
+
+        $.ajax({
+            type: 'GET',
+            url: '/Reparaciones/Buscar',
+            data: { Estado: est, Sucursal: suc, Producto: prod },
+            success: function (result) {
+                $("#lista").html(result);
+                $("#loader").hide()
+            },
+            error: function () {
+                $("#loader").hide()
+                /*location.reload();*/
+            }
+        });
+    }
+
+    function DatosReparacion() {
+        var e = document.getElementById("Estado");
+
+        return {
+            Id: document.getElementById("producto_codigo").value,
+            Nombre: document.getElementById("producto_reparacion").value,
+            Descripcion: document.getElementById("descripcion_reparacion").value,
+            EstaDanado: document.getElementById("check_danado").checked,
+            TieneTransformador: document.getElementById("check_trans").checked,
+            TieneFunda: document.getElementById("check_funda").checked,
+            Observaciones: document.getElementById("otras_obs").value,
+            Estado: e.options[e.selectedIndex].value,
+            Costo: document.getElementById("costo_reparacion").value,
+            Sucursal: document.getElementById("sucursal").value,
+            FechaAlta: document.getElementById("fecha").value,
+        }
+    }
+
+    function Imprimir(e) {
+        let date = new Date().toLocaleDateString();
+        $("#loader").show()
+        $.ajax({
+            type: 'GET',
+            url: '/Reparaciones/Generar',
+            data: { pedidoId: e},
+            success: function (data) {
+                downloadBase64Bytes(data, "Pedido-Articulos:" + date, "application/pdf")
+                $("#loader").hide()
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al generar el informe del caso.");
+                $("#loader").hide()
+            }
+        });
+    }
+
+    /*$(".dropdown-toggle").dropdown();*/
+    $('.dropdown-menu').on('click', 'a', function () {
+        var text = $(this).html();
+        var htmlText = text + ' <span class="caret"></span>';
+        $(this).closest('.dropdown').find('.dropdown-toggle').html(htmlText);
+    });
+</script>

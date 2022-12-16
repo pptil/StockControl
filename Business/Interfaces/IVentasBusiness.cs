@@ -1,4 +1,5 @@
-﻿using Modelo.Models;
+﻿using Business.Data_Transfer_Objects;
+using Modelo.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,11 @@ namespace Business.Interfaces
 {
     public interface IVentasBusiness
     {
-        IList<Ventas> GetAllVentas();
+        Task<IList<Ventas>> GetAllVentas();
         Task<List<Ventas>> GetVentasPorSucursal(int sucursal);
+        Task<IList<Ventas>> GetArticulosCondicion(FiltrosDto filtros);
+        Ventas GetByID(int id);
+        bool Borrar(int id);
+        Task<bool> Guardar(int id, DateTime? fecha, PedidosDto[] ventaDto);
     }
 }

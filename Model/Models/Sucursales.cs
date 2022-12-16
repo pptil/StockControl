@@ -1,12 +1,13 @@
 namespace Modelo.Models
 {
+    using Model.Interfaces;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     
 
-    public partial class Sucursales
+    public partial class Sucursales : ISelectable
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sucursales()
@@ -18,13 +19,12 @@ namespace Modelo.Models
             Ventas = new HashSet<Ventas>();
         }
 
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int sucursal_cod { get; set; }
+        public int Id { get; set; }
 
         [Required]
-        [StringLength(10)]
-        public string sucursal_denom { get; set; }
+        [StringLength(50)]
+        public string Nombre { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Articulos> Articulos { get; set; }
