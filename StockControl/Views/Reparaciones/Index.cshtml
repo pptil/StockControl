@@ -160,6 +160,9 @@
     function DatosReparacion() {
         var e = document.getElementById("Estado");
 
+        var costo = document.getElementById("costo_reparacion").value
+        console.log(costo);
+
         return {
             Id: document.getElementById("producto_codigo").value,
             Nombre: document.getElementById("producto_reparacion").value,
@@ -169,7 +172,7 @@
             TieneFunda: document.getElementById("check_funda").checked,
             Observaciones: document.getElementById("otras_obs").value,
             Estado: e.options[e.selectedIndex].value,
-            Costo: document.getElementById("costo_reparacion").value,
+            Costo: parseFloat(costo),
             Sucursal: document.getElementById("sucursal").value,
             FechaAlta: document.getElementById("fecha").value,
         }

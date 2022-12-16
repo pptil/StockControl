@@ -60,7 +60,7 @@ else
                             </div>
                         </div>
                         <div class="col">
-                            <div class="mb-3"><label class="form-label" for="costo"><strong>Costo</strong></label><input class="form-control" type="text" id="costo_reparacion" placeholder="$0" name="costo" style="text-align: right;" value="@Model.Costo"></div>
+                            <div class="mb-3"><label class="form-label" for="costo"><strong>Costo</strong></label><input class="form-control" type="text" oninput="soloDecimal(event)" id="costo_reparacion" placeholder="$0" name="costo" style="text-align: right;" value="@Model.Costo"></div>
                         </div>
                     </div>
                     <div class="mb-3"></div>
@@ -72,5 +72,37 @@ else
 
 
 }
+<script>
+    function soloDecimal(event) {
+        var pattern = /^\d+(\.\d{0,2})?$/;
+        var regex = new RegExp(pattern);
+        if (regex.test(event.target.value))
+            return true;
+
+        var textbox = event.target;
+        var ss = textbox.selectionStart;
+        var se = textbox.selectionEnd;
+        var ln = textbox.value.length;
+
+        var textbefore = textbox.value.substring(0, ss);    //text in front of selected text
+        var textselected = textbox.value.substring(ss, se); //selected text
+        var textafter = textbox.value.substring(se, ln);    //text following selected text
+
+        if (ss == se) // if no text is selected
+        {
+            textbox.value = textbox.value.substring(0, ss - 1) + textbox.value.substring(se, ln);
+            textbox.focus();
+            textbox.selectionStart = ss - 1;
+            textbox.selectionEnd = ss - 1;
+        }
+        else // if some text is selected
+        {
+            textbox.value = textbefore + textafter;
+            textbox.focus();
+            textbox.selectionStart = ss;
+            textbox.selectionEnd = ss;
+        }
+    }
+</script>
 
 
