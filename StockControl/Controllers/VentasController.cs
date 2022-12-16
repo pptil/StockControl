@@ -112,7 +112,8 @@ namespace StockControl.Controllers
             ViewBag.Fabricantes = fabricantes;
 
 
-            var list = await _articulosbusiness.GetAllArticulos();
+            var productos = await _articulosbusiness.GetAllArticulos();
+            var list = productos.Where(x => x.Stock > 0).ToList();
             return PartialView("_ModalProductos", list);
 
         }

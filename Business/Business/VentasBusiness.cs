@@ -14,9 +14,11 @@ namespace Business.Business
     public class VentasBusiness : IVentasBusiness
     {
         private readonly IVentasDao _ventasDao;
-        public VentasBusiness(IVentasDao VentasDao)
+        private readonly IArticulosDao _artículosDao;
+        public VentasBusiness(IVentasDao VentasDao, IArticulosDao artículosDao)
         {
             _ventasDao = VentasDao;
+            _artículosDao = artículosDao;
         }
 
         public async Task<IList<Ventas>> GetAllVentas()
@@ -42,20 +44,39 @@ namespace Business.Business
 
         public async Task<bool> Guardar(int id, DateTime? fecha, PedidosDto[] ventaDto)
         {
+            if (id == 0)
+            {
+                for (int i = 0; i < ventaDto.Length; i++)
+                {
+                    VentaArticulo(ventaDto[i]);
+                }
+                var venta = MapVentas(null, fecha, ventaDto);
+                venta.FechaAlta = DateTime.Now;
+                return _ventasDao.Insert(venta) > 0;
+            }
+            else
+            {
+                var ventaBack = _ventasDao.GetVenta(id);
+                foreach (var item in ventaBack.VentasDet)
+                {
+                    for (int i = 0; i < ventaDto.Length; i++)
+                    {
+                        if (item.Cantidad != ventaDto[i].Cantidad && item.Articulo == ventaDto[i].Articulo)
+                        {
+                            VentaArticulo(ventaDto[i]);
+                        }
+                    }
 
-                if (id == 0)
-                {
-                    var venta = MapVentas(null, fecha, ventaDto);
-                    venta.FechaAlta = DateTime.Now;
-                    return _ventasDao.Insert(venta) > 0;
                 }
-                else
-                {
-                    var venta = MapVentas(id, fecha, ventaDto);
-                    venta.Id = id;
-                    await _ventasDao.SaveChangesAsync();
-                    return _ventasDao.Actualizar(venta);
-                }
+                var venta = MapVentas(id, fecha, ventaDto);
+                venta.Id = id;
+                await _ventasDao.SaveChangesAsync();
+
+                return _ventasDao.Actualizar(venta);
+
+
+            }
+
 
         }
 
@@ -84,6 +105,23 @@ namespace Business.Business
                 Sucursal = 1,
                 VentasDet = listventas
             };
+        }
+
+        private void VentaArticulo(PedidosDto ventaDto)
+        {
+            var articulo = _artículosDao.GetBy(ventaDto.Articulo);
+            if (articulo != null)
+            {
+                articulo.Stock -= ventaDto.Cantidad;
+                if (articulo.Stock < 0)
+                {
+                    throw new Exception();
+                }
+                else
+                {
+                    _artículosDao.Update(articulo, articulo.Id);
+                }
+            }
         }
     }
 }
