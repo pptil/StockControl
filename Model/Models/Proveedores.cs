@@ -35,5 +35,6 @@ namespace Modelo.Models
         public string CUIT { get; set; }
 
         public virtual Provincias Provincias { get; set; }
+        public virtual ICollection<Pedidos> Pedidos { get; set; }
     }
 }

@@ -7,13 +7,13 @@ namespace DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class CUITProveedores : IMigrationMetadata
+    public sealed partial class migrationOption : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CUITProveedores));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(migrationOption));
         
         string IMigrationMetadata.Id
         {
-            get { return "202212141517059_CUITProveedores"; }
+            get { return "202212160438454_migrationOption"; }
         }
         
         string IMigrationMetadata.Source

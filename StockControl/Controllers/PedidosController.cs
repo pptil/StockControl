@@ -4,6 +4,7 @@ using Business.Interfaces;
 using Modelo.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -141,11 +142,18 @@ namespace StockControl.Controllers
 
         }
         [HttpPost]
+        public async Task<bool> Guardar(int proveedor, int pedidoId, DateTime? fecha, PedidosDto[] pedidoDto)
+        {
+            return await _pedidosbusiness.Guardar(pedidoId, proveedor, fecha, pedidoDto);
+        }
+
+        [HttpPost]
         public async Task<string> Generar(int pedidoId)
         {
             var docMemoryStream = await _reportesBusiness.GenerarInformePDF(pedidoId, Model.Enums.TipoPDFEnum.Pedido);
-
             return Convert.ToBase64String(docMemoryStream.ToArray());
         }
+
+
     }
 }

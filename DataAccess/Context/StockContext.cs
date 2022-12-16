@@ -1,8 +1,8 @@
+using Modelo.Models;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
-using Modelo.Models;
 
 namespace DataAccess.Context
 {
@@ -12,11 +12,11 @@ namespace DataAccess.Context
             : base("StockConnection")
         {
         }
-
         public virtual DbSet<Articulos> Articulos { get; set; }
         public virtual DbSet<Fabricantes> Fabricantes { get; set; }
         public virtual DbSet<Paises> Paises { get; set; }
         public virtual DbSet<Pedidos> Pedidos { get; set; }
+        public virtual DbSet<PedidosDet> PedidosDet { get; set; }
         public virtual DbSet<Proveedores> Proveedores { get; set; }
         public virtual DbSet<Provincias> Provincias { get; set; }
         public virtual DbSet<Reparaciones> Reparaciones { get; set; }
@@ -24,7 +24,6 @@ namespace DataAccess.Context
         public virtual DbSet<Sucursales> Sucursales { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<Ventas> Ventas { get; set; }
-        public virtual DbSet<PedidosDet> PedidosDet { get; set; }
         public virtual DbSet<VentasDet> VentasDet { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -65,7 +64,8 @@ namespace DataAccess.Context
             modelBuilder.Entity<Pedidos>()
                 .HasMany(e => e.PedidosDet)
                 .WithRequired(e => e.Pedidos)
-                .WillCascadeOnDelete(false);
+                .HasForeignKey(e => e.Pedidos_Id)
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Proveedores>()
                 .Property(e => e.Nombre)
@@ -86,6 +86,12 @@ namespace DataAccess.Context
             modelBuilder.Entity<Proveedores>()
                 .Property(e => e.Ciudad)
                 .IsFixedLength();
+
+            modelBuilder.Entity<Proveedores>()
+                .HasMany(e => e.Pedidos)
+                .WithRequired(e => e.Proveedores)
+                .HasForeignKey(e => e.Proveedor)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Provincias>()
                 .Property(e => e.Nombre)
@@ -177,7 +183,7 @@ namespace DataAccess.Context
             modelBuilder.Entity<Ventas>()
                 .HasMany(e => e.VentasDet)
                 .WithRequired(e => e.Ventas)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
         }
     }
 }

@@ -17,10 +17,19 @@
 
                 <tr>
                     <td>@item.Id</td>
-                    <td>@item.Proveedor</td>
+                    <td>@item.Proveedores.Nombre</td>
                     <td>@item.PedidosDet.Count()</td>
-                    <td>$324232</td>
-                    <td><a id="btn-edit" href="~/Pedidos/Pedido/?id=@item.Id"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal" data-val=@item.Id><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a></td>
+                    <td>@item.Precio</td>
+                    <td>
+                        <a id="btn-edit" href="~/Pedidos/Pedido/?id=@item.Id">
+                            <i class="fa fa-edit fs-4 text-primary"></i>
+                        </a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal" data-val=@item.Id>
+                            <i class="fa fa-trash fs-4 text-danger"></i>
+                        </a>
+                        <a id="btn-print" onclick="Generar(@item.Id)">
+                            <i class="fa fa-print fs-4 text-dark"></i>
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>

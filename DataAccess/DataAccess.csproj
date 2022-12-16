@@ -59,7 +59,6 @@
     <Compile Include="Dao\SucursalDao.cs" />
     <Compile Include="Dao\VentasDao.cs" />
     <Compile Include="Dao\ProveedoresDao.cs" />
-    <Compile Include="Dao\UsuariosDao.cs" />
     <Compile Include="Dao\ArticulosDao.cs" />
     <Compile Include="Dao\BaseDao.cs" />
     <Compile Include="Dao\ReparacionesDao.cs" />
@@ -72,22 +71,25 @@
     <Compile Include="Interfaces\ISelectableDao.cs" />
     <Compile Include="Interfaces\ISucursalDao.cs" />
     <Compile Include="Interfaces\IPedidosDao.cs" />
-    <Compile Include="Interfaces\IUsuariosDao.cs" />
     <Compile Include="Interfaces\IProveedoresDao.cs" />
     <Compile Include="Interfaces\IVentasDao.cs" />
     <Compile Include="Interfaces\IArticulosDao.cs" />
     <Compile Include="Interfaces\IReparacionesDao.cs" />
-    <Compile Include="Migrations\202211291416217_initial.cs" />
-    <Compile Include="Migrations\202211291416217_initial.designer.cs">
-      <DependentUpon>202211291416217_initial.cs</DependentUpon>
+    <Compile Include="Migrations\202212152339356_initial.cs" />
+    <Compile Include="Migrations\202212152339356_initial.designer.cs">
+      <DependentUpon>202212152339356_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202212141508317_ActualizacionPedidosArticulosReparacionesVentas.cs" />
-    <Compile Include="Migrations\202212141508317_ActualizacionPedidosArticulosReparacionesVentas.designer.cs">
-      <DependentUpon>202212141508317_ActualizacionPedidosArticulosReparacionesVentas.cs</DependentUpon>
+    <Compile Include="Migrations\202212152345389_cascadeTrue.cs" />
+    <Compile Include="Migrations\202212152345389_cascadeTrue.designer.cs">
+      <DependentUpon>202212152345389_cascadeTrue.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202212141517059_CUITProveedores.cs" />
-    <Compile Include="Migrations\202212141517059_CUITProveedores.designer.cs">
-      <DependentUpon>202212141517059_CUITProveedores.cs</DependentUpon>
+    <Compile Include="Migrations\202212160432159_precioDouble.cs" />
+    <Compile Include="Migrations\202212160432159_precioDouble.designer.cs">
+      <DependentUpon>202212160432159_precioDouble.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212160438454_migrationOption.cs" />
+    <Compile Include="Migrations\202212160438454_migrationOption.designer.cs">
+      <DependentUpon>202212160438454_migrationOption.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,14 +105,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202211291416217_initial.resx">
-      <DependentUpon>202211291416217_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202212152339356_initial.resx">
+      <DependentUpon>202212152339356_initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202212141508317_ActualizacionPedidosArticulosReparacionesVentas.resx">
-      <DependentUpon>202212141508317_ActualizacionPedidosArticulosReparacionesVentas.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202212152345389_cascadeTrue.resx">
+      <DependentUpon>202212152345389_cascadeTrue.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202212141517059_CUITProveedores.resx">
-      <DependentUpon>202212141517059_CUITProveedores.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202212160432159_precioDouble.resx">
+      <DependentUpon>202212160432159_precioDouble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212160438454_migrationOption.resx">
+      <DependentUpon>202212160438454_migrationOption.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -15,5 +15,6 @@ namespace Business.Interfaces
         Task<IList<Ventas>> GetArticulosCondicion(FiltrosDto filtros);
         Ventas GetByID(int id);
         bool Borrar(int id);
+        Task<bool> Guardar(int id, DateTime? fecha, PedidosDto[] ventaDto);
     }
 }

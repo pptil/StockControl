@@ -9,8 +9,7 @@
         <hr>
         <div class="row">
             <div class="col-3 d-flex justify-content-center">
-                @Html.DropDownList("Proveedores", new SelectList(ViewBag.Proveedores, "Key", "Value"), new { @class = "btn btn-primary dropdown-toggle form-control", @style= "margin-right: 20px; margin-left: 20px;", @title = "Seleccione Proveedor" })
-                <button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>
+                @*<button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>*@
             </div>
             <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Desde</span><input type="date" id="FechaDesde"></div>
             <div class="col-2 d-flex align-items-center"><span style="margin-right: 5px;">Hasta</span><input type="date" id="FechaHasta"></div>
@@ -19,19 +18,19 @@
         </div>
     </div>
     <div style="margin: 70px;margin-left: 20px;margin-top: 20px;">
-        <h5>Detalle del Venta</h5>
+        <h5>Detalle de la Venta</h5>
 
         <div id="lista">
             @Html.Partial("_Resultados", Model)
         </div>
-        
+
         <div class="row text-start">
             <div class="col">
                 <hr>
             </div>
         </div>
     </div>
-</div><a class="border rounded d-inline scroll-to-top" style="background: rgba(90,92,105,0);margin-right: 155px;"  href="~/Ventas/Venta/?id=0" ><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" href="~/Ventas/Venta/?id=0">Nuevo Venta</button></a>
+</div><a class="border rounded d-inline scroll-to-top" style="background: rgba(90,92,105,0);margin-right: 155px;" href="~/Ventas/Venta/?id=0"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" href="~/Ventas/Venta/?id=0">Nueva Venta</button></a>
 
 <!--Modal Confirmacion-->
 <div class="modal fade" role="dialog" tabindex="-1" id="modal-confirmacion">
@@ -52,6 +51,7 @@
     </div>
 </div>
 
+<script src="~/Scripts/FileDownload.js"></script>
 <script>
     $(document).ready(function () {
         $("#Proveedores").val("-1");
@@ -60,7 +60,7 @@
     $('#modal-confirmacion').on('show.bs.modal', function (event) {
         var myVal = $(event.relatedTarget).data('val');
         document.getElementById("idVenta").value = myVal;
-        document.getElementById("alerta").innerHTML = "¿Desea borrar el Venta Nº:" + myVal + " completo?";
+        document.getElementById("alerta").innerHTML = "¿Desea borrar la Venta Nº:" + myVal + " completo?";
     });
 
     function abrirModal(e) {
@@ -80,7 +80,7 @@
         $("#loader").show()
         $.ajax({
             url: '/Ventas/Venta',
-            data: {'id': e },
+            data: { 'id': e },
             type: 'POST',
             success: function (result) {
                 $("#loader").hide()
@@ -101,31 +101,28 @@
         });
     }
 
-    function Guardar() {
-        $("#loader").show()
-        var articulo = DatosArticulo();
-        $.ajax({
-            type: 'POST',
-            url: '/Articulos/Guardar',
-            data: { "articulo": articulo },
-            success: function (result) {
-                if (result) {
-                    toastr.success("Se ha generado el articulo.", "Éxito", { disableTimeOut: true, closeButton: true });
-                    setTimeout(function () {
-                        location.reload(true);
-                    }, 1000);
-                } else {
-                    toastr.warning("No se modificaron datos.")
-                }
-                $("#loader").hide()
+    function Generar(e) {
+        let date = new Date().toLocaleDateString();
+        var f = document.getElementById("Proveedores");
+        var fab = f.options[f.selectedIndex].value
 
+
+        $("#loader").show()
+        $.ajax({
+        type: 'POST',
+            url: '/Ventas/Generar',
+            data: { ventaId: e},
+            success: function (data) {
+                downloadBase64Bytes(data, "Venta-Articulos:" + date, "application/pdf")
+                $("#loader").hide()
             },
             error: function () {
-                toastr.error("Ocurrió un error al guardar el articulo");
+                toastr.error("Ocurrió un error al generar el informe del caso.");
                 $("#loader").hide()
             }
         });
     }
+
 
     function Delete(e) {
         $("#loader").show()
@@ -155,20 +152,18 @@
     function Buscar() {
         $('#lista').html("");
         $("#loader").show()
-        var p = document.getElementById("Proveedores");
-        var pro = p.options[p.selectedIndex].value
 
         var desde = document.getElementById("FechaDesde").value;
 
         var hasta = document.getElementById("FechaHasta").value;
-       
+
 
         var ped = document.getElementById("VentaBusqueda").value
 
         $.ajax({
             type: 'GET',
             url: '/Ventas/Buscar',
-            data: { Sucursal: 1, Venta: ped, Proveedor: pro, FechaDesde: desde, FechaHasta: hasta },
+            data: { Sucursal: 1, Pedido: ped, FechaDesde: desde, FechaHasta: hasta },
             success: function (result) {
                 $("#lista").html(result);
                 $("#loader").hide()

@@ -99,5 +99,55 @@ namespace DataAccess.Dao
 
         }
 
+        public bool Actualizar(Ventas model)
+        {
+            using (var _dbContext = new StockContext())
+            {
+                var pedido = _dbContext.Ventas
+                                .Where(p => p.Id == model.Id)
+                                .Include(p => p.VentasDet)
+                                .SingleOrDefault();
+
+                if (pedido != null)
+                {
+                    // Update parent
+                    _dbContext.Entry(pedido).CurrentValues.SetValues(model);
+
+                    // Delete children
+                    foreach (var pedidoDet in pedido.VentasDet.ToList())
+                    {
+                        if (!model.VentasDet.Any(c => c.Id == pedidoDet.Id))
+                            _dbContext.VentasDet.Remove(pedidoDet);
+                    }
+
+                    // Update and Insert children
+                    foreach (var item in model.VentasDet)
+                    {
+                        var pedidoDet = pedido.VentasDet
+                            .Where(c => c.Id == item.Id && c.Id != default(int))
+                            .SingleOrDefault();
+
+                        if (pedidoDet != null)
+                            // Update child
+                            _dbContext.Entry(pedidoDet).CurrentValues.SetValues(item);
+                        else
+                        {
+                            // Insert child
+                            var detalle = new VentasDet
+                            {
+                                Articulo = item.Articulo,
+                                Cantidad = item.Cantidad
+                            };
+                            pedido.VentasDet.Add(detalle);
+                        }
+                    }
+
+
+                }
+                return _dbContext.SaveChanges() > 0;
+            }
+
+        }
+
     }
 }

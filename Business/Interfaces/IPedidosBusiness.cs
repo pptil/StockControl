@@ -14,6 +14,7 @@ namespace Business.Interfaces
         Task<List<Pedidos>> GetPedidosPorSucursal(int sucursal);
         Task<IList<Pedidos>> GetArticulosCondicion(FiltrosDto filtros);
         Pedidos GetByID(int id);
+        Task<bool> Guardar(int id, int proveedor, DateTime? fecha, PedidosDto[] pedidos);
         bool Borrar(int id);
     }
 }

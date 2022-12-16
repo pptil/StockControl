@@ -142,9 +142,15 @@ namespace StockControl.Controllers
         }
 
         [HttpPost]
-        public async Task<string> Generar(int pedidoId)
+        public async Task<bool> Guardar(int ventaId, DateTime? fecha, PedidosDto[] pedidoDto)
         {
-            var docMemoryStream = await _reportesBusiness.GenerarInformePDF(pedidoId, Model.Enums.TipoPDFEnum.Venta);
+            return await _ventasbusiness.Guardar(ventaId, fecha, pedidoDto);
+        }
+
+        [HttpPost]
+        public async Task<string> Generar(int ventaId)
+        {
+            var docMemoryStream = await _reportesBusiness.GenerarInformePDF(ventaId, Model.Enums.TipoPDFEnum.Venta);
 
             return Convert.ToBase64String(docMemoryStream.ToArray());
         }

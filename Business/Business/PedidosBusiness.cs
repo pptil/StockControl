@@ -40,17 +40,59 @@ namespace Business.Business
             return _pedidosDao.GetPedido(id);
         }
 
-        public bool Borrar(int id)
+        public async Task<bool> Guardar(int id, int proveedor, DateTime? fecha, PedidosDto[] pedidoDto)
         {
-            var ok = _pedidosDao.Delete(id);
-            if (ok == 1)
+            if (proveedor != -1)
             {
-                return true;
+                
+                if (id == 0)
+                {
+                    var pedido = MapPedido(null, proveedor, fecha, pedidoDto);
+                    pedido.FechaAlta = DateTime.Now;
+                    return _pedidosDao.Insert(pedido) > 0;
+                }
+                else
+                {
+                    var pedido = MapPedido(id, proveedor, fecha, pedidoDto);
+                    pedido.FechaModificación = DateTime.Now;
+                    pedido.Id = id;
+                    await _pedidosDao.SaveChangesAsync();
+                    return _pedidosDao.Actualizar(pedido);
+                }
             }
             else
             {
-                return false;
+                throw new Exception();
+            }           
+            
+        }
+
+        public bool Borrar(int id)
+        {
+            return _pedidosDao.Delete(id)>0;
+        }
+
+        private Pedidos MapPedido(int? id, int proveedor, DateTime? fecha, PedidosDto[] pedidoDto)
+        {
+            List<PedidosDet> listpedidos = new List<PedidosDet>();
+            double precio = 0;
+            for (int i = 0; i < pedidoDto.Length; i++)
+            {
+                listpedidos.Add(new PedidosDet()
+                {
+                    Articulo = pedidoDto[i].Articulo,
+                    Cantidad = pedidoDto[i].Cantidad
+                });
+                precio += (pedidoDto[i].Cantidad * pedidoDto[i].Precio);
             }
+            return new Pedidos()
+            {
+                FechaAlta = fecha,
+                Proveedor = proveedor,
+                Sucursal = 1,
+                Precio = precio,
+                PedidosDet = listpedidos
+            };
         }
     }
 }

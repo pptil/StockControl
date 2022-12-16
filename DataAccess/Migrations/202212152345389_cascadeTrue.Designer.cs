@@ -7,13 +7,13 @@ namespace DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class ActualizacionPedidosArticulosReparacionesVentas : IMigrationMetadata
+    public sealed partial class cascadeTrue : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ActualizacionPedidosArticulosReparacionesVentas));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(cascadeTrue));
         
         string IMigrationMetadata.Id
         {
-            get { return "202212141508317_ActualizacionPedidosArticulosReparacionesVentas"; }
+            get { return "202212152345389_cascadeTrue"; }
         }
         
         string IMigrationMetadata.Source

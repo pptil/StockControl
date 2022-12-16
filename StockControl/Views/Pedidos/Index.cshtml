@@ -52,6 +52,7 @@
     </div>
 </div>
 
+<script src="~/Scripts/FileDownload.js"></script>
 <script>
     $(document).ready(function () {
         $("#Proveedores").val("-1");
@@ -101,31 +102,28 @@
         });
     }
 
-    function Guardar() {
-        $("#loader").show()
-        var articulo = DatosArticulo();
-        $.ajax({
-            type: 'POST',
-            url: '/Articulos/Guardar',
-            data: { "articulo": articulo },
-            success: function (result) {
-                if (result) {
-                    toastr.success("Se ha generado el articulo.", "Éxito", { disableTimeOut: true, closeButton: true });
-                    setTimeout(function () {
-                        location.reload(true);
-                    }, 1000);
-                } else {
-                    toastr.warning("No se modificaron datos.")
-                }
-                $("#loader").hide()
+    function Generar(e) {
+        let date = new Date().toLocaleDateString();
+        var f = document.getElementById("Proveedores");
+        var fab = f.options[f.selectedIndex].value
 
+
+        $("#loader").show()
+        $.ajax({
+        type: 'POST',
+            url: '/Pedidos/Generar',
+            data: { pedidoId: e},
+            success: function (data) {
+                downloadBase64Bytes(data, "Pedido-Articulos:" + date, "application/pdf")
+                $("#loader").hide()
             },
             error: function () {
-                toastr.error("Ocurrió un error al guardar el articulo");
+                toastr.error("Ocurrió un error al generar el informe del caso.");
                 $("#loader").hide()
             }
         });
     }
+
 
     function Delete(e) {
         $("#loader").show()

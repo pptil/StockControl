@@ -1,18 +1,66 @@
 ﻿@model Modelo.Models.Ventas
+
+<script>
+    var arrayVentas = [];
+    function populateVentas(id, articulo, cantidad, nombre, precio, total) {
+        arrayVentas.push({
+            Id: id,
+            Articulo: articulo,
+            Cantidad: cantidad,
+            Nombre: nombre,
+            Precio: precio,
+            Total: total
+        });
+    }
+
+    function populateTablaVentas() {
+        var body = document.getElementById("bodyVentas");
+        body.innerHTML = "";
+        for (var i = 0; i < arrayVentas.length; i++) {
+            var row = body.insertRow(i);
+
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+
+            cell1.innerHTML = arrayVentas[i].Nombre;
+            cell2.innerHTML = '<input onchange="cantidadInput(' + i +')" class="form-control form-control-sm" min="1" id="cantidad-'+i+'" type="number" required="" style="text-align: right;width: 60.734px;" value="' + arrayVentas[i].Cantidad + '">';
+            cell3.innerHTML = '<input class="form-control form-control-sm" id="total-'+i+'" type="text" disabled required="" style="text-align: right;width: 100.734px;" value="' + arrayVentas[i].Total + '">';
+            cell4.innerHTML = '<a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal" data-val="' + arrayVentas[i].Id + '" ><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a>';           
+        }      
+    }
+</script>
+
+@foreach (var item in Model.VentasDet)
+{
+    <script>
+        populateVentas(
+            @item.Id,
+            @item.Articulo,
+            @item.Cantidad,
+            '@item.Articulos.Nombre.Trim()',
+            @item.Articulos.Precio,
+            @item.Total
+        );
+
+    </script>
+
+}
+
+
 <div class="d-flex flex-column" id="content-wrapper">
     <div id="content">
         <div class="container-fluid">
-            <h3 class="text-dark mb-1">Ventas</h3>
+            <h3 class="text-dark mb-1">Venta</h3>
             <hr>
         </div>
         <div>
             <div class="row">
+                <div class="mb-3"><input class="form-control" type="text" id="producto_codigo" name="codigo" style="display:none" value="@Model.Id"></div>
                 <div class="col-3 d-flex justify-content-center">
-                    <button class="btn btn-primary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-toggle="modal" data-bs-target="#modal-productos" onclick="abrirModal()">Agregar productos</button>
-                    @*@Html.DropDownList("Proveedores", new SelectList(ViewBag.Proveedores, "Key", "Value"), new { @class = "btn btn-primary dropdown-toggle form-control", @title = "Seleccione Proveedor" })*@
-                    @*<button class="btn btn-secondary flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-target="#modal-proveedor" data-bs-toggle="modal">Nuevo</button>*@
+                    <button class="btn btn-dark flex-row justify-content-center align-items-center align-content-center" type="button" data-bs-toggle="modal" data-bs-target="#modal-productos" onclick="abrirModal()">Agregar productos</button>
                 </div>
-                
             </div>
         </div>
         <div style="margin: 70px;margin-left: 20px;margin-top: 20px;">
@@ -27,17 +75,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach (var item in Model.VentasDet)
-                        {
-                            <tr>
-                                <td>@item.Articulos.Nombre</td>
-                                <td>@item.Cantidad</td>
-                                <td>@item.Total</td>
-                                <td><a id="btn-edit" href="#" data-bs-target="#modal-productos" data-bs-toggle="modal"><i class="fa fa-edit fs-4 text-primary"></i></a><a id="btn-delete" href="#" data-bs-target="#modal-confirmacion" data-bs-toggle="modal"><i class="fa fa-trash fs-4 text-danger" style="margin-left: 20px;"></i></a></td>
-                            </tr>
-                        }
-
+                    <tbody id="bodyVentas">
                     </tbody>
                 </table>
             </div>
@@ -48,8 +86,7 @@
             </div>
         </div>
     </div>
-</div><a class="border rounded d-inline scroll-to-top" onclick="Generar()" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-toggle="modal">Imprimir Venta</button></a>
-
+</div><a class="border rounded d-inline scroll-to-top" onclick="Guardar()" style="background: rgba(90,92,105,0);margin-right: 155px;"><button class="btn btn-success fs-5 link-light" type="button" style="width: 195.078px;margin-right: 0px;" data-bs-toggle="modal">Guardar Venta</button></a>
 
 <div class="modal fade" role="dialog" tabindex="-1" id="modal-confirmacion">
     <div class="modal-dialog" role="document">
@@ -58,9 +95,13 @@
                 <h4 class="modal-title">Confirmación</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>¿Desea borrar el item?</p>
+                <p id="alerta"></p>
+                <p></p><strong>(Esta accion no se puede deshacer)</strong><p></p>
             </div>
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-danger" type="button">Borrar</button></div>
+            <div class="modal-footer">
+                <input type="hidden" id="idVenta">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Cerrar</button><button class="btn btn-danger" type="button" data-bs-dismiss="modal" onclick="deleteItem(document.getElementById('idVenta').value)">Borrar</button>
+            </div>
         </div>
     </div>
 </div>
@@ -74,9 +115,27 @@
 
 <script src="~/Scripts/FileDownload.js"></script>
 <script>
+    console.log(arrayVentas)
     $(document).ready(function () {
         $("#Proveedores").val("-1");
+        populateTablaVentas();        
     })
+
+    function cantidadInput(i) {
+        var cantidadInput = document.getElementById("cantidad-" + i);
+        var totalInput = document.getElementById("total-" + i);
+
+        totalInput.value = parseInt(cantidadInput.value * arrayVentas[i].Precio)
+        
+        arrayVentas[i].Cantidad = parseInt(cantidadInput.value);
+    }
+
+    $('#modal-confirmacion').on('show.bs.modal', function (event) {
+        var myVal = $(event.relatedTarget).data('val');
+        document.getElementById("idVenta").value = myVal;
+        document.getElementById("alerta").innerHTML = "¿Desea borrar la Venta Nº:" + myVal + " completo?";
+    });
+
     function abrirModalProveedor(e) {
         $.ajax({
             url: '/Ventas/GetProveedores',
@@ -85,24 +144,6 @@
             cache: false,
             success: function (result) {
                 $('#modalDiv').html(result);
-            }
-        });
-    }
-
-    function Generar() {
-        let date = new Date().toLocaleDateString();
-        $("#loader").show()
-        $.ajax({
-            type: 'POST',
-            url: '/Ventas/Generar',
-            data: { pedidoId: @Model.Id},
-            success: function (data) {
-                downloadBase64Bytes(data, "Venta-Articulos" + date, "application/pdf")
-                $("#loader").hide()
-            },
-            error: function () {
-                toastr.error("Ocurrió un error al generar el informe del caso.");
-                $("#loader").hide()
             }
         });
     }
@@ -122,27 +163,48 @@
     function AddProducto(e) {
         $("#loader").show()
         var articulo = DatosArticulo(e);
-        //$.ajax({
-        //    type: 'POST',
-        //    url: '/Articulos/Guardar',
-        //    data: { "articulo": articulo },
-        //    success: function (result) {
-        //        if (result) {
-        //            toastr.success("Se ha generado el articulo.", "Éxito", { disableTimeOut: true, closeButton: true });
-        //            setTimeout(function () {
-        //                location.reload(true);
-        //            }, 1000);
-        //        } else {
-        //            toastr.warning("No se modificaron datos.")
-        //        }
-        //        $("#loader").hide()
+        $.ajax({
+            type: 'POST',
+            url: '/Articulos/AddArticulo',
+            data: { "articulo": articulo },
+            success: function (result) {
+                if (result) {
+                    toastr.success("Se ha generado el articulo.", "Éxito", { disableTimeOut: true, closeButton: true });
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                } else {
+                    toastr.warning("No se modificaron datos.")
+                }
+                $("#loader").hide()
 
-        //    },
-        //    error: function () {
-        //        toastr.error("Ocurrió un error al guardar el articulo");
-        //        $("#loader").hide()
-        //    }
-        //});
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al guardar el articulo");
+                $("#loader").hide()
+            }
+        });
+    }
+
+    function deleteItem(id) {
+
+        var lists = arrayVentas.filter(x => {
+            return x.Id != id;
+        })
+        console.log(lists);
+        arrayVentas = lists;     
+        populateTablaVentas();
+        return arrayVentas;
+    }
+
+    function test() {
+
+    }
+
+    function Suma(e, x) {
+        var total = document.getElementById("total");
+        /*var mult = e * x;*/
+        /*total.value = mult;*/
     }
 
     function DatosArticulo(e) {
@@ -161,5 +223,33 @@
         //    Fabricante: e.options[e.selectedIndex].value,
         //    Sucursal: 1
         //}
+    }
+
+    function Guardar() {
+        let date = new Date().toLocaleDateString();
+
+
+        $("#loader").show()
+        $.ajax({
+        type: 'POST',
+            url: '/Ventas/Guardar',
+            data: { ventaId: @Model.Id, fecha: "@Model.FechaAlta", pedidoDto: arrayVentas},
+            success: function (result) {
+                if (result) {
+                    toastr.success("Se ha generado la Venta.", "Éxito", { disableTimeOut: true, closeButton: true });
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                } else {
+                    toastr.warning("No se modificaron datos.")
+                }
+                $("#loader").hide()
+
+            },
+            error: function () {
+                toastr.error("Ocurrió un error al guardar el articulo");
+                $("#loader").hide()
+            }
+        });
     }
 </script>

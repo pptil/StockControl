@@ -54,7 +54,6 @@
     <Compile Include="Business\PedidosBusiness.cs" />
     <Compile Include="Business\ReportesBusiness.cs" />
     <Compile Include="Business\SelectableBusiness.cs" />
-    <Compile Include="Business\UsuariosBusiness.cs" />
     <Compile Include="Business\ProveedoresBusiness.cs" />
     <Compile Include="Business\VentasBusiness.cs" />
     <Compile Include="Business\ArticulosBusiness.cs" />
@@ -62,12 +61,12 @@
     <Compile Include="Data Transfer Objects\FiltrosDto.cs" />
     <Compile Include="Data Transfer Objects\HomeDto.cs" />
     <Compile Include="Data Transfer Objects\KeyValueDto.cs" />
+    <Compile Include="Data Transfer Objects\PedidosDto.cs" />
     <Compile Include="Helpers\PDFHelper.cs" />
     <Compile Include="Interfaces\IEnumBusiness.cs" />
     <Compile Include="Interfaces\IHomeBusiness.cs" />
     <Compile Include="Interfaces\IReportesBusiness.cs" />
     <Compile Include="Interfaces\ISelectableBusiness.cs" />
-    <Compile Include="Interfaces\IUsuariosBusiness.cs" />
     <Compile Include="Interfaces\IProveedoresBusiness.cs" />
     <Compile Include="Interfaces\IPedidosBusiness.cs" />
     <Compile Include="Interfaces\IVentasBusiness.cs" />
