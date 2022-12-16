@@ -9,19 +9,14 @@ namespace Modelo.Models
     [Table("VentasDet")]
     public partial class VentasDet
     {
-        [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Articulo { get; set; }
+        public int? Articulo { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
-        public int Cantidad { get; set; }
+        public int? Cantidad { get; set; }
+
+        public int Ventas_Id { get; set; }
 
         public virtual Articulos Articulos { get; set; }
 

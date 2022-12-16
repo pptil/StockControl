@@ -91,6 +91,10 @@
     <Compile Include="Migrations\202212160438454_migrationOption.designer.cs">
       <DependentUpon>202212160438454_migrationOption.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202212160711424_ventasFK.cs" />
+    <Compile Include="Migrations\202212160711424_ventasFK.designer.cs">
+      <DependentUpon>202212160711424_ventasFK.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -116,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202212160438454_migrationOption.resx">
       <DependentUpon>202212160438454_migrationOption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212160711424_ventasFK.resx">
+      <DependentUpon>202212160711424_ventasFK.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

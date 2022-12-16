@@ -183,6 +183,7 @@ namespace DataAccess.Context
             modelBuilder.Entity<Ventas>()
                 .HasMany(e => e.VentasDet)
                 .WithRequired(e => e.Ventas)
+                .HasForeignKey(e => e.Ventas_Id)
                 .WillCascadeOnDelete(true);
         }
     }
